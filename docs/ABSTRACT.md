@@ -1,0 +1,7 @@
+# Abstract
+
+Secure Presence Verification System (SPVS) is an integrated attendance application for educational institutions. It addresses shared attendance tokens, account misuse and remotely submitted attendance through exactly two layers: identity verification and physical presence verification. The identity layer combines consented enrollment, OpenCV SFace embeddings, a server-issued temporal landmark challenge and a device-held signing credential. The presence layer evaluates GPS freshness, uncertainty, geofence position and available Android Wi-Fi observations on the server.
+
+A deterministic decision engine distinguishes present, rejected, pending review, retry and expired outcomes. Mandatory checks cannot be compensated by a numerical risk score. PostgreSQL transactions, single-use challenges and unique attendance constraints control concurrent retries and replay. Faculty and administrative decisions are recorded with reasons and attributable audit events.
+
+The implementation comprises a FastAPI service, PostgreSQL migrations, a React/TypeScript institutional dashboard and an Expo/React Native student app. Automated tests cover database-backed workflows, security boundaries, location rules, temporal sequence logic, real pretrained-model inference and client interactions. Real-device verification and configured platform attestation remain separate evaluation requirements. The project demonstrates layered resistance and reviewability; it does not claim perfect classroom presence proof or immunity to sophisticated biometric injection attacks.

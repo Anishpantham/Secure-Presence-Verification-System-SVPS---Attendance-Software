@@ -1,0 +1,8 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="3.130413">
+<testsuite name="workflows.spec.ts" timestamp="2026-10-22T21:30:23.096Z" hostname="" tests="2" failures="0" skipped="0" time="2.255" errors="0">
+<testcase name="administrator configures a room, creates a session and exports real records" classname="workflows.spec.ts" time="1.506">
+</testcase>
+<testcase name="faculty access is scoped and administrator route is unavailable" classname="workflows.spec.ts" time="0.749">
+</testcase>
+</testsuite>
+</testsuites>

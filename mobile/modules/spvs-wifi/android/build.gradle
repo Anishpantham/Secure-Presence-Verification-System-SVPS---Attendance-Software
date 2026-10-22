@@ -1,0 +1,9 @@
+apply plugin: 'com.android.library'
+apply plugin: 'expo-module-gradle-plugin'
+
+group = 'edu.spvs.wifi'
+version = '1.0.0'
+android {
+  namespace 'edu.spvs.wifi'
+  defaultConfig { versionCode 1; versionName '1.0.0' }
+}

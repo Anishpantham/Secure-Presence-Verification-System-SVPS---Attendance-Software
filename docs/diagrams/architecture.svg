@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="480" height="270" preserveAspectRatio="xMinYMin meet" viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="480" height="270"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-270)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="220" width="140" height="40" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="39.416015625" y="242.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,484) scale(1,-1)">Student mobile</text>
+			<text x="8.849609375" y="232.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,464) scale(1,-1)">Camera / location / secure key</text>
+			<rect x="340" y="220" width="140" height="40" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="356.541015625" y="242.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,484) scale(1,-1)">Faculty / admin dashboard</text>
+			<text x="369.1328125" y="232.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,464) scale(1,-1)">Academic workflows</text>
+			<rect x="165" y="145" width="150" height="50" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(9%,21%,18%); fill-rule: evenodd;"/>
+			<text x="206.12109375" y="172.0" style="font-family: Body-Bold; font-size: 8px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,344) scale(1,-1)">FastAPI /api/v1</text>
+			<text x="187.291015625" y="162.0" style="font-family: Body-Bold; font-size: 8px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,324) scale(1,-1)">Authentication + scope</text>
+			<path d="M 70,220 L 165,175 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="165 175, 158.2933 174.8573, 160.8618 180.2797" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 410,220 L 315,175 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="315 175, 319.1382 180.2797, 321.7067 174.8573" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<rect x="0" y="65" width="190" height="50" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="62.150390625" y="97.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,194) scale(1,-1)">Layer 1: identity</text>
+			<text x="38.72265625" y="87.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,174) scale(1,-1)">YuNet + SFace + MediaPipe</text>
+			<text x="47.458984375" y="77.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,154) scale(1,-1)">Signed device evidence</text>
+			<rect x="290" y="65" width="190" height="50" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="331.357421875" y="97.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,194) scale(1,-1)">Layer 2: physical presence</text>
+			<text x="328.294921875" y="87.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,174) scale(1,-1)">GPS uncertainty + geofence</text>
+			<text x="334.9375" y="77.0" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,154) scale(1,-1)">Wi-Fi + explainable rules</text>
+			<path d="M 195,145 L 95,115 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="95 115, 99.88491 119.5976, 101.609 113.8506" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 285,145 L 385,115 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="385 115, 378.391 113.8506, 380.1151 119.5976" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<rect x="145" y="0" width="190" height="40" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(9%,21%,18%); fill-rule: evenodd;"/>
+			<text x="213.6484375" y="22.0" style="font-family: Body-Bold; font-size: 8px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,44) scale(1,-1)">PostgreSQL</text>
+			<text x="181.8359375" y="12.0" style="font-family: Body-Bold; font-size: 8px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,24) scale(1,-1)">Attempts / records / audit</text>
+			<path d="M 95,65 L 170,40 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="170 40, 163.3592 39.05132, 165.2566 44.74342" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 385,65 L 310,40 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="310 40, 314.7434 44.74342, 316.6408 39.05132" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+		</g>
+	</g>
+</svg>
