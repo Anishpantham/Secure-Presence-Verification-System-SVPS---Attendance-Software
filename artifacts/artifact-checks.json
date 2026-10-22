@@ -1,0 +1,42 @@
+{
+  "created_at": "2026-10-23 03:02 IST",
+  "zip_crc": "passed",
+  "archive_members": 120,
+  "pdfs": {
+    "SPVS_PROJECT_REPORT.pdf": {
+      "pages": 29,
+      "extractable_characters": 55008,
+      "readable": true
+    },
+    "SPVS_SETUP_AND_DEMO_GUIDE.pdf": {
+      "pages": 11,
+      "extractable_characters": 21078,
+      "readable": true
+    }
+  },
+  "artifacts": {
+    "SPVS_PROJECT_REPORT.pdf": {
+      "bytes": 280373,
+      "sha256": "d35035a217b65f1c28840461e3ff5ac60b4379f1b9a22d99e14c05211215ab53"
+    },
+    "SPVS_COMPLETE_PROJECT.zip": {
+      "bytes": 39785841,
+      "sha256": "4420d835fe506bda306a32c5e578b4574754c0fd11a9e0be2a701662175ae8d4"
+    },
+    "SPVS_VERIFICATION_REPORT.md": {
+      "bytes": 7213,
+      "sha256": "58b43b159c124e4825ecebce7ccb1249ccff1f16cacf7facded7abf5082fdb6f"
+    },
+    "SPVS_SETUP_AND_DEMO_GUIDE.pdf": {
+      "bytes": 86551,
+      "sha256": "ad4ec78dad04fc81f0602dd902881b487f3af111e17743bc9237847dbfc84799"
+    },
+    "SPVS_DELIVERY_README.md": {
+      "bytes": 1423,
+      "sha256": "38289d9eed979c16c93941083cc6f24ce20ee62b84f58efd7925dcf94669b0ad"
+    }
+  },
+  "manifest_hashes": "passed",
+  "generated_secret_scan": "passed",
+  "pdf_sample_visual_inspection": "passed"
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="480" height="350" preserveAspectRatio="xMinYMin meet" viewBox="0 0 480 350" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="480" height="350"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-350)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="300" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="56.69140625" y="314.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,629) scale(1,-1)">users</text>
+			<rect x="170" y="300" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="223.859375" y="314.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,629) scale(1,-1)">faculty</text>
+			<rect x="340" y="300" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="392.044921875" y="314.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,629) scale(1,-1)">courses</text>
+			<rect x="0" y="220" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="50.125" y="234.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,469) scale(1,-1)">students</text>
+			<rect x="170" y="220" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="213.64453125" y="234.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,469) scale(1,-1)">enrollments</text>
+			<rect x="340" y="220" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="390.609375" y="234.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,469) scale(1,-1)">sessions</text>
+			<rect x="0" y="140" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="52.27734375" y="154.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,309) scale(1,-1)">devices</text>
+			<rect x="170" y="140" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="216.01171875" y="154.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,309) scale(1,-1)">challenges</text>
+			<rect x="340" y="140" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="385.05078125" y="154.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,309) scale(1,-1)">classrooms</text>
+			<rect x="0" y="60" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="46.4375" y="74.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,149) scale(1,-1)">biometrics</text>
+			<rect x="170" y="60" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="219.36328125" y="74.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,149) scale(1,-1)">attempts</text>
+			<rect x="340" y="60" width="135" height="35" rx="5" ry="5" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(92%,95%,93%); fill-rule: evenodd;"/>
+			<text x="392.48046875" y="74.5" style="font-family: Body; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,149) scale(1,-1)">records</text>
+			<path d="M 135,317 L 170,317 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="170 317, 164 314, 164 320" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 305,317 L 340,317 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="340 317, 334 314, 334 320" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 67,300 L 67,255 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="67 255, 64 261, 70 261" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 135,237 L 170,237 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="170 237, 164 234, 164 240" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 407,300 L 407,255 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="407 255, 404 261, 410 261" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 67,220 L 67,175 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="67 175, 64 181, 70 181" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 135,157 L 170,157 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="170 157, 164 154, 164 160" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 407,220 L 407,175 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="407 175, 404 181, 410 181" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 237,140 L 237,95 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="237 95, 234 101, 240 101" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 305,77 L 340,77 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="340 77, 334 74, 334 80" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<path d="M 0,237 L -8,237 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M -8,237 L -8,77 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M -8,77 L 0,77 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="0 77, -6 74, -6 80" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="71.57275390625" y="15" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,30) scale(1,-1)">Core foreign-key relationships; full schema and remaining tables listed in the database chapter.</text>
+		</g>
+	</g>
+</svg>

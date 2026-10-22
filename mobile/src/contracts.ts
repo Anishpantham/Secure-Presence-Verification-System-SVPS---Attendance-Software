@@ -1,0 +1,11 @@
+export type User={id:string;name:string;email:string;role:'student'|'faculty'|'admin';active:boolean};
+export type Session={id:string;course_name:string;classroom_name:string;starts_at:string;ends_at:string;closed:boolean};
+export type Challenge={id:string;device_id:string;actions:Action[];expires_at:string;server_time:string;purpose:'attendance'|'enrollment'};
+export type Action='CENTER'|'TURN_LEFT'|'TURN_RIGHT'|'BLINK';
+export type Frame={jpeg:string;captured_at:string};
+export type Wifi={bssid:string;rssi:number};
+export type WifiResult={status:'available'|'unsupported'|'permission_denied'|'unavailable';observations:Wifi[]};
+export type LocationEvidence={latitude:number;longitude:number;accuracy_m:number;captured_at:string;mocked:boolean};
+export type Evidence={challenge_id:string;device_id:string;frames:Frame[];consent:boolean;location:LocationEvidence|null;wifi:Wifi[];wifi_status:WifiResult['status'];integrity_token:null};
+export type Attempt={id:string;state:'PRESENT'|'REJECTED'|'PENDING_REVIEW'|'REQUIRES_RETRY'|'EXPIRED';reasons:string[];risk_score:number;created_at:string;session_id:string};
+export type DeviceCredential={id:string;credential:string};

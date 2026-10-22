@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="480" height="330" preserveAspectRatio="xMinYMin meet" viewBox="0 0 480 330" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="480" height="330"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-330)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="7.205078125" y="316" style="font-family: Body-Bold; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,632) scale(1,-1)">Student app</text>
+			<path d="M 35,304 L 35,8 Z" style="stroke: rgb(78%,83%,80%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 3, 3;"/>
+			<text x="157.759765625" y="316" style="font-family: Body-Bold; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,632) scale(1,-1)">FastAPI</text>
+			<path d="M 175,304 L 175,8 Z" style="stroke: rgb(78%,83%,80%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 3, 3;"/>
+			<text x="301.185546875" y="316" style="font-family: Body-Bold; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,632) scale(1,-1)">Vision</text>
+			<path d="M 315,304 L 315,8 Z" style="stroke: rgb(78%,83%,80%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 3, 3;"/>
+			<text x="418.6484375" y="316" style="font-family: Body-Bold; font-size: 8px;fill: rgb(9%,21%,18%); stroke:none;" transform="translate(0,632) scale(1,-1)">PostgreSQL</text>
+			<path d="M 445,304 L 445,8 Z" style="stroke: rgb(78%,83%,80%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 3, 3;"/>
+			<path d="M 35,287 L 175,287 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="175 287, 169 284, 169 290" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="60.400634765625" y="292.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,584) scale(1,-1)">Request bound challenge</text>
+			<path d="M 175,260 L 445,260 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="445 260, 439 257, 439 263" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="282.24609375" y="265.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,530) scale(1,-1)">Check eligibility</text>
+			<path d="M 175,233 L 35,233 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="35 233, 41 236, 41 230" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="61.919921875" y="238.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,476) scale(1,-1)">Actions + expiry + clock</text>
+			<path d="M 35,206 L 175,206 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="175 206, 169 203, 169 209" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="58.68994140625" y="211.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,422) scale(1,-1)">Signed frames and signals</text>
+			<path d="M 175,179 L 445,179 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="445 179, 439 176, 439 182" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="274.36767578125" y="184.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,368) scale(1,-1)">Lock / replay checks</text>
+			<path d="M 175,152 L 315,152 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="315 152, 309 149, 309 155" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="192.4521484375" y="157.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,314) scale(1,-1)">Embed and analyze sequence</text>
+			<path d="M 315,125 L 175,125 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="175 125, 181 128, 181 122" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="205.636962890625" y="130.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,260) scale(1,-1)">Match / liveness result</text>
+			<path d="M 175,98 L 445,98 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="445 98, 439 95, 439 101" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="256.296875" y="103.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,206) scale(1,-1)">Consume challenge + attempt</text>
+			<path d="M 175,71 L 445,71 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="445 71, 439 68, 439 74" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="264.850341796875" y="76.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,152) scale(1,-1)">Unique record if PRESENT</text>
+			<path d="M 175,37 L 35,37 Z" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="35 37, 41 40, 41 34" style="stroke: rgb(39%,50%,44%); stroke-linecap: butt; stroke-width: 1; fill: rgb(39%,50%,44%); fill-rule: evenodd;"/>
+			<text x="71.197998046875" y="42.0" style="font-family: Body; font-size: 7px;fill: rgb(39%,50%,44%); stroke:none;" transform="translate(0,84) scale(1,-1)">Decision + reasons</text>
+		</g>
+	</g>
+</svg>

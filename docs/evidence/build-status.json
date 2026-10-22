@@ -1,0 +1,15 @@
+{
+  "Execution environment": "Linux x86_64; Python 3.12, Node 24, PostgreSQL 16; no macOS ARM64 execution.",
+  "Reusable cloud setup": "PASS: bash scripts/cloud_install.sh completed; npm ci, uv sync --frozen, three checksum-verified models, migrations, repeatable seed and both Docker builds. Existing local secrets preserved.",
+  "Database schema": "PASS: alembic upgrade head and alembic check; no new upgrade operations detected; PostgreSQL integration tests passed.",
+  "Backend image and runtime": "PASS: docker build with trusted CA secret; docker compose up -d --no-build db backend dashboard recreated services successfully. GET /health reports database connected; GET /ready reports face_models loaded and attestation not_configured.",
+  "Dashboard production build": "PASS: npm run build (TypeScript and Vite); nginx Docker image starts and serves the actual API-connected dashboard.",
+  "Browser integration": "PASS: npx playwright test against running Docker services; administrator room/session/export/close workflow and scoped faculty workflow. Tests use the created session ID and wait for navigation to remain repeatable.",
+  "Mobile type checking": "PASS: npm run typecheck after the verification-result navigation correction.",
+  "Mobile Android bundle": "PASS: CI=1 EXPO_NO_TELEMETRY=1 npm run export after the navigation correction; Metro/Hermes produced the actual Android bundle.",
+  "Android native preparation": "PASS: Expo Android prebuild and local spvs-wifi module autolinking. Java 17, Gradle 9.4.1, Android API/build tools 37 and NDK 27.1.12297006 installed for the attempted build.",
+  "Android APK build": "BLOCKED: ./gradlew :app:assembleDebug --no-daemon --max-workers=2 -PreactNativeArchitectures=arm64-v8a failed while resolving react-android-0.88.0-debug.aar. Maven Central redirects to repo.reactnative.dev, blocked by the cloud proxy with HTTP 403. Domain added to the saved environment draft; apply configuration before retrying. No APK produced; native compilation remains unverified.",
+  "Physical phone, iOS and Apple Silicon": "NOT RUN: requires device/macOS hardware. Camera liveness, actual GPS/Wi-Fi behavior, accessibility and latency need the documented device matrix.",
+  "Platform attestation": "UNCONFIGURED: adapter returns unverified; external Play Integrity/App Attest developer configuration is required.",
+  "Cloud configuration persistence": "SAVED DRAFT: tested install/start instructions plus repo.reactnative.dev network addition. Saving is not applying/publishing; fresh-task restoration has not been independently tested."
+}

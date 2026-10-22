@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="7" failures="0" errors="0" time="0.006425217">
+    <testsuite name="tests/protocol.test.ts" timestamp="2026-10-22T21:29:29.054Z" hostname="39115e9d5828" tests="7" failures="0" errors="0" skipped="0" time="0.006425217">
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; matches the backend HMAC byte protocol" time="0.002659739">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; binds the idempotency key" time="0.001011849">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; binds all evidence fields" time="0.000501813">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; opens at the inclusive start boundary" time="0.000261878">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; expires at the exclusive end boundary" time="0.000136652">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; never opens a closed session" time="0.000137173">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; does not describe review as approval" time="0.000221388">
+        </testcase>
+    </testsuite>
+</testsuites>
