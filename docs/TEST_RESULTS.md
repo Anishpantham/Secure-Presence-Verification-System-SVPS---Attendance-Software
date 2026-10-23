@@ -1,5 +1,9 @@
 # Final test and build results
 
+The table below is the historical completion run. See the separate
+[2026-10-23 Mac validation record](IOS_MAC_VALIDATION.md) for current local results;
+the earlier browser and Android-native results were not rerun as part of that record.
+
 | Suite | Passed | Failures/errors | Skipped |
 |---|---:|---:|---:|
 | Backend | 109 | 0 | 0 |

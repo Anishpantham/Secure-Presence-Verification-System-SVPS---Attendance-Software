@@ -1,5 +1,8 @@
 # SPVS final setup and demonstration guide
 
+See [Native iOS Mac validation](IOS_MAC_VALIDATION.md) for the actual 2026-10-23
+Apple Silicon setup, current commands and pending physical-iPhone checks.
+
 Use the source ZIP from this completion branch and read FINAL_COMPLETION_REPORT.md before presenting capabilities. Keep the baseline release intact. Commands below are for a MacBook Air M4 with macOS and a trusted development network. The Linux execution report does not claim these Mac commands were run on Apple Silicon.
 
 ## 1. Prerequisites
@@ -87,7 +90,9 @@ For release distribution remove SPVS_DEV_HTTP, set an HTTPS API URL, configure i
 
 ```sh
 cd mobile
-gem install bundler
+brew install ruby@3.3
+export PATH="/opt/homebrew/opt/ruby@3.3/bin:$PATH"
+export BUNDLE_PATH="$PWD/../.runtime/bundle"
 bundle install
 cd ..
 export EXPO_PUBLIC_API_URL=http://localhost:8000/api/v1
@@ -97,7 +102,7 @@ cd mobile
 npx expo run:ios
 ```
 
-The script generates `ios/SPVSStudent.xcworkspace`, installs pods and invokes xcodebuild with simulator SDK and CODE_SIGNING_ALLOWED=NO. The simulator can test navigation/network/permission states; it cannot establish Secure Enclave, App Attest, live-camera liveness or real Wi-Fi behavior. Retain and review the generated Podfile.lock after the first successful native resolution. No validated CocoaPods lock or simulator result is claimed from Linux.
+The script generates `ios/SPVSStudent.xcworkspace` with `--no-clean`, installs pods and invokes xcodebuild with simulator SDK and CODE_SIGNING_ALLOWED=NO. The simulator can test navigation/network/permission states; it cannot establish Secure Enclave, App Attest, live-camera liveness or real Wi-Fi behavior. The resolved Ruby and CocoaPods lockfiles are now retained from the [Mac run](IOS_MAC_VALIDATION.md); earlier Linux results did not establish iOS compilation.
 
 ## 6. Physical iPhone and App Attest
 

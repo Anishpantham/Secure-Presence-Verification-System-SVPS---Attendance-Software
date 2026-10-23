@@ -1,5 +1,9 @@
 # Known limitations and release boundary
 
+The [2026-10-23 local Mac validation](IOS_MAC_VALIDATION.md) supersedes historical
+statements below about Xcode/CocoaPods not having run. Physical iPhone and genuine
+Apple App Attest validation remain outstanding.
+
 ## Verification assurance
 
 - A normal phone can be rooted, instrumented or used with injected camera/location data. A native device signature (or a legacy HMAC) proves key possession, not trustworthy physical capture.

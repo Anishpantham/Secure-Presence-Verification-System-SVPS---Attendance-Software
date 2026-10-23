@@ -1,5 +1,8 @@
 # Secure Presence Verification System · SPVS
 
+For the 2026-10-23 local Apple Silicon/Xcode validation and the pending physical
+iPhone checks, see [Native iOS Mac validation](docs/IOS_MAC_VALIDATION.md).
+
 A working college attendance project with **two verification layers**: identity and physical presence. FastAPI/PostgreSQL enforce decisions; a React dashboard manages institution workflows; an Expo development app captures real student evidence.
 
 **Assurance boundary:** this is a production-inspired semester project, not a certified biometric or device-attestation product. Real SFace inference and server-side liveness logic are implemented. Phone capture, Android Wi-Fi behavior, and liveness usability require the real-device evaluation in `docs/TESTING_STRATEGY.md`. Play Integrity is unconfigured. Apple App Attest now has native and server verification code, tested with synthetic certificates; genuine provider/device interoperability is unverified and deployment configuration is required.
