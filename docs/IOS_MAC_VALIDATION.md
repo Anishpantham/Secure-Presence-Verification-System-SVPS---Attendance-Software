@@ -131,7 +131,8 @@ release mode. Use trusted HTTPS for real student data.
 
 The Mac successfully reached `/health` at that LAN address and `/ready` over
 loopback. `/ready` reported models loaded and attestation not configured.
-Phone-to-Mac reachability is still unverified. The iPhone must join the same
+The user subsequently confirmed `/health` works in Safari on the physical iPhone.
+The iPhone must join the same
 reachable network; campus/client isolation or a firewall may block it. Recheck
 `ipconfig getifaddr en0` after changing networks, update `mobile/.env`, and restart
 Metro. Never use the phone's `localhost` as the Mac's API address.
@@ -153,6 +154,8 @@ Metro. Never use the phone's `localhost` as the Mac's API address.
 | Xcode simulator build | Passed: `BUILD SUCCEEDED`; final build wrapper exit 0 |
 | Simulator app launch | Installed and launched (`edu.spvs.student`); Expo development launcher visible; Open prompt awaits user interaction |
 | Signed physical-device build | Passed with Personal Team; installed and launched on iPhone 16 Pro after user trusted the developer |
+| Physical iPhone student login | User confirmed success; server LOGIN_SUCCEEDED event at 2026-10-23 23:43:21 +05:30 |
+| Physical iPhone device registration | Active iOS P-256 registration; consumed challenge and DEVICE_REGISTERED event at 23:45:13 +05:30; storage reported as secure-enclave |
 | Genuine Apple App Attest | Not configured or tested |
 
 Backend App Attest tests use synthetic certificates. These results do not
@@ -236,9 +239,22 @@ user then confirmed trusting the development profile. A subsequent
 `work/iphone-launch.png` shows the SPVS Student development launcher searching
 for development servers, with a 4G status indicator. It does not show student
 login. The Mac's API and Metro health checks still pass at the same LAN address.
-The next manual step is to connect the iPhone to the Mac's reachable Wi-Fi
-network, allow local-network access, and verify the API from phone Safari.
-Phone-to-Mac connectivity and student flows remain unverified.
+After the user confirmed the API health response in phone Safari, the app was
+relaunched with `--initialUrl http://10.0.11.85:8081`. Metro reported an iOS bundle
+served (912 modules), and the actual device screenshot at `work/iphone-metro.png`
+shows the student sign-in screen behind Expo's developer-menu sheet. This verifies
+that the physical app loaded the JavaScript bundle. The user-reported API health
+check establishes phone-to-Mac reachability. The user subsequently confirmed
+student login and device registration. Read-only PostgreSQL inspection confirmed
+LOGIN_SUCCEEDED and DEVICE_REGISTERED events, exactly one active iOS device named
+"iPhone 16 Pro", algorithm `ecdsa-p256-sha256`, a public key, no legacy shared
+secret, and a used device-registration challenge. The registration handler
+requires a valid signature over that challenge before creating the device.
+The installed physical-device implementation requests a Secure Enclave key and
+does not silently fall back to a software key. The recorded storage label is
+`secure-enclave`; it is client-reported, not Apple-attested hardware evidence.
+No App Attest key or biometric profile was registered at this checkpoint.
+The next manual step is consented camera/liveness enrollment on the iPhone.
 
 Follow Apple's [signing workflow](https://help.apple.com/xcode/mac/current/en.lproj/dev60b6fbbc7.html)
 and [Developer Mode instructions](https://developer.apple.com/documentation/xcode/enabling-developer-mode-on-a-device).
@@ -250,12 +266,12 @@ availability before changing signing or enabling App Attest.
 
 The following remain unverified on a physical iPhone:
 
-- Student login, permission prompts, real front-camera capture, randomized
+- Permission prompts, real front-camera capture, randomized
   liveness, enrollment response, attendance submission and history.
 - Reduced-accuracy location, denied camera/location/local-network access,
   unavailable Wi-Fi information and interrupted-network retries.
-- Secure Enclave key creation/signing and device registration; reinstall/key-loss
-  behavior and administrator-approved recovery.
+- Reinstall/key-loss behavior and administrator-approved recovery; independent
+  hardware attestation beyond the observed native registration/signing path.
 - Genuine App Attest registration/assertions with a supported Apple team and
   matching server trust configuration.
 
