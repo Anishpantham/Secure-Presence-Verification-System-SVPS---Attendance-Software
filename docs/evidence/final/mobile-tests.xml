@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="28" failures="0" errors="0" time="0.389332136">
+    <testsuite name="tests/capture.test.ts" timestamp="2026-10-23T07:03:11.676Z" hostname="62e6d4c9a7a0" tests="9" failures="0" errors="0" skipped="0" time="0.046760172">
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; preserves server action ordering and strictly increasing timestamps" time="0.017685041">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; stops on expiration without a success result" time="0.004618174">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; stops when the app backgrounds" time="0.000841112">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; propagates camera errors" time="0.009246707">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; preserves server action ordering and strictly increasing timestamps" time="0.003079593">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; stops on expiration without a success result" time="0.000543022">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; stops when the app backgrounds" time="0.0003726">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; propagates camera errors" time="0.000334264">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="explains model quality and multiple-face failures" time="0.006313266">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/platform.test.ts" timestamp="2026-10-23T07:03:11.793Z" hostname="62e6d4c9a7a0" tests="10" failures="0" errors="0" skipped="0" time="0.077820349">
+        <testcase classname="tests/platform.test.ts" name="iOS uses the simulator localhost default" time="0.008699625">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android uses the emulator gateway default" time="0.005219662">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="iOS only requests current-network evidence without inventing RSSI" time="0.002547318">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="missing native Wi-Fi module is explicit" time="0.000597523">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android scan permission denial does not fabricate data" time="0.00380822">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="reduced iOS accuracy requires retry" time="0.007455307">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="location permission denial has a recovery instruction" time="0.000756928">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="stale positions are not submitted as fresh" time="0.036029514">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="uses actual fix time and accuracy" time="0.003102407">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="missing native key module fails closed" time="0.00709473">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/progress.test.tsx" timestamp="2026-10-23T07:03:11.869Z" hostname="62e6d4c9a7a0" tests="2" failures="0" errors="0" skipped="0" time="0.244013484">
+        <testcase classname="tests/progress.test.tsx" name="Android shared progress renders current stage without claiming attendance approval" time="0.225237978">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/progress.test.tsx" name="iOS shared progress renders current stage without claiming attendance approval" time="0.009604657">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/protocol.test.ts" timestamp="2026-10-23T07:03:11.886Z" hostname="62e6d4c9a7a0" tests="7" failures="0" errors="0" skipped="0" time="0.020738131">
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; matches the backend HMAC byte protocol" time="0.007554577">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; binds the idempotency key" time="0.002513727">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; binds all evidence fields" time="0.002724492">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; opens at the inclusive start boundary" time="0.000739964">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; expires at the exclusive end boundary" time="0.000454402">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; never opens a closed session" time="0.000494853">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; does not describe review as approval" time="0.000416789">
+        </testcase>
+    </testsuite>
+</testsuites>

@@ -1,0 +1,26 @@
+
+> spvs-mobile@1.0.0 export
+> expo export --platform android --platform ios --output-dir ../work/final/export-both
+
+Starting Metro Bundler
+
+iOS Bundled 15013ms index.ts (882 modules)
+Android Bundled 23058ms index.ts (901 modules)
+
+› Assets (24):
+node_modules/@react-navigation/elements/lib/module/assets/back-icon-mask.png (653B)
+node_modules/@react-navigation/elements/lib/module/assets/back-icon.png (8 variations | 359B)
+node_modules/@react-navigation/elements/lib/module/assets/clear-icon.png (4 variations | 425B)
+node_modules/@react-navigation/elements/lib/module/assets/close-icon.png (4 variations | 235B)
+node_modules/@react-navigation/elements/lib/module/assets/search-icon.png (7 variations | 592B)
+
+› ios bundles (1):
+_expo/static/js/ios/index-3232aa092d98c381108b670170e678d9.hbc (2.2MB)
+
+› android bundles (1):
+_expo/static/js/android/index-625fe9715445baaac388a6da1fdff095.hbc (2.2MB)
+
+› Files (1):
+metadata.json (2.3KB)
+
+Exported: ../work/final/export-both

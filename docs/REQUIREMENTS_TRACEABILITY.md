@@ -9,8 +9,8 @@
 | Actual face recognition | YuNet + SFace in `services/vision.py` | Real same-face/different-person/no-face/multi-face tests | Consented local calibration |
 | Enrollment consent/deletion | `/biometrics/enroll`, DELETE `/biometrics` | API consent/storage/deletion contract tests | Live student enrollment |
 | Temporal liveness | MediaPipe landmarks + sequence validator | EAR/pose sequence, timing, expiry tests | Physical phone spoofing/usability matrix |
-| Device binding | Random key + HMAC + unique active-device index | Signature/device mismatch, second-device denial and reset tests | SecureStore on physical Android/iOS |
-| Platform integrity | `services/attestation.py` fail-closed boundary | Unconfigured policy never passes as verified | Provider accounts, verifier, nonce and verdict tests |
+| Device binding | Native P-256 keys + nonce proof + unique active-device index | Signature/device mismatch, second-device denial and reset tests | Physical Keystore/Secure Enclave evaluation |
+| Platform integrity | App Attest native/server verifier; Play Integrity fail-closed boundary | Unconfigured policy never passes as verified | Genuine provider accounts, physical-device interoperability and receipt risk evaluation |
 | GPS evidence | Haversine + uncertainty/freshness gates | Boundary/stale/inaccurate/mock/travel tests | Indoor GPS field measurements |
 | Wi-Fi evidence | Native Android scan module + reference matching | Matching/weak/unavailable policy tests | Kotlin build and real AP scans; see current report |
 | Deterministic decision | `/attendance/verify` + presence service | Hard-gate and decision API tests | Full real-device happy path |
@@ -23,3 +23,15 @@
 | Documentation/artifacts | Markdown, diagrams, PDF/ZIP packaging script | PDF text/page and ZIP CRC/contents checks | Fill academic identity placeholders |
 
 “Automated” in this table does not imply manually tested. The generated verification report identifies the current counts and commands. No fake biometric approval or sensor measurement is used by application code.
+
+
+## Cross-platform completion update
+
+| Added requirement | Implementation | Verification boundary |
+|---|---|---|
+| Android/iOS native device keys | spvs-security, device_keys.py, registration nonce | Real crypto/API tests; physical key storage untested |
+| iOS presence policy | ios_presence, current_bssid, accuracy_authorization | PostgreSQL/API/unit and admin browser tests |
+| App Attest | Swift DeviceCheck bridge, app_attest.py, key/counter tables | Synthetic chain/assertions; genuine provider setup outstanding |
+| Cross-platform camera state machine | capture.ts, shared UI and error guidance | Logic/component tests; real capture untested |
+| Reproducible native projects | config plugin, podspecs, macOS build script | Prebuild/config/autolinking; native outcomes in final report |
+| Enrollment recovery | enrollment_request_hash | Exact retry and different-key replay tests |

@@ -1,1 +1,2593 @@
-{"openapi":"3.1.0","info":{"title":"SPVS API","description":"Two layers: identity and physical presence. See docs for assurance limits.","version":"1.0.0"},"paths":{"/health":{"get":{"tags":["Operations"],"summary":"Health","operationId":"health_health_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}},"/ready":{"get":{"tags":["Operations"],"summary":"Ready","operationId":"ready_ready_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}},"/api/v1/auth/register":{"post":{"tags":["Authentication"],"summary":"Register","operationId":"register_api_v1_auth_register_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateUser"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/auth/login":{"post":{"tags":["Authentication"],"summary":"Login","operationId":"login_api_v1_auth_login_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Login"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/auth/refresh":{"post":{"tags":["Authentication"],"summary":"Refresh","operationId":"refresh_api_v1_auth_refresh_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Refresh"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/auth/logout":{"post":{"tags":["Authentication"],"summary":"Logout","operationId":"logout_api_v1_auth_logout_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Refresh"}}},"required":true},"responses":{"204":{"description":"Successful Response"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/auth/me":{"get":{"tags":["Authentication"],"summary":"Me","operationId":"me_api_v1_auth_me_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/courses":{"get":{"tags":["Academic workflows"],"summary":"Courses","operationId":"courses_api_v1_courses_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"post":{"tags":["Academic workflows"],"summary":"Add Course","operationId":"add_course_api_v1_courses_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CourseInput"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/courses/{course_id}/enrollments":{"get":{"tags":["Academic workflows"],"summary":"Enrollments","operationId":"enrollments_api_v1_courses__course_id__enrollments_get","security":[{"HTTPBearer":[]}],"parameters":[{"name":"course_id","in":"path","required":true,"schema":{"type":"string","title":"Course Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"post":{"tags":["Academic workflows"],"summary":"Enroll","operationId":"enroll_api_v1_courses__course_id__enrollments_post","security":[{"HTTPBearer":[]}],"parameters":[{"name":"course_id","in":"path","required":true,"schema":{"type":"string","title":"Course Id"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/EnrollmentInput"}}}},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/courses/{course_id}/enrollments/{student_id}":{"delete":{"tags":["Academic workflows"],"summary":"Unenroll","operationId":"unenroll_api_v1_courses__course_id__enrollments__student_id__delete","security":[{"HTTPBearer":[]}],"parameters":[{"name":"course_id","in":"path","required":true,"schema":{"type":"string","title":"Course Id"}},{"name":"student_id","in":"path","required":true,"schema":{"type":"string","title":"Student Id"}}],"responses":{"204":{"description":"Successful Response"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/classrooms":{"get":{"tags":["Academic workflows"],"summary":"Classrooms","operationId":"classrooms_api_v1_classrooms_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"post":{"tags":["Academic workflows"],"summary":"Add Classroom","operationId":"add_classroom_api_v1_classrooms_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ClassroomInput"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/classrooms/{room_id}":{"put":{"tags":["Academic workflows"],"summary":"Update Classroom","operationId":"update_classroom_api_v1_classrooms__room_id__put","security":[{"HTTPBearer":[]}],"parameters":[{"name":"room_id","in":"path","required":true,"schema":{"type":"string","title":"Room Id"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ClassroomInput"}}}},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/sessions":{"get":{"tags":["Academic workflows"],"summary":"Sessions","operationId":"sessions_api_v1_sessions_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"post":{"tags":["Academic workflows"],"summary":"Add Session","operationId":"add_session_api_v1_sessions_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SessionInput"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/sessions/{session_id}":{"get":{"tags":["Academic workflows"],"summary":"Session Detail","operationId":"session_detail_api_v1_sessions__session_id__get","security":[{"HTTPBearer":[]}],"parameters":[{"name":"session_id","in":"path","required":true,"schema":{"type":"string","title":"Session Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/sessions/{session_id}/close":{"post":{"tags":["Academic workflows"],"summary":"Close Session","operationId":"close_session_api_v1_sessions__session_id__close_post","security":[{"HTTPBearer":[]}],"parameters":[{"name":"session_id","in":"path","required":true,"schema":{"type":"string","title":"Session Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/records":{"get":{"tags":["Academic workflows"],"summary":"Records","operationId":"records_api_v1_records_get","security":[{"HTTPBearer":[]}],"parameters":[{"name":"session_id","in":"query","required":false,"schema":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Session Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/attempts":{"get":{"tags":["Academic workflows"],"summary":"Attempts","operationId":"attempts_api_v1_attempts_get","security":[{"HTTPBearer":[]}],"parameters":[{"name":"session_id","in":"query","required":false,"schema":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Session Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/events":{"get":{"tags":["Academic workflows"],"summary":"Events","operationId":"events_api_v1_events_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/events/{event_id}/review":{"post":{"tags":["Academic workflows"],"summary":"Review Event","operationId":"review_event_api_v1_events__event_id__review_post","security":[{"HTTPBearer":[]}],"parameters":[{"name":"event_id","in":"path","required":true,"schema":{"type":"string","title":"Event Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/corrections":{"get":{"tags":["Academic workflows"],"summary":"Corrections","operationId":"corrections_api_v1_corrections_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"post":{"tags":["Academic workflows"],"summary":"Correct","operationId":"correct_api_v1_corrections_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CorrectionInput"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/disputes":{"get":{"tags":["Academic workflows"],"summary":"Disputes","operationId":"disputes_api_v1_disputes_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"post":{"tags":["Academic workflows"],"summary":"Dispute","operationId":"dispute_api_v1_disputes_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/DisputeInput"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/disputes/{dispute_id}/resolve":{"post":{"tags":["Academic workflows"],"summary":"Resolve Dispute","operationId":"resolve_dispute_api_v1_disputes__dispute_id__resolve_post","security":[{"HTTPBearer":[]}],"parameters":[{"name":"dispute_id","in":"path","required":true,"schema":{"type":"string","title":"Dispute Id"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Resolve"}}}},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/reports/attendance.csv":{"get":{"tags":["Academic workflows"],"summary":"Export","operationId":"export_api_v1_reports_attendance_csv_get","security":[{"HTTPBearer":[]}],"parameters":[{"name":"session_id","in":"query","required":false,"schema":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Session Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/overview":{"get":{"tags":["Academic workflows"],"summary":"Overview","operationId":"overview_api_v1_overview_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/users":{"get":{"tags":["Administration"],"summary":"Users","operationId":"users_api_v1_users_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"post":{"tags":["Administration"],"summary":"Add User","operationId":"add_user_api_v1_users_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateUser"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/users/{user_id}":{"patch":{"tags":["Administration"],"summary":"Disable","operationId":"disable_api_v1_users__user_id__patch","security":[{"HTTPBearer":[]}],"parameters":[{"name":"user_id","in":"path","required":true,"schema":{"type":"string","title":"User Id"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserUpdate"}}}},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/policy":{"get":{"tags":["Administration"],"summary":"Get Policy","operationId":"get_policy_api_v1_policy_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"put":{"tags":["Administration"],"summary":"Set Policy","operationId":"set_policy_api_v1_policy_put","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PolicyInput"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/device-resets":{"get":{"tags":["Administration"],"summary":"Resets","operationId":"resets_api_v1_device_resets_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"post":{"tags":["Administration"],"summary":"Request Reset","operationId":"request_reset_api_v1_device_resets_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Reason"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/device-resets/{reset_id}/approve":{"post":{"tags":["Administration"],"summary":"Approve Reset","operationId":"approve_reset_api_v1_device_resets__reset_id__approve_post","security":[{"HTTPBearer":[]}],"parameters":[{"name":"reset_id","in":"path","required":true,"schema":{"type":"string","title":"Reset Id"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Reason"}}}},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/api/v1/devices":{"get":{"tags":["Identity and presence"],"summary":"Devices","operationId":"devices_api_v1_devices_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"post":{"tags":["Identity and presence"],"summary":"Register Device","operationId":"register_device_api_v1_devices_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/DeviceInput"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/biometrics":{"get":{"tags":["Identity and presence"],"summary":"Biometric Status","operationId":"biometric_status_api_v1_biometrics_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"security":[{"HTTPBearer":[]}]},"delete":{"tags":["Identity and presence"],"summary":"Delete Biometrics","operationId":"delete_biometrics_api_v1_biometrics_delete","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Login"}}},"required":true},"responses":{"204":{"description":"Successful Response"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/challenges":{"post":{"tags":["Identity and presence"],"summary":"Challenge","operationId":"challenge_api_v1_challenges_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ChallengeInput"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/biometrics/enroll":{"post":{"tags":["Identity and presence"],"summary":"Enroll Biometrics","operationId":"enroll_biometrics_api_v1_biometrics_enroll_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SignedEvidence"}}},"required":true},"responses":{"201":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/api/v1/attendance/verify":{"post":{"tags":["Identity and presence"],"summary":"Verify Attendance","operationId":"verify_attendance_api_v1_attendance_verify_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SignedEvidence"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}}},"components":{"schemas":{"ChallengeInput":{"properties":{"device_id":{"type":"string","title":"Device Id"},"purpose":{"type":"string","enum":["attendance","enrollment"],"title":"Purpose"},"session_id":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Session Id"}},"additionalProperties":false,"type":"object","required":["device_id","purpose"],"title":"ChallengeInput"},"ClassroomInput":{"properties":{"name":{"type":"string","maxLength":100,"minLength":2,"title":"Name"},"latitude":{"type":"number","maximum":90.0,"minimum":-90.0,"title":"Latitude"},"longitude":{"type":"number","maximum":180.0,"minimum":-180.0,"title":"Longitude"},"radius_m":{"type":"number","maximum":300.0,"minimum":5.0,"title":"Radius M"},"wifi":{"items":{"$ref":"#/components/schemas/WifiInput"},"type":"array","maxItems":50,"title":"Wifi"}},"additionalProperties":false,"type":"object","required":["name","latitude","longitude","radius_m"],"title":"ClassroomInput"},"CorrectionInput":{"properties":{"reason":{"type":"string","maxLength":1000,"minLength":10,"title":"Reason"},"student_id":{"type":"string","title":"Student Id"},"session_id":{"type":"string","title":"Session Id"},"status":{"type":"string","enum":["PRESENT","ABSENT","EXCUSED"],"title":"Status"}},"additionalProperties":false,"type":"object","required":["reason","student_id","session_id","status"],"title":"CorrectionInput"},"CourseInput":{"properties":{"code":{"type":"string","maxLength":30,"minLength":2,"title":"Code"},"name":{"type":"string","maxLength":160,"minLength":2,"title":"Name"},"faculty_id":{"type":"string","title":"Faculty Id"}},"additionalProperties":false,"type":"object","required":["code","name","faculty_id"],"title":"CourseInput"},"CreateUser":{"properties":{"email":{"type":"string","format":"email","title":"Email"},"name":{"type":"string","maxLength":120,"minLength":2,"title":"Name"},"password":{"type":"string","maxLength":128,"minLength":12,"title":"Password"},"role":{"type":"string","enum":["student","faculty","admin"],"title":"Role","default":"student"},"roll_number":{"anyOf":[{"type":"string","maxLength":40,"minLength":2},{"type":"null"}],"title":"Roll Number"}},"additionalProperties":false,"type":"object","required":["email","name","password"],"title":"CreateUser"},"DeviceInput":{"properties":{"label":{"type":"string","maxLength":100,"minLength":2,"title":"Label"},"platform":{"type":"string","enum":["android","ios"],"title":"Platform"},"password":{"type":"string","maxLength":128,"minLength":1,"title":"Password"}},"additionalProperties":false,"type":"object","required":["label","platform","password"],"title":"DeviceInput"},"DisputeInput":{"properties":{"reason":{"type":"string","maxLength":1000,"minLength":10,"title":"Reason"},"attempt_id":{"type":"string","title":"Attempt Id"}},"additionalProperties":false,"type":"object","required":["reason","attempt_id"],"title":"DisputeInput"},"EnrollmentInput":{"properties":{"student_id":{"type":"string","title":"Student Id"}},"additionalProperties":false,"type":"object","required":["student_id"],"title":"EnrollmentInput"},"HTTPValidationError":{"properties":{"detail":{"items":{"$ref":"#/components/schemas/ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"},"Login":{"properties":{"email":{"type":"string","format":"email","title":"Email"},"password":{"type":"string","maxLength":128,"minLength":1,"title":"Password"}},"additionalProperties":false,"type":"object","required":["email","password"],"title":"Login"},"PolicyInput":{"properties":{"max_accuracy_m":{"type":"number","maximum":100.0,"minimum":5.0,"title":"Max Accuracy M","default":35},"max_location_age_s":{"type":"integer","maximum":60.0,"minimum":5.0,"title":"Max Location Age S","default":20},"wifi_unavailable":{"type":"string","enum":["review","gps_only","reject"],"title":"Wifi Unavailable","default":"review"},"require_attestation":{"type":"boolean","title":"Require Attestation","default":false},"max_attempts":{"type":"integer","maximum":10.0,"minimum":1.0,"title":"Max Attempts","default":5},"reason":{"type":"string","maxLength":1000,"minLength":10,"title":"Reason"}},"additionalProperties":false,"type":"object","required":["reason"],"title":"PolicyInput"},"Reason":{"properties":{"reason":{"type":"string","maxLength":1000,"minLength":10,"title":"Reason"}},"additionalProperties":false,"type":"object","required":["reason"],"title":"Reason"},"Refresh":{"properties":{"refresh_token":{"type":"string","maxLength":200,"minLength":32,"title":"Refresh Token"}},"additionalProperties":false,"type":"object","required":["refresh_token"],"title":"Refresh"},"Resolve":{"properties":{"resolution":{"type":"string","maxLength":1000,"minLength":10,"title":"Resolution"}},"additionalProperties":false,"type":"object","required":["resolution"],"title":"Resolve"},"SessionInput":{"properties":{"course_id":{"type":"string","title":"Course Id"},"classroom_id":{"type":"string","title":"Classroom Id"},"starts_at":{"type":"string","format":"date-time","title":"Starts At"},"ends_at":{"type":"string","format":"date-time","title":"Ends At"}},"additionalProperties":false,"type":"object","required":["course_id","classroom_id","starts_at","ends_at"],"title":"SessionInput"},"SignedEvidence":{"properties":{"payload":{"type":"string","maxLength":14100000,"minLength":100,"title":"Payload"},"signature":{"type":"string","pattern":"^[0-9a-f]{64}$","title":"Signature"},"idempotency_key":{"type":"string","pattern":"^[a-zA-Z0-9_-]{16,64}$","title":"Idempotency Key"}},"additionalProperties":false,"type":"object","required":["payload","signature","idempotency_key"],"title":"SignedEvidence"},"UserUpdate":{"properties":{"active":{"anyOf":[{"type":"boolean"},{"type":"null"}],"title":"Active"},"role":{"anyOf":[{"type":"string","enum":["student","faculty","admin"]},{"type":"null"}],"title":"Role"},"roll_number":{"anyOf":[{"type":"string","maxLength":40,"minLength":2},{"type":"null"}],"title":"Roll Number"},"reason":{"anyOf":[{"type":"string","maxLength":1000,"minLength":10},{"type":"null"}],"title":"Reason"}},"additionalProperties":false,"type":"object","title":"UserUpdate"},"ValidationError":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"},"input":{"title":"Input"},"ctx":{"type":"object","title":"Context"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"WifiInput":{"properties":{"bssid":{"type":"string","pattern":"^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$","title":"Bssid"},"min_rssi":{"type":"integer","maximum":-20.0,"minimum":-100.0,"title":"Min Rssi","default":-80}},"additionalProperties":false,"type":"object","required":["bssid"],"title":"WifiInput"}},"securitySchemes":{"HTTPBearer":{"type":"http","scheme":"bearer"}}}}
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SPVS API",
+    "description": "Two layers: identity and physical presence. See docs for assurance limits.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ready": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Ready",
+        "operationId": "ready_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Register",
+        "operationId": "register_api_v1_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Refresh",
+        "operationId": "refresh_api_v1_auth_refresh_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Refresh"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logout",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Refresh"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Me",
+        "operationId": "me_api_v1_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/courses": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Courses",
+        "operationId": "courses_api_v1_courses_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Add Course",
+        "operationId": "add_course_api_v1_courses_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/courses/{course_id}/enrollments": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Enrollments",
+        "operationId": "enrollments_api_v1_courses__course_id__enrollments_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Enroll",
+        "operationId": "enroll_api_v1_courses__course_id__enrollments_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrollmentInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/courses/{course_id}/enrollments/{student_id}": {
+      "delete": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Unenroll",
+        "operationId": "unenroll_api_v1_courses__course_id__enrollments__student_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course Id"
+            }
+          },
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Student Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classrooms": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Classrooms",
+        "operationId": "classrooms_api_v1_classrooms_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Add Classroom",
+        "operationId": "add_classroom_api_v1_classrooms_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassroomInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/classrooms/{room_id}": {
+      "put": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Update Classroom",
+        "operationId": "update_classroom_api_v1_classrooms__room_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Room Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassroomInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sessions": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Sessions",
+        "operationId": "sessions_api_v1_sessions_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Add Session",
+        "operationId": "add_session_api_v1_sessions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/sessions/{session_id}": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Session Detail",
+        "operationId": "session_detail_api_v1_sessions__session_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}/close": {
+      "post": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Close Session",
+        "operationId": "close_session_api_v1_sessions__session_id__close_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/records": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Records",
+        "operationId": "records_api_v1_records_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/attempts": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Attempts",
+        "operationId": "attempts_api_v1_attempts_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/events": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Events",
+        "operationId": "events_api_v1_events_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/events/{event_id}/review": {
+      "post": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Review Event",
+        "operationId": "review_event_api_v1_events__event_id__review_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/corrections": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Corrections",
+        "operationId": "corrections_api_v1_corrections_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Correct",
+        "operationId": "correct_api_v1_corrections_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CorrectionInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/disputes": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Disputes",
+        "operationId": "disputes_api_v1_disputes_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Dispute",
+        "operationId": "dispute_api_v1_disputes_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisputeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/disputes/{dispute_id}/resolve": {
+      "post": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Resolve Dispute",
+        "operationId": "resolve_dispute_api_v1_disputes__dispute_id__resolve_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "dispute_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dispute Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Resolve"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/attendance.csv": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Export",
+        "operationId": "export_api_v1_reports_attendance_csv_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/overview": {
+      "get": {
+        "tags": [
+          "Academic workflows"
+        ],
+        "summary": "Overview",
+        "operationId": "overview_api_v1_overview_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Users",
+        "operationId": "users_api_v1_users_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Add User",
+        "operationId": "add_user_api_v1_users_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/{user_id}": {
+      "patch": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Disable",
+        "operationId": "disable_api_v1_users__user_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/policy": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Get Policy",
+        "operationId": "get_policy_api_v1_policy_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Set Policy",
+        "operationId": "set_policy_api_v1_policy_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PolicyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/device-resets": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Resets",
+        "operationId": "resets_api_v1_device_resets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Request Reset",
+        "operationId": "request_reset_api_v1_device_resets_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reason"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/device-resets/{reset_id}/approve": {
+      "post": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Approve Reset",
+        "operationId": "approve_reset_api_v1_device_resets__reset_id__approve_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Reset Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reason"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/devices": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Device Capabilities",
+        "operationId": "device_capabilities_api_v1_admin_devices_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/devices": {
+      "get": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Devices",
+        "operationId": "devices_api_v1_devices_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Register Device",
+        "operationId": "register_device_api_v1_devices_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/biometrics": {
+      "get": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Biometric Status",
+        "operationId": "biometric_status_api_v1_biometrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Delete Biometrics",
+        "operationId": "delete_biometrics_api_v1_biometrics_delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/challenges": {
+      "post": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Challenge",
+        "operationId": "challenge_api_v1_challenges_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChallengeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/biometrics/enroll": {
+      "post": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Enroll Biometrics",
+        "operationId": "enroll_biometrics_api_v1_biometrics_enroll_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignedEvidence"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/attendance/verify": {
+      "post": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Verify Attendance",
+        "operationId": "verify_attendance_api_v1_attendance_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignedEvidence"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/devices/registration-challenge": {
+      "post": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Device Registration Challenge",
+        "operationId": "device_registration_challenge_api_v1_devices_registration_challenge_post",
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/attestation/capabilities": {
+      "get": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Attestation Capabilities",
+        "operationId": "attestation_capabilities_api_v1_attestation_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/attestation/challenge": {
+      "post": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Attestation Challenge",
+        "operationId": "attestation_challenge_api_v1_attestation_challenge_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttestationChallengeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/attestation/register": {
+      "post": {
+        "tags": [
+          "Identity and presence"
+        ],
+        "summary": "Register Attestation",
+        "operationId": "register_attestation_api_v1_attestation_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttestationRegistration"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AttestationChallengeInput": {
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "title": "Device Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "device_id"
+        ],
+        "title": "AttestationChallengeInput"
+      },
+      "AttestationRegistration": {
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "title": "Device Id"
+          },
+          "challenge_id": {
+            "type": "string",
+            "title": "Challenge Id"
+          },
+          "key_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 40,
+            "title": "Key Id"
+          },
+          "attestation": {
+            "type": "string",
+            "maxLength": 30000,
+            "minLength": 100,
+            "title": "Attestation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "device_id",
+          "challenge_id",
+          "key_id",
+          "attestation"
+        ],
+        "title": "AttestationRegistration"
+      },
+      "ChallengeInput": {
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "title": "Device Id"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "attendance",
+              "enrollment"
+            ],
+            "title": "Purpose"
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "device_id",
+          "purpose"
+        ],
+        "title": "ChallengeInput"
+      },
+      "ClassroomInput": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "latitude": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Latitude"
+          },
+          "longitude": {
+            "type": "number",
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Longitude"
+          },
+          "radius_m": {
+            "type": "number",
+            "maximum": 300.0,
+            "minimum": 5.0,
+            "title": "Radius M"
+          },
+          "wifi": {
+            "items": {
+              "$ref": "#/components/schemas/WifiInput"
+            },
+            "type": "array",
+            "maxItems": 50,
+            "title": "Wifi"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "latitude",
+          "longitude",
+          "radius_m"
+        ],
+        "title": "ClassroomInput"
+      },
+      "CorrectionInput": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Reason"
+          },
+          "student_id": {
+            "type": "string",
+            "title": "Student Id"
+          },
+          "session_id": {
+            "type": "string",
+            "title": "Session Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PRESENT",
+              "ABSENT",
+              "EXCUSED"
+            ],
+            "title": "Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "reason",
+          "student_id",
+          "session_id",
+          "status"
+        ],
+        "title": "CorrectionInput"
+      },
+      "CourseInput": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "maxLength": 30,
+            "minLength": 2,
+            "title": "Code"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "faculty_id": {
+            "type": "string",
+            "title": "Faculty Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "name",
+          "faculty_id"
+        ],
+        "title": "CourseInput"
+      },
+      "CreateUser": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 12,
+            "title": "Password"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "student",
+              "faculty",
+              "admin"
+            ],
+            "title": "Role",
+            "default": "student"
+          },
+          "roll_number": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40,
+                "minLength": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Roll Number"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "email",
+          "name",
+          "password"
+        ],
+        "title": "CreateUser"
+      },
+      "DeviceInput": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Label"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "android",
+              "ios"
+            ],
+            "title": "Platform"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Password"
+          },
+          "public_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Public Key"
+          },
+          "registration_challenge_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Challenge Id"
+          },
+          "registration_signature": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registration Signature"
+          },
+          "key_storage": {
+            "type": "string",
+            "enum": [
+              "secure-enclave",
+              "keychain",
+              "android-keystore",
+              "android-hardware"
+            ],
+            "title": "Key Storage",
+            "default": "keychain"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "label",
+          "platform",
+          "password"
+        ],
+        "title": "DeviceInput"
+      },
+      "DisputeInput": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Reason"
+          },
+          "attempt_id": {
+            "type": "string",
+            "title": "Attempt Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "reason",
+          "attempt_id"
+        ],
+        "title": "DisputeInput"
+      },
+      "EnrollmentInput": {
+        "properties": {
+          "student_id": {
+            "type": "string",
+            "title": "Student Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "student_id"
+        ],
+        "title": "EnrollmentInput"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Login": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Password"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "Login"
+      },
+      "PolicyInput": {
+        "properties": {
+          "max_accuracy_m": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 5.0,
+            "title": "Max Accuracy M",
+            "default": 35
+          },
+          "max_location_age_s": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 5.0,
+            "title": "Max Location Age S",
+            "default": 20
+          },
+          "wifi_unavailable": {
+            "type": "string",
+            "enum": [
+              "review",
+              "gps_only",
+              "reject"
+            ],
+            "title": "Wifi Unavailable",
+            "default": "review"
+          },
+          "ios_presence": {
+            "type": "string",
+            "enum": [
+              "review",
+              "retry",
+              "gps_only"
+            ],
+            "title": "Ios Presence",
+            "default": "review"
+          },
+          "require_attestation": {
+            "type": "boolean",
+            "title": "Require Attestation",
+            "default": false
+          },
+          "max_attempts": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Max Attempts",
+            "default": 5
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "PolicyInput"
+      },
+      "Reason": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "Reason"
+      },
+      "Refresh": {
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 32,
+            "title": "Refresh Token"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "refresh_token"
+        ],
+        "title": "Refresh"
+      },
+      "Resolve": {
+        "properties": {
+          "resolution": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Resolution"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resolution"
+        ],
+        "title": "Resolve"
+      },
+      "SessionInput": {
+        "properties": {
+          "course_id": {
+            "type": "string",
+            "title": "Course Id"
+          },
+          "classroom_id": {
+            "type": "string",
+            "title": "Classroom Id"
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Starts At"
+          },
+          "ends_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Ends At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "course_id",
+          "classroom_id",
+          "starts_at",
+          "ends_at"
+        ],
+        "title": "SessionInput"
+      },
+      "SignedEvidence": {
+        "properties": {
+          "payload": {
+            "type": "string",
+            "maxLength": 14100000,
+            "minLength": 100,
+            "title": "Payload"
+          },
+          "signature": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 40,
+            "pattern": "^[a-zA-Z0-9+/=]+$",
+            "title": "Signature"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{16,64}$",
+            "title": "Idempotency Key"
+          },
+          "attestation_key_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attestation Key Id"
+          },
+          "attestation_assertion": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attestation Assertion"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "payload",
+          "signature",
+          "idempotency_key"
+        ],
+        "title": "SignedEvidence"
+      },
+      "UserUpdate": {
+        "properties": {
+          "active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active"
+          },
+          "role": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "student",
+                  "faculty",
+                  "admin"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role"
+          },
+          "roll_number": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40,
+                "minLength": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Roll Number"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000,
+                "minLength": 10
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "UserUpdate"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WifiInput": {
+        "properties": {
+          "bssid": {
+            "type": "string",
+            "pattern": "^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$",
+            "title": "Bssid"
+          },
+          "min_rssi": {
+            "type": "integer",
+            "maximum": -20.0,
+            "minimum": -100.0,
+            "title": "Min Rssi",
+            "default": -80
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "bssid"
+        ],
+        "title": "WifiInput"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

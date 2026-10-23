@@ -1,1 +1,45 @@
-{"expo":{"name":"SPVS Student","slug":"spvs-student","version":"1.0.0","orientation":"portrait","userInterfaceStyle":"light","newArchEnabled":true,"ios":{"bundleIdentifier":"edu.spvs.student","supportsTablet":false,"infoPlist":{"NSCameraUsageDescription":"Capture face samples for consented enrollment and attendance verification.","NSLocationWhenInUseUsageDescription":"Verify your location during an attendance attempt."}},"android":{"package":"edu.spvs.student","permissions":["CAMERA","ACCESS_FINE_LOCATION","ACCESS_COARSE_LOCATION","ACCESS_WIFI_STATE","CHANGE_WIFI_STATE","NEARBY_WIFI_DEVICES"]},"plugins":[["expo-camera",{"cameraPermission":"Allow SPVS to capture your face for attendance verification.","recordAudioAndroid":false}],"expo-secure-store","expo-dev-client",["expo-location",{"locationWhenInUsePermission":"Allow SPVS to verify your location during attendance."}]],"extra":{"eas":{"projectId":""}}}}
+{
+  "expo": {
+    "name": "SPVS Student",
+    "slug": "spvs-student",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "edu.spvs.student",
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Capture face samples for consented enrollment and attendance verification.",
+        "NSLocationWhenInUseUsageDescription": "Verify your location during an attendance attempt."
+      }
+    },
+    "android": {
+      "package": "edu.spvs.student",
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_WIFI_STATE",
+        "CHANGE_WIFI_STATE"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow SPVS to capture your face for attendance verification.",
+          "recordAudioAndroid": false
+        }
+      ],
+      "expo-secure-store",
+      "expo-dev-client",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow SPVS to verify your location during attendance."
+        }
+      ]
+    ]
+  }
+}

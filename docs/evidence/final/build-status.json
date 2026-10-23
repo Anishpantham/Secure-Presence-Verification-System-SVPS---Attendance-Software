@@ -1,0 +1,12 @@
+{
+  "Android debug APK": "PASS: genuine Gradle assembleDebug, arm64-v8a; debug signed, development client; physical-device testing NOT RUN",
+  "Android/iOS JS export": "PASS: separate platform exports; final combined export in evidence",
+  "iOS native project": "PASS: Expo prebuild, camera/location/privacy settings, local podspec/autolinking and static configuration checks",
+  "iOS native compilation / simulator / IPA": "NOT RUN: Linux host; no macOS/Xcode or Apple signing identity",
+  "PostgreSQL migrations": "PASS: fresh upgrade, check, full downgrade, re-upgrade, check on isolated PostgreSQL 16 database",
+  "Backend and dashboard containers": "PASS: both images built and used for real browser/API tests",
+  "Physical Android / physical iPhone": "NOT TESTED",
+  "Apple App Attest": "Synthetic verifier/counter tests passed; genuine provider/device verification UNVERIFIED",
+  "Google Play Integrity": "NOT CONFIGURED; fail-closed boundary only",
+  "Biometric calibration": "NOT PERFORMED; six real-model smoke cases are not accuracy metrics"
+}

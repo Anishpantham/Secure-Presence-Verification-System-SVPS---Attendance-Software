@@ -1,0 +1,43 @@
+{
+  "zip_crc": "passed",
+  "archive_members": 179,
+  "required_source_files": "passed",
+  "pdfs": {
+    "SPVS_FINAL_PROJECT_REPORT.pdf": {
+      "pages": 36,
+      "extractable_characters": 83741,
+      "readable": true
+    },
+    "SPVS_FINAL_SETUP_AND_DEMO_GUIDE.pdf": {
+      "pages": 12,
+      "extractable_characters": 27184,
+      "readable": true
+    }
+  },
+  "artifacts": {
+    "SPVS_FINAL_COMPLETE_PROJECT.zip": {
+      "bytes": 39896439,
+      "sha256": "eeb43adaacae209b7da19244769cfbe0bc102f1e468136aef4155356373675f6"
+    },
+    "SPVS_FINAL_DELIVERY_README.md": {
+      "bytes": 1192,
+      "sha256": "68de5fc06242c1f614ea63757323d1cd5e84795cf5fa81ce22b8b005461efe2d"
+    },
+    "SPVS_FINAL_PROJECT_REPORT.pdf": {
+      "bytes": 306554,
+      "sha256": "ebc64b393886da9325751d8b52c01c065f76494a708d10f642bc38a1b6c134df"
+    },
+    "SPVS_FINAL_VERIFICATION_REPORT.md": {
+      "bytes": 11411,
+      "sha256": "f5d4eb9182f1d044d6d2b2041eb245fdf0a28fd46ff288b9576f71c3fa1bdd0e"
+    },
+    "SPVS_FINAL_SETUP_AND_DEMO_GUIDE.pdf": {
+      "bytes": 91097,
+      "sha256": "e2c79c71657533682adaf9e7d7eb69a05c9ec17e546adb349695273539cd8ce0"
+    },
+    "SPVS_ANDROID_DEBUG.apk": {
+      "bytes": 77946846,
+      "sha256": "0c3bc2a1d938e0ce49b3e84ec56d4efd4376d8e332e9f1f10859e610cd478e9e"
+    }
+  }
+}
