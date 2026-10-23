@@ -33,3 +33,18 @@ test('faculty access is scoped and administrator route is unavailable',async({pa
  await page.getByRole('link',{name:'Courses',exact:true}).click();await page.waitForURL('**/courses');await expect(page.getByRole('heading',{name:'Courses',exact:true})).toBeVisible();await expect(page.getByText('Applied Security Engineering',{exact:true})).toBeVisible();
  await page.getByRole('button',{name:'Sign out'}).click();await expect(page.getByRole('heading',{name:'Welcome back'})).toBeVisible();
 });
+
+test('administrator configures the separate iPhone presence policy with an audit reason',async({page})=>{
+ await page.goto('/');await page.getByLabel('Email address').fill('admin@spvs.example');await page.getByLabel('Password').fill(password);await page.getByRole('button',{name:'Sign in to workspace'}).click();
+ await page.getByRole('link',{name:'Administration',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Device capabilities'})).toBeVisible();
+ await page.getByRole('button',{name:'Edit policy',exact:true}).click();
+ await page.getByLabel('iPhone presence evidence',{exact:true}).selectOption('review');
+ await page.getByLabel('Reason (required for the audit trail)').fill('Cross-platform browser check: retain manual review for iPhone presence.');
+ const saved=page.waitForResponse(r=>r.request().method()==='PUT'&&new URL(r.url()).pathname==='/api/v1/policy');
+ await page.getByRole('button',{name:'Save changes'}).click();
+ const response=await saved;expect(response.ok()).toBeTruthy();expect((await response.json()).ios_presence).toBe('review');
+ await expect(page.getByRole('dialog')).toHaveCount(0);
+ await page.getByRole('link',{name:'Security events',exact:true}).click();
+ await expect(page.getByText('POLICY CHANGED',{exact:true}).first()).toBeVisible();
+});

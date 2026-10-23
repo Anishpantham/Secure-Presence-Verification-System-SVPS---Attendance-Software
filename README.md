@@ -2,7 +2,7 @@
 
 A working college attendance project with **two verification layers**: identity and physical presence. FastAPI/PostgreSQL enforce decisions; a React dashboard manages institution workflows; an Expo development app captures real student evidence.
 
-**Assurance boundary:** this is a production-inspired semester project, not a certified biometric or device-attestation product. Real SFace inference and server-side liveness logic are implemented. Phone capture, Android Wi-Fi behavior, and liveness usability require the real-device evaluation in `docs/TESTING_STRATEGY.md`. Play Integrity and App Attest are deliberately unconfigured and never report a successful verdict.
+**Assurance boundary:** this is a production-inspired semester project, not a certified biometric or device-attestation product. Real SFace inference and server-side liveness logic are implemented. Phone capture, Android Wi-Fi behavior, and liveness usability require the real-device evaluation in `docs/TESTING_STRATEGY.md`. Play Integrity is unconfigured. Apple App Attest now has native and server verification code, tested with synthetic certificates; genuine provider/device interoperability is unverified and deployment configuration is required.
 
 ## Start on a MacBook Air M4
 
@@ -36,7 +36,7 @@ npm ci
 npm run android
 ```
 
-Android Studio, an installed Android SDK, Java compatible with the generated Gradle project, and a connected phone/emulator are required. `npm run android` creates a development build; use `npm start` to reconnect Metro. Expo Go cannot load the included Android Wi-Fi module. An Android emulator can reach the host through `10.0.2.2`; a phone needs a LAN-reachable development server or trusted HTTPS endpoint. Release builds require HTTPS. iOS development builds need Xcode and signing; Wi-Fi scans are explicitly unsupported on iOS.
+Android Studio, an installed Android SDK, Java compatible with the generated Gradle project, and a connected phone/emulator are required. `npm run android` creates a development build; use `npm start` to reconnect Metro. Expo Go cannot load the included Android Wi-Fi module. An Android emulator can reach the host through `10.0.2.2`; a phone needs a LAN-reachable development server or trusted HTTPS endpoint. Release builds require HTTPS. iOS development builds need Xcode and signing; only permitted current-network BSSID is collected, never nearby Wi-Fi scans or invented RSSI. See `docs/CROSS_PLATFORM_IMPLEMENTATION.md` for the separate presence policy and App Attest setup.
 
 ## Verify the project
 
@@ -71,7 +71,7 @@ PostgreSQL persists in the `pgdata` volume. Backend runs as a non-root user; the
 | `backend/app/services` | Actual face pipeline, temporal liveness, geofencing and Wi-Fi rules |
 | `backend/alembic` | Explicit PostgreSQL schema migration |
 | `dashboard` | Accessible institutional web workflows, charts and CSV exports |
-| `mobile` | Student app and native Android Wi-Fi module |
+| `mobile` | Student app, Android/iOS key and Wi-Fi modules, App Attest protocol |
 | `scripts` | Repeatable local setup, verified downloads and submission packaging |
 | `docs` | Design, academic report, security analysis and measured results |
 
@@ -85,3 +85,10 @@ Dependencies are pinned by `backend/uv.lock` and the two `package-lock.json` fil
 4. `docs/PROJECT_REPORT.md` — editable college submission.
 
 There are no BLE beacons, ESP32 devices, ultrasonic tokens, surveillance cameras, blockchain storage, fabricated sensor measurements, or pretend AI predictions.
+
+
+## Cross-platform completion delivery
+
+Start with `docs/FINAL_COMPLETION_REPORT.md` for current test/build evidence and remaining release gates. `docs/CROSS_PLATFORM_IMPLEMENTATION.md` explains native P-256 device keys, Apple App Attest verification, iPhone current-network privacy restrictions and auditable iOS presence policy. `scripts/build_mobile_macos.sh` provides Android, iOS simulator and signed-device build entry points for Apple Silicon. Final artifacts live in `release/final/`; previous delivery artifacts remain unchanged.
+
+New device registrations require native key proof by default. Apply all Alembic migrations before updating clients. Existing HMAC devices remain compatible until an audited reset. Provider attestation and physical-device biometric performance must not be inferred from automated test counts.

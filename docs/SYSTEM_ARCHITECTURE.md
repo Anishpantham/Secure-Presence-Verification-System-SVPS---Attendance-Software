@@ -11,7 +11,7 @@ flowchart LR
   Identity --> YuNet[YuNet face detection]
   YuNet --> SFace[SFace 128D embedding]
   Identity --> Mesh[MediaPipe temporal landmarks]
-  Identity --> Device[Device HMAC verification]
+  Identity --> Device[P-256 device signature verification]
   API --> Presence[Layer 2: physical presence]
   Presence --> GPS[GPS uncertainty and geofence]
   Presence --> WiFi[Wi-Fi fingerprint policy]
@@ -23,7 +23,7 @@ flowchart LR
 
 The backend uses synchronous SQLAlchemy sessions in FastAPI synchronous route handlers, which execute in the framework's thread pool. This is deliberate: OpenCV/MediaPipe inference is synchronous and guarded by a process-local model lock. The application does not block an async endpoint with a synchronous database call. Multiple API workers share PostgreSQL rate limits and locks; each worker has its own model memory. Capacity and fair scheduling require load testing before institutional deployment.
 
-The dashboard uses a same-origin `/api` route through Vite in development or nginx in containers. Tokens remain in dashboard memory. The mobile app stores tokens and a per-user device signing credential in SecureStore. Its camera cache files are deleted after conversion; no raw frames are saved by the backend.
+The dashboard uses a same-origin `/api` route through Vite in development or nginx in containers. Tokens remain in dashboard memory. The mobile app stores tokens and per-user key metadata in SecureStore; new private keys stay in native Keystore/Secure Enclave storage. Its camera cache files are deleted after conversion; no raw frames are saved by the backend.
 
 ## Verification sequence
 
@@ -37,7 +37,7 @@ sequenceDiagram
   A->>D: Check enrollment, device, session, attempt limit
   A-->>M: Random actions, challenge ID, expiry, server clock
   M->>M: Capture frames, GPS and available Wi-Fi
-  M->>M: HMAC(idempotency key + exact JSON payload)
+  M->>M: ECDSA(idempotency key + exact JSON payload)
   M->>A: Submit signed evidence
   A->>D: Lock student, challenge and session
   A->>A: Validate signature, purpose, ownership, replay and time
@@ -68,3 +68,8 @@ flowchart TD
 ```
 
 Authentication, malformed payload and signature failures are HTTP errors; signed, attributable verification outcomes are persisted as attempts. This distinction prevents unauthenticated requests from inventing someone else's attempt history.
+
+
+## Cross-platform completion update
+
+Native device keys now live in `spvs-security` (Kotlin/Swift), with shared TypeScript adapters. App Attest registration uses dedicated one-use security challenges; assertions bind the exact signed request and advance a PostgreSQL counter. iOS current-network evidence is separate from Android scan measurements. See CROSS_PLATFORM_IMPLEMENTATION.md for trust boundaries and native-build limits.

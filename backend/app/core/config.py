@@ -18,6 +18,11 @@ class Settings(BaseSettings):
     challenge_seconds: int = Field(default=60, ge=20, le=120)
     environment: str = "development"
     allow_registration: bool = False
+    allow_legacy_device_registration: bool = False
+    apple_app_id: str = ""  # TeamID.bundleIdentifier; never derived from client input
+    apple_attest_environment: str = "production"
+    apple_attest_root_pem: Path | None = None
+    apple_attest_root_sha256: str = ""  # Independently verified Apple App Attestation Root CA
 
     @field_validator("biometric_key")
     @classmethod

@@ -52,3 +52,9 @@ Do not delete the PostgreSQL volume to resolve ordinary setup issues. `docker co
 ## Android dependency download in this cloud
 
 The observed Gradle build used Java 17, Gradle 9.4.1, Android API/build tools 37 and NDK 27.1.12297006. React Native 0.88.0’s AAR redirects from Maven Central to `repo.reactnative.dev`; allow that specific domain if the proxy returns HTTP 403. The saved cloud configuration includes this addition, but saving a draft does not apply it. Review/save the environment settings and publish before retrying. Keep TLS verification enabled, using the environment’s trusted Java CA store where necessary. Full native compilation and device execution remain unverified in the delivered results.
+
+## Cross-platform release configuration
+
+Apply migrations through `7a2d13ce4f90` before deploying updated clients. Leave ALLOW_LEGACY_DEVICE_REGISTRATION=false; migrate existing HMAC devices through approved resets. Configure ios_presence explicitly, retaining review by default. Set APPLE_APP_ID, APPLE_ATTEST_ENVIRONMENT, APPLE_ATTEST_ROOT_PEM and APPLE_ATTEST_ROOT_SHA256 only after verifying Apple Developer configuration and the official trust anchor; mount the PEM read-only into the backend container. A successful /ready response proves model/database availability, not platform attestation deployment.
+
+Use HTTPS, institution-owned signing credentials and tested backups. Raw frames are transient; encrypted biometric templates persist until explicit deletion. Define and implement institution-approved retention for templates, coarse location summaries, security events and expired challenges before real deployment. Automated retention/cryptographic key rotation and load testing remain operational work; the academic package does not invent a compliance guarantee. Run the physical Android/iPhone matrix and genuine App Attest interoperability checks before enabling production policy. EAS/TestFlight instructions are in SETUP_AND_DEMO_GUIDE.md.

@@ -20,3 +20,9 @@ mobile/ios/
 *.tsbuildinfo
 **/test-results/
 **/playwright-report/
+work/
+backend/work-baseline.xml
+**/build/
+**/.cxx/
+**/.gradle/
+**/.kotlin/

@@ -5,6 +5,9 @@ import pytest
 from dotenv import dotenv_values
 from sqlalchemy.engine import make_url
 
+# Legacy compatibility fixtures only; new client registration uses native P-256 keys.
+os.environ["ALLOW_LEGACY_DEVICE_REGISTRATION"] = "true"
+
 root = Path(__file__).resolve().parents[2]
 local = dotenv_values(root / ".env")
 for key in ["JWT_SECRET", "BIOMETRIC_KEY"]:

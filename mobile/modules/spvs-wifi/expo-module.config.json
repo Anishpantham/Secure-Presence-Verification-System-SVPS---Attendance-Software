@@ -1,1 +1,16 @@
-{"platforms":["android"],"android":{"modules":["edu.spvs.wifi.SpvsWifiModule"]}}
+{
+  "platforms": [
+    "apple",
+    "android"
+  ],
+  "android": {
+    "modules": [
+      "edu.spvs.wifi.SpvsWifiModule"
+    ]
+  },
+  "apple": {
+    "modules": [
+      "SpvsWifiModule"
+    ]
+  }
+}

@@ -83,6 +83,7 @@ class PolicyInput(Input):
     max_accuracy_m: float = Field(default=35, ge=5, le=100)
     max_location_age_s: int = Field(default=20, ge=5, le=60)
     wifi_unavailable: Literal["review", "gps_only", "reject"] = "review"
+    ios_presence: Literal["review", "retry", "gps_only"] = "review"
     require_attestation: bool = False
     max_attempts: int = Field(default=5, ge=1, le=10)
     reason: str = Field(min_length=10, max_length=1000)
@@ -110,6 +111,20 @@ class DeviceInput(Input):
     label: str = Field(min_length=2, max_length=100)
     platform: Literal["android", "ios"]
     password: str = Field(min_length=1, max_length=128)
+    public_key: str | None = Field(default=None, max_length=200)
+    registration_challenge_id: str | None = None
+    registration_signature: str | None = Field(default=None, max_length=200)
+    key_storage: Literal["secure-enclave", "keychain", "android-keystore", "android-hardware"] = "keychain"
+
+
+class AttestationChallengeInput(Input):
+    device_id: str
+
+
+class AttestationRegistration(AttestationChallengeInput):
+    challenge_id: str
+    key_id: str = Field(min_length=40, max_length=100)
+    attestation: str = Field(min_length=100, max_length=30000)
 
 
 class ChallengeInput(Input):
@@ -136,6 +151,7 @@ class Location(Input):
     accuracy_m: float = Field(ge=0, le=10000)
     captured_at: datetime
     mocked: bool = False
+    accuracy_authorization: Literal["full", "reduced", "unknown"] = "unknown"
 
     @field_validator("captured_at")
     @classmethod
@@ -154,10 +170,14 @@ class Evidence(Input):
     wifi: list[WifiObservation] = Field(default_factory=list, max_length=50)
     wifi_status: Literal["available", "unsupported", "permission_denied", "unavailable"] = "unavailable"
     integrity_token: str | None = Field(default=None, max_length=10000)
+    wifi_source: Literal["scan", "current_network", "none"] = "scan"
+    current_bssid: str | None = Field(default=None, pattern=r"^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$")
 
 
 class SignedEvidence(Input):
     # Exact JSON string signed by HMAC-SHA256; avoids cross-language canonicalization differences.
     payload: str = Field(min_length=100, max_length=14_100_000)
-    signature: str = Field(pattern=r"^[0-9a-f]{64}$")
+    signature: str = Field(min_length=40, max_length=200, pattern=r"^[a-zA-Z0-9+/=]+$")
     idempotency_key: str = Field(pattern=r"^[a-zA-Z0-9_-]{16,64}$")
+    attestation_key_id: str | None = Field(default=None, max_length=100)
+    attestation_assertion: str | None = Field(default=None, max_length=10000)

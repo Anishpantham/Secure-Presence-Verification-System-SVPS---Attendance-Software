@@ -24,3 +24,8 @@ Demonstrate one rejected or reviewable condition: permission denial, a clearly o
 ## If hardware or network is unavailable
 
 Demonstrate the running web/API/database workflow, real-model smoke tests and signed-request protocol tests. State that the API happy-path tests isolate vision and that physical sensor/liveness performance has not been measured. Show `SPVS_VERIFICATION_REPORT.md`, not an invented success video.
+
+
+## Cross-platform completion update
+
+For the cross-platform extension, show Android and iPhone capability differences before a phone demonstration. Open Administration and show the distinct iPhone review/retry/GPS-only choices and required audit reason. Show native device key algorithm and label storage as reported. If no Apple-configured physical device is available, show the explicit unconfigured/unsupported state and synthetic test evidence; do not claim an App Attest demo. Only mark real enrollment and attendance complete after a physical camera run succeeds. Present the final test matrix and outstanding hardware gates alongside the APK, if built.

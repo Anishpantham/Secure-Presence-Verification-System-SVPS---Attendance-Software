@@ -73,6 +73,7 @@ class Policy(Base):
     max_accuracy_m: Mapped[float] = mapped_column(Float, default=35)
     max_location_age_s: Mapped[int] = mapped_column(Integer, default=20)
     wifi_unavailable: Mapped[str] = mapped_column(String(16), default="review")
+    ios_presence: Mapped[str] = mapped_column(String(24), default="review")
     require_attestation: Mapped[bool] = mapped_column(Boolean, default=False)
     max_attempts: Mapped[int] = mapped_column(Integer, default=5)
 
@@ -86,6 +87,9 @@ class Device(IdentityMixin, Base):
     label: Mapped[str] = mapped_column(String(100))
     platform: Mapped[str] = mapped_column(String(16))
     secret_encrypted: Mapped[bytes] = mapped_column(LargeBinary)
+    key_algorithm: Mapped[str] = mapped_column(String(24), default="hmac-sha256")
+    public_key: Mapped[str | None] = mapped_column(Text)
+    key_storage: Mapped[str] = mapped_column(String(40), default="legacy-shared-secret")
     active: Mapped[bool] = mapped_column(Boolean, default=True)
     revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
@@ -96,6 +100,26 @@ class DeviceReset(IdentityMixin, Base):
     reason: Mapped[str] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(16), default="OPEN")
     reviewed_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"))
+
+
+class SecurityChallenge(IdentityMixin, Base):
+    __tablename__ = "security_challenges"
+    student_id: Mapped[str] = mapped_column(ForeignKey("students.user_id"), index=True)
+    device_id: Mapped[str | None] = mapped_column(ForeignKey("devices.id"))
+    purpose: Mapped[str] = mapped_column(String(24))
+    nonce: Mapped[str] = mapped_column(String(64))
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    used: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class AppAttestKey(Base):
+    __tablename__ = "app_attest_keys"
+    key_id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), unique=True)
+    public_key: Mapped[bytes] = mapped_column(LargeBinary)
+    counter: Mapped[int] = mapped_column(__import__("sqlalchemy").BigInteger, default=0)
+    environment: Mapped[str] = mapped_column(String(16))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 
 
 class BiometricProfile(Base):
@@ -122,6 +146,7 @@ class Challenge(IdentityMixin, Base):
     session_id: Mapped[str | None] = mapped_column(ForeignKey("attendance_sessions.id"), index=True)
     purpose: Mapped[str] = mapped_column(String(16))
     actions: Mapped[list] = mapped_column(JSON)
+    enrollment_request_hash: Mapped[str | None] = mapped_column(String(64))
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     used: Mapped[bool] = mapped_column(Boolean, default=False)
 

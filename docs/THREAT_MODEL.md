@@ -9,7 +9,7 @@ Assets include student identity, biometric templates, device credentials, locati
 | Client says liveness passed | Schema rejects unknown verdict fields; server analyzes frames | Frame capture provenance is not attested |
 | Hostel or remote attempt | Server GPS geofence, accuracy, age and available Wi-Fi | Compromised phones may forge all signals |
 | GPS spoofing | Mock indicator, stale/accuracy checks, coarse travel anomaly | An omitted/forged mock flag is not trustworthy |
-| Device ID cloning | Random secret and evidence HMAC; one active binding | Extracted secret can be copied; no hardware signing guarantee |
+| Device ID cloning | Native P-256 proof and signed evidence; one active binding; legacy HMAC compatibility | Legacy secrets can be copied; native storage reports are not independent key attestation |
 | Replay or duplicate | Purpose/user/device/session binding, expiry, single use, unique keys and records | Encoded video may be re-rendered to evade byte equality; liveness is basic |
 | Concurrent submission | Student/challenge/session locks and unique constraints | Session-level serialization limits throughput |
 | Faculty accesses another class | Server course-ownership checks and query scoping | Privileged administrator has institution-wide access |
@@ -21,6 +21,14 @@ Assets include student identity, biometric templates, device credentials, locati
 
 ## Abuse evaluation protocol
 
-Use consented volunteers on real Android devices. Test identical-photo presentation, screen replay, a wrong person, multiple faces, same evidence/key replay, same evidence/new key replay, a second registered device, a revoked device, a distant location, disabled location permission and unavailable Wi-Fi. Inspect both HTTP outcomes and resulting database/audit records. Record model version, threshold, device model, OS version, illumination and capture timing. Never label a human review or an unrun test as successful automatic presence verification.
+Use consented volunteers on both real Android and iPhone devices. Test identical-photo presentation, screen replay, a wrong person, multiple faces, same evidence/key replay, same evidence/new key replay, a second registered device, a revoked device, a distant location, disabled location permission and unavailable Wi-Fi. Inspect both HTTP outcomes and resulting database/audit records. Record model version, threshold, device model, OS version, illumination and capture timing. Never label a human review or an unrun test as successful automatic presence verification.
 
 The public test portraits are used only for model smoke tests. No external biometric service receives student images, and this implementation does not use facial recognition for surveillance or sensitive-trait inference.
+
+
+## Cross-platform completion update
+
+New threat cases: App Attest development/production confusion, attacker-selected trust roots, certificate nonce substitution, assertion-counter replay, app reinstall with persistent iOS Keychain entries, and presenting iOS BSSID identity as multi-AP RSSI evidence. Controls include server-configured root fingerprint/app ID/environment, challenge consumption and key uniqueness, atomic counters, installation-ID checks, and separate server iOS policy. Synthetic adversarial tests cover protocol rejection; physical sensor injection, rooted-device behavior and sophisticated presentation attacks still require evaluation. Keychain-only simulator keys are never claimed to be Secure Enclave keys.
+
+
+Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, even if the global attestation requirement is off. The registered platform is client-reported; without this gate an unverified client could select a weaker platform policy. With App Attest unavailable/unconfigured, iPhone verification remains review/retry. GPS-only evidence still has lower presence assurance after app verification.

@@ -43,7 +43,7 @@ Dashboard unit tests exercise login, errors, role navigation, record filtering, 
 | GPS boundary | Inside, overlapping accuracy circle, clearly outside | PRESENT only if other checks pass; review/reject as specified |
 | Permission denial | Deny camera and location separately | Actionable error; no fake submission success |
 | Android Wi-Fi | Known campus APs with permissions and location enabled | Real BSSID/RSSI readings or explicit unavailable status |
-| iOS Wi-Fi | Run iOS development build | Explicit unsupported status; configured fallback |
+| iOS Wi-Fi | Run iOS development build | Permitted current BSSID or explicit unavailable status; separate audited iOS policy |
 | Revoked phone | Approve a reset then submit from old phone | Device authorization denied |
 | Network loss | Interrupt after submit, retry identical signed payload | One attendance attempt/record, same response ID |
 | Native integrity | Configure provider separately and submit invalid/replayed token | Provider verification must fail closed |
@@ -53,3 +53,8 @@ Record phone model, OS, app build, permissions, model hashes, face threshold, li
 ## Dependency and deployment validation
 
 Run `npm audit --json` in each client and `pip-audit` against the locked backend runtime requirements. Keep unresolved upstream advisories visible; do not use `--force` to silently downgrade the SDK. Verify container builds on the intended architecture, health/readiness and migration restart. Mac ARM64 instructions are provided but an x86_64 cloud test is not an Apple Silicon execution result.
+
+
+## Cross-platform completion update
+
+The final suite adds P-256 registration/signature failures for Android/iOS, expiry/ownership checks, separate iOS policy and reduced-accuracy tests, synthetic App Attest certificate chain/nonce/app/environment/key rejection and counter replay, shared capture interruption/expiration and component rendering tests. React Native host components are mocked in component tests; these are not simulator tests. See TEST_RESULTS.md for final counts and the explicit hardware matrix. Current records supersede baseline counts; historical docs/evidence files describe the prior release.

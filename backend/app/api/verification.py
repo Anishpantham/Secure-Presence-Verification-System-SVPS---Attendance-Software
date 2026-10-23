@@ -14,9 +14,13 @@ from app.core.config import settings
 from app.core.security import audit, cipher, digest, roles, throttle, verify_password
 from app.db.session import get_db
 from app.models.entities import (AttendanceAttempt, AttendanceRecord, AttendanceSession, BiometricProfile,
-    Challenge, Classroom, Device, User, WifiReference, now)
-from app.schemas.contracts import ChallengeInput, DeviceInput, Evidence, Login, SignedEvidence
-from app.services.attestation import verify_integrity
+    Challenge, Classroom, Device, User, WifiReference, SecurityChallenge, AppAttestKey, now)
+from app.schemas.contracts import ChallengeInput, DeviceInput, Evidence, Login, SignedEvidence, AttestationChallengeInput, AttestationRegistration
+from app.services.attestation import verify_integrity, IntegrityVerdict
+from app.services.device_keys import registration_message, verify_signature
+from app.services import app_attest
+from cryptography.exceptions import InvalidSignature
+from cryptography import x509
 from app.services.presence import Decision, evaluate
 from app.services.vision import MODEL_VERSION, VisionError, get_vision, normalize
 
@@ -26,7 +30,8 @@ student = roles("student")
 
 @router.get("/devices")
 def devices(user: User = Depends(student), db: Session = Depends(get_db)):
-    return [public(d) for d in db.scalars(select(Device).where(Device.student_id == user.id))]
+    return [{**public(d), 'app_attest_registered': bool(db.scalar(select(AppAttestKey.key_id).where(AppAttestKey.device_id == d.id)))}
+            for d in db.scalars(select(Device).where(Device.student_id == user.id))]
 
 
 @router.post("/devices", status_code=201)
@@ -39,12 +44,26 @@ def register_device(data: DeviceInput, user: User = Depends(student), db: Sessio
         audit(db, user.id, "DEVICE_CHANGE_BLOCKED", severity="WARNING")
         db.commit()
         raise HTTPException(409, "An active device exists; request an administrator-approved reset")
-    credential = secrets.token_hex(32)
-    device = Device(student_id=user.id, label=data.label, platform=data.platform, secret_encrypted=cipher().encrypt(credential.encode()))
+    credential = None
+    if data.public_key:
+        challenge = consume_security_challenge(db, user.id, data.registration_challenge_id, 'device-registration')
+        try:
+            message = registration_message(challenge.nonce, data.platform, data.public_key)
+        except (ValueError, TypeError):
+            raise HTTPException(422, 'INVALID_P256_PUBLIC_KEY')
+        if not verify_signature(data.public_key, data.registration_signature, message):
+            raise HTTPException(403, 'DEVICE_REGISTRATION_SIGNATURE_INVALID')
+        device = Device(student_id=user.id, label=data.label, platform=data.platform, secret_encrypted=b'',
+                        key_algorithm='ecdsa-p256-sha256', public_key=data.public_key, key_storage=data.key_storage)
+    else:
+        if not settings().allow_legacy_device_registration:
+            raise HTTPException(422, 'NATIVE_DEVICE_KEY_REQUIRED')
+        credential = secrets.token_hex(32)
+        device = Device(student_id=user.id, label=data.label, platform=data.platform, secret_encrypted=cipher().encrypt(credential.encode()))
     db.add(device)
     audit(db, user.id, "DEVICE_REGISTERED", platform=data.platform)
     db.commit()
-    return {**public(device), "credential": credential, "storage": "Store once in OS secure credential storage"}
+    return {**public(device), **({"credential": credential} if credential else {}), "storage": "Native private key; storage type is client reported, not attested"}
 
 
 @router.get("/biometrics")
@@ -68,7 +87,7 @@ def delete_biometrics(data: Login, user: User = Depends(student), db: Session = 
 
 
 def active_device(db, user_id, device_id):
-    device = db.get(Device, device_id)
+    device = db.scalar(select(Device).where(Device.id == device_id).with_for_update())
     if not device or device.student_id != user_id or not device.active:
         raise HTTPException(403, "DEVICE_UNAUTHORIZED")
     return device
@@ -111,9 +130,16 @@ def unpack(db, user, data):
     except ValidationError:
         raise HTTPException(422, "Malformed verification evidence")
     device = active_device(db, user.id, evidence.device_id)
-    secret = cipher().decrypt(device.secret_encrypted)
-    expected = hmac.new(secret, (data.idempotency_key + "." + data.payload).encode(), hashlib.sha256).hexdigest()
-    if not hmac.compare_digest(expected, data.signature):
+    message = data.idempotency_key + "." + data.payload
+    if device.key_algorithm == 'ecdsa-p256-sha256':
+        valid = verify_signature(device.public_key, data.signature, message)
+    elif device.key_algorithm == 'hmac-sha256':
+        secret = cipher().decrypt(device.secret_encrypted)
+        expected = hmac.new(secret, message.encode(), hashlib.sha256).hexdigest()
+        valid = hmac.compare_digest(expected, data.signature)
+    else:
+        valid = False
+    if not valid:
         audit(db, user.id, "DEVICE_SIGNATURE_INVALID", severity="HIGH")
         db.commit()
         raise HTTPException(403, "DEVICE_SIGNATURE_INVALID")
@@ -133,6 +159,9 @@ def enroll_biometrics(data: SignedEvidence, user: User = Depends(student), db: S
     db.scalar(select(User).where(User.id == user.id).with_for_update())
     evidence, device = unpack(db, user, data)
     item = locked_challenge(db, user, evidence, "enrollment")
+    enrollment_hash = digest(data.idempotency_key + '.' + data.payload)
+    if item.used and item.enrollment_request_hash == enrollment_hash and db.get(BiometricProfile, user.id):
+        return {"enrolled": True, "model": MODEL_VERSION, "raw_images_retained": False}
     if item.used or item.expires_at <= now():
         audit(db, user.id, "ENROLLMENT_CHALLENGE_REPLAY", severity="HIGH")
         db.commit()
@@ -150,6 +179,7 @@ def enroll_biometrics(data: SignedEvidence, user: User = Depends(student), db: S
         db.commit()
         raise HTTPException(422, str(exc))
     db.add(BiometricProfile(student_id=user.id, template_encrypted=cipher().encrypt(template.astype("float32").tobytes()), model_version=MODEL_VERSION))
+    item.enrollment_request_hash = enrollment_hash
     audit(db, user.id, "BIOMETRIC_ENROLLED", model=MODEL_VERSION)
     db.commit()
     return {"enrolled": True, "model": MODEL_VERSION, "raw_images_retained": False}
@@ -198,8 +228,16 @@ def verify_attendance(data: SignedEvidence, user: User = Depends(student), db: S
             previous = None
             if last and "latitude" in last.evidence_summary:
                 previous = {**last.evidence_summary, "time": last.created_at}
-            decision = evaluate(evidence.location, evidence.wifi, evidence.wifi_status, room, refs, policy(db), current, previous)
-            integrity = verify_integrity(evidence.integrity_token, item.id, device.platform)
+            integrity = verify_platform_attestation(db, device, data, evidence)
+            decision = evaluate(evidence.location, evidence.wifi, evidence.wifi_status, room, refs, policy(db), current, previous,
+                                platform=device.platform, wifi_source=evidence.wifi_source, current_bssid=evidence.current_bssid,
+                                attestation_verified=integrity.verified)
+            decision.summary.update(platform=device.platform, device_key_algorithm=device.key_algorithm,
+                                    key_storage_reported=device.key_storage, wifi_source=evidence.wifi_source)
+            if data.attestation_assertion and not integrity.verified and decision.state == 'PRESENT':
+                decision.state = 'PENDING_REVIEW'
+                decision.reasons = [integrity.reason]
+                decision.risk_score = max(decision.risk_score, 50)
             decision.summary.update(face_similarity=round(score, 4), liveness="PASSED", attestation=integrity.reason)
             if evidence.location:
                 # Coarse coordinates for explainable travel checks; no images retained.
@@ -220,3 +258,81 @@ def verify_attendance(data: SignedEvidence, user: User = Depends(student), db: S
             audit(db, user.id, "REPEATED_VERIFICATION_FAILURES", session.id, severity="HIGH", attempts=count + 1)
     db.commit()
     return public(attempt)
+
+
+def consume_security_challenge(db, student_id, challenge_id, purpose, device_id=None):
+    item = db.scalar(select(SecurityChallenge).where(SecurityChallenge.id == challenge_id).with_for_update())
+    if not item or item.student_id != student_id or item.purpose != purpose or item.device_id != device_id or item.used or item.expires_at <= now():
+        raise HTTPException(409, 'SECURITY_CHALLENGE_INVALID_OR_USED')
+    item.used = True
+    return item
+
+
+def new_security_challenge(db, user, purpose, device_id=None):
+    item = SecurityChallenge(student_id=user.id, device_id=device_id, purpose=purpose,
+                             nonce=secrets.token_hex(32), expires_at=now()+timedelta(seconds=120))
+    db.add(item); db.commit()
+    return public(item)
+
+
+@router.post('/devices/registration-challenge', status_code=201)
+def device_registration_challenge(user: User = Depends(student), db: Session = Depends(get_db)):
+    throttle(db, 'device-challenge:'+user.id, 5, 300)
+    return new_security_challenge(db, user, 'device-registration')
+
+
+@router.get('/attestation/capabilities')
+def attestation_capabilities(user: User = Depends(student)):
+    return {'apple_app_attest': 'configured' if app_attest.configured(settings()) else 'not_configured',
+            'apple_environment': settings().apple_attest_environment, 'play_integrity': 'not_configured'}
+
+
+@router.post('/attestation/challenge', status_code=201)
+def attestation_challenge(data: AttestationChallengeInput, user: User = Depends(student), db: Session = Depends(get_db)):
+    throttle(db, 'attest-challenge:'+user.id, 5, 300)
+    db.scalar(select(User).where(User.id == user.id).with_for_update())
+    device = active_device(db, user.id, data.device_id)
+    if device.platform != 'ios' or not app_attest.configured(settings()):
+        raise HTTPException(503, 'APP_ATTEST_NOT_CONFIGURED_OR_UNSUPPORTED')
+    return new_security_challenge(db, user, 'app-attest', device.id)
+
+
+@router.post('/attestation/register', status_code=201)
+def register_attestation(data: AttestationRegistration, user: User = Depends(student), db: Session = Depends(get_db)):
+    throttle(db, 'attest-register:'+user.id, 5, 300)
+    db.scalar(select(User).where(User.id == user.id).with_for_update())
+    device = active_device(db, user.id, data.device_id)
+    if device.platform != 'ios' or not app_attest.configured(settings()):
+        raise HTTPException(503, 'APP_ATTEST_NOT_CONFIGURED_OR_UNSUPPORTED')
+    challenge = consume_security_challenge(db, user.id, data.challenge_id, 'app-attest', device.id)
+    if db.scalar(select(AppAttestKey).where(AppAttestKey.device_id == device.id)):
+        raise HTTPException(409, 'APP_ATTEST_KEY_ALREADY_REGISTERED')
+    try:
+        message = f'SPVS-ATTEST-v1.{challenge.nonce}.{device.id}.{data.key_id}'.encode()
+        key = app_attest.verify_attestation(data.attestation, data.key_id, message, settings())
+    except (ValueError, TypeError, KeyError, OSError, InvalidSignature, x509.ExtensionNotFound):
+        audit(db, user.id, 'APP_ATTEST_REGISTRATION_FAILED', severity='HIGH')
+        db.commit()  # Burn failed attestation challenges as well.
+        raise HTTPException(403, 'APP_ATTEST_INVALID')
+    db.add(AppAttestKey(key_id=data.key_id, device_id=device.id, public_key=key,
+                       counter=0, environment=settings().apple_attest_environment))
+    audit(db, user.id, 'APP_ATTEST_REGISTERED', device_id=device.id)
+    db.commit()
+    return {'verified': True, 'environment': settings().apple_attest_environment}
+
+
+def verify_platform_attestation(db, device, data, evidence):
+    if device.platform != 'ios':
+        return verify_integrity(evidence.integrity_token, evidence.challenge_id, device.platform)
+    if not data.attestation_assertion or not data.attestation_key_id:
+        return IntegrityVerdict(False, 'APP_ATTEST_ASSERTION_MISSING')
+    key = db.scalar(select(AppAttestKey).where(AppAttestKey.key_id == data.attestation_key_id,
+                                             AppAttestKey.device_id == device.id).with_for_update())
+    if not key or key.environment != settings().apple_attest_environment:
+        return IntegrityVerdict(False, 'APP_ATTEST_KEY_UNKNOWN')
+    try:
+        key.counter = app_attest.verify_assertion(data.attestation_assertion,
+            (data.idempotency_key+'.'+data.payload).encode(), key.public_key, key.counter, settings())
+        return IntegrityVerdict(True, 'APP_ATTEST_VERIFIED')
+    except (ValueError, TypeError, KeyError, InvalidSignature):
+        return IntegrityVerdict(False, 'APP_ATTEST_ASSERTION_INVALID')

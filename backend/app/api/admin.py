@@ -6,7 +6,7 @@ from app.api.auth import create_user
 from app.api.common import policy, public, required
 from app.core.security import audit, current_user, roles
 from app.db.session import get_db
-from app.models.entities import Device, DeviceReset, Faculty, RefreshToken, Student, User, now
+from app.models.entities import Device, DeviceReset, AppAttestKey, Faculty, RefreshToken, Student, User, now
 from app.schemas.contracts import CreateUser, PolicyInput, Reason, UserUpdate
 
 router = APIRouter(tags=["Administration"])
@@ -102,3 +102,11 @@ def approve_reset(reset_id: str, data: Reason, user: User = Depends(admin), db: 
     audit(db, user.id, "DEVICE_RESET_APPROVED", severity="HIGH", student_id=item.student_id, reason=data.reason)
     db.commit()
     return public(item)
+
+
+@router.get('/admin/devices')
+def device_capabilities(user: User = Depends(admin), db: Session = Depends(get_db)):
+    return [{**public(device, exclude=('public_key',)),
+             'app_attest_registered': bool(db.scalar(select(AppAttestKey.key_id).where(AppAttestKey.device_id == device.id))),
+             'hardware_storage_verified': False}
+            for device in db.scalars(select(Device).order_by(Device.created_at.desc()).limit(500))]
