@@ -152,7 +152,7 @@ Metro. Never use the phone's `localhost` as the Mac's API address.
 | Database migrations | Upgrade and schema check passed |
 | Xcode simulator build | Passed: `BUILD SUCCEEDED`; final build wrapper exit 0 |
 | Simulator app launch | Installed and launched (`edu.spvs.student`); Expo development launcher visible; Open prompt awaits user interaction |
-| Signed physical-device build | Passed with Personal Team; installed on iPhone 16 Pro; launch blocked by iOS security/profile-trust error |
+| Signed physical-device build | Passed with Personal Team; installed and launched on iPhone 16 Pro after user trusted the developer |
 | Genuine Apple App Attest | Not configured or tested |
 
 Backend App Attest tests use synthetic certificates. These results do not
@@ -228,11 +228,17 @@ The embedded profile matches the signed app, includes the connected iPhone, and
 expires at 2026-10-30 17:49:02 UTC.
 
 `devicectl device install app` confirmed installation on the physical iPhone.
-The subsequent launch was rejected with CoreDevice error 10002 / application
+The initial launch was rejected with CoreDevice error 10002 / application
 Security error 3, whose message includes a profile not explicitly trusted by the
 user. Signature verification and profile/device matching passed locally. The
-next manual step is to trust the development profile on the iPhone and retry
-launch. No successful physical launch or student flow is claimed yet.
+user then confirmed trusting the development profile. A subsequent
+`devicectl device process launch` succeeded. The actual device screenshot at
+`work/iphone-launch.png` shows the SPVS Student development launcher searching
+for development servers, with a 4G status indicator. It does not show student
+login. The Mac's API and Metro health checks still pass at the same LAN address.
+The next manual step is to connect the iPhone to the Mac's reachable Wi-Fi
+network, allow local-network access, and verify the API from phone Safari.
+Phone-to-Mac connectivity and student flows remain unverified.
 
 Follow Apple's [signing workflow](https://help.apple.com/xcode/mac/current/en.lproj/dev60b6fbbc7.html)
 and [Developer Mode instructions](https://developer.apple.com/documentation/xcode/enabling-developer-mode-on-a-device).
@@ -250,8 +256,8 @@ The following remain unverified on a physical iPhone:
   unavailable Wi-Fi information and interrupted-network retries.
 - Secure Enclave key creation/signing and device registration; reinstall/key-loss
   behavior and administrator-approved recovery.
-- Trusted physical-device launch and genuine App Attest registration/assertions
-  with a supported Apple team and matching server trust configuration.
+- Genuine App Attest registration/assertions with a supported Apple team and
+  matching server trust configuration.
 
 Retain the server's review/retry defaults. Simulator keys and synthetic tests
 must not be represented as physical Secure Enclave or genuine Apple attestation.
