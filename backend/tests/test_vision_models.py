@@ -57,3 +57,10 @@ def test_real_detector_rejects_multiple_faces(vision):
     image=cv2.imread(str(path));joined=np.concatenate([image,image],axis=1);_,jpg=cv2.imencode('.jpg',joined)
     with pytest.raises(VisionError,match='EXACTLY_ONE_FACE_REQUIRED'):
         vision.observe(SimpleNamespace(jpeg=base64.b64encode(jpg).decode(),captured_at=now()))
+
+
+@pytest.mark.parametrize('level',[0,255])
+def test_real_pipeline_rejects_poor_lighting(vision,level):
+    image=np.full((480,640,3),level,dtype=np.uint8);_,jpeg=cv2.imencode('.jpg',image)
+    with pytest.raises(VisionError,match='IMAGE_QUALITY_LOW'):
+        vision.observe(SimpleNamespace(jpeg=base64.b64encode(jpeg).decode(),captured_at=now()))

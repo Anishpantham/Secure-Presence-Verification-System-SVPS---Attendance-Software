@@ -130,6 +130,8 @@ class Vision:
         # Signed nose displacement relative to eye centers, normalized by interocular span.
         left, right = points[33], points[263]
         yaw = (points[1][0] - (left[0] + right[0]) / 2) / max(1, abs(right[0]-left[0]))
+        if not np.isfinite(eye_ratio) or not np.isfinite(yaw):
+            raise VisionError("LANDMARKS_INVALID")
         return Observation(frame.captured_at, float(eye_ratio), float(yaw), embedding)
 
     def verify(self, frames, challenge, template=None):

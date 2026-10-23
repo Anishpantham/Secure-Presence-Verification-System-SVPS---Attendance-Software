@@ -1,0 +1,8 @@
+Running: alembic upgrade head
+Running: alembic check
+No new upgrade operations detected.
+Running: alembic downgrade base
+Running: alembic upgrade head
+Running: alembic check
+No new upgrade operations detected.
+Fresh PostgreSQL upgrade, schema comparison, full downgrade, re-upgrade and schema comparison passed.

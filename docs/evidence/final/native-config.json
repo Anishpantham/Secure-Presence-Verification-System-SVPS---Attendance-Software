@@ -1,0 +1,34 @@
+{
+  "ios_minimum": "16.4",
+  "ios_autolinked_modules": [
+    {
+      "package": "spvs-security",
+      "swiftModules": [
+        "SpvsSecurity"
+      ],
+      "modules": [
+        {
+          "name": null,
+          "class": "SpvsSecurityModule"
+        }
+      ]
+    },
+    {
+      "package": "spvs-wifi",
+      "swiftModules": [
+        "SpvsWifi"
+      ],
+      "modules": [
+        {
+          "name": null,
+          "class": "SpvsWifiModule"
+        }
+      ]
+    }
+  ],
+  "native_config_check": "passed",
+  "ios_compilation": "unverified",
+  "apk_min_sdk": 24,
+  "apk_target_sdk": 36,
+  "apk_compile_sdk": 37
+}

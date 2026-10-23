@@ -1,0 +1,766 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileJava NO-SOURCE
+> Task :gradle-plugin:shared:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:processResources NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:classes UP-TO-DATE
+> Task :gradle-plugin:shared:compileJava NO-SOURCE
+> Task :gradle-plugin:shared:processResources NO-SOURCE
+> Task :gradle-plugin:shared:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:jar UP-TO-DATE
+> Task :gradle-plugin:shared:jar UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:settings-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:jar UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:jar UP-TO-DATE
+> Task :expo-dev-launcher-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-dev-launcher-gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-dev-launcher-gradle-plugin:processResources UP-TO-DATE
+> Task :expo-module-gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-module-gradle-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:jar UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:jar UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:jar UP-TO-DATE
+> Task :expo-dev-launcher-gradle-plugin:compileKotlin UP-TO-DATE
+> Task :expo-module-gradle-plugin:compileKotlin UP-TO-DATE
+> Task :expo-dev-launcher-gradle-plugin:compileJava NO-SOURCE
+> Task :expo-dev-launcher-gradle-plugin:classes UP-TO-DATE
+> Task :expo-module-gradle-plugin:compileJava NO-SOURCE
+> Task :expo-module-gradle-plugin:classes UP-TO-DATE
+> Task :expo-dev-launcher-gradle-plugin:jar UP-TO-DATE
+> Task :expo-module-gradle-plugin:jar UP-TO-DATE
+
+> Configure project :
+[ExpoRootProject] The Kotlin Gradle plugin used by this build is 2.2.10, but the version catalog declares 2.2.0. Using the plugin version.
+[ExpoRootProject] Using the following versions:
+  - buildTools:  37.0.0
+  - minSdk:      24
+  - compileSdk:  37
+  - targetSdk:   36
+  - ndk:         27.1.12297006
+  - kotlin:      2.2.10
+  - ksp:         2.2.10-2.0.2
+
+> Configure project :app
+WARNING: The option setting 'android.builtInKotlin=false' is deprecated.
+The current default is 'true'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+WARNING: The option setting 'android.newDsl=false' is deprecated.
+The current default is 'true'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+ ℹ️  Applying gradle plugin 'expo-max-sdk-override-plugin'
+  [expo-max-sdk-override-plugin] This plugin will find all permissions declared with `android:maxSdkVersion`. If there exists a declaration with the `android:maxSdkVersion` annotation and another one without, the plugin will remove the annotation from the final merged manifest. In order to see a log with the changes run a clean build of the app.
+WARNING: API 'applicationVariants' is obsolete and has been replaced with 'AndroidComponentsExtension'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+The legacy variant API is disabled by default in AGP 9.0, but can be re-enabled by adding 
+    android.newDsl=false
+to this project's gradle.properties file.
+For more information, see http://developer.android.com/build/r/new-dsl.
+
+To determine what is calling applicationVariants, use -Pandroid.debug.obsoleteApi=true on the command line to display more information.
+WARNING: API 'testVariants' is obsolete and has been replaced with 'AndroidComponentsExtension'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+The legacy variant API is disabled by default in AGP 9.0, but can be re-enabled by adding 
+    android.newDsl=false
+to this project's gradle.properties file.
+For more information, see http://developer.android.com/build/r/new-dsl.
+
+To determine what is calling testVariants, use -Pandroid.debug.obsoleteApi=true on the command line to display more information.
+WARNING: API 'unitTestVariants' is obsolete and has been replaced with 'AndroidComponentsExtension'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+The legacy variant API is disabled by default in AGP 9.0, but can be re-enabled by adding 
+    android.newDsl=false
+to this project's gradle.properties file.
+For more information, see http://developer.android.com/build/r/new-dsl.
+
+To determine what is calling unitTestVariants, use -Pandroid.debug.obsoleteApi=true on the command line to display more information.
+ ℹ️  Applying gradle plugin 'expo-dev-launcher-gradle-plugin'
+
+> Configure project :expo
+WARNING: API 'libraryVariants' is obsolete and has been replaced with 'AndroidComponentsExtension'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+The legacy variant API is disabled by default in AGP 9.0, but can be re-enabled by adding 
+    android.newDsl=false
+to this project's gradle.properties file.
+For more information, see http://developer.android.com/build/r/new-dsl.
+
+To determine what is calling libraryVariants, use -Pandroid.debug.obsoleteApi=true on the command line to display more information.
+
+Using expo modules
+  - expo-dom-webview (58.0.2)
+  - expo-log-box (58.0.13)
+  - expo-constants (58.0.13)
+  - expo-dev-client (58.0.14)
+  - expo-dev-launcher (58.0.14)
+  - expo-dev-menu (58.0.11)
+  - expo-dev-menu-interface (58.0.1)
+  - expo-json-utils (58.0.1)
+  - expo-manifests (58.0.1)
+  - expo-modules-core (58.0.24)
+  - expo-updates-interface (58.0.1)
+  - spvs-security (1.0.0)
+  - spvs-wifi (1.0.0)
+  - [📦] expo-asset (58.0.18)
+  - [📦] expo-camera (58.0.12)
+  - [📦] expo-crypto (58.0.7)
+  - [📦] expo-file-system (58.0.10)
+  - [📦] expo-font (58.0.9)
+  - [📦] expo-image-loader (58.0.3)
+  - [📦] expo-image-manipulator (58.0.15)
+  - [📦] expo-keep-awake (58.0.3)
+  - [📦] expo-location (58.0.18)
+  - [📦] expo-secure-store (58.0.2)
+  - [📦] expo-status-bar (58.0.4)
+
+
+> Task :expo:generateInlineModules
+> Task :expo:generatePackagesList
+> Task :expo:preBuild
+> Task :expo-constants:preBuild UP-TO-DATE
+> Task :expo-dev-client:preBuild UP-TO-DATE
+> Task :expo-dev-launcher:preBuild UP-TO-DATE
+> Task :expo-dev-menu:preBuild UP-TO-DATE
+> Task :expo-dev-menu-interface:preBuild UP-TO-DATE
+> Task :expo-dom-webview:preBuild UP-TO-DATE
+> Task :expo-json-utils:preBuild UP-TO-DATE
+> Task :expo-log-box:preBuild UP-TO-DATE
+> Task :expo-manifests:preBuild UP-TO-DATE
+> Task :expo-modules-core:decompressPrebuiltNativeLibs
+> Task :expo-modules-core:preBuild
+> Task :expo-updates-interface:preBuild UP-TO-DATE
+> Task :react-native-safe-area-context:generateCodegenSchemaFromJavaScript
+> Task :react-native-safe-area-context:generateCodegenArtifactsFromSchema
+> Task :react-native-safe-area-context:preBuild
+> Task :react-native-screens:generateCodegenSchemaFromJavaScript
+> Task :react-native-screens:generateCodegenArtifactsFromSchema
+> Task :react-native-screens:preBuild
+> Task :spvs-security:preBuild UP-TO-DATE
+> Task :spvs-wifi:preBuild UP-TO-DATE
+> Task :expo:preDebugBuild
+> Task :expo:processDebugNavigationResources
+> Task :expo-constants:createDebugExpoConfig
+> Task :expo-constants:createExpoFingerprint
+> Task :expo-constants:preDebugBuild
+> Task :expo-constants:processDebugNavigationResources
+> Task :expo-dev-client:preDebugBuild UP-TO-DATE
+> Task :expo-dev-client:processDebugNavigationResources
+> Task :expo-dev-launcher:preDebugBuild UP-TO-DATE
+> Task :expo-dev-launcher:processDebugNavigationResources
+> Task :expo-dev-menu:preDebugBuild UP-TO-DATE
+> Task :expo-dev-menu:processDebugNavigationResources
+> Task :expo-dev-menu-interface:preDebugBuild UP-TO-DATE
+> Task :expo-dev-menu-interface:processDebugNavigationResources
+> Task :expo-dom-webview:preDebugBuild UP-TO-DATE
+> Task :expo-dom-webview:processDebugNavigationResources
+> Task :expo-json-utils:preDebugBuild UP-TO-DATE
+> Task :expo-json-utils:processDebugNavigationResources
+> Task :expo-log-box:preDebugBuild UP-TO-DATE
+> Task :expo-log-box:processDebugNavigationResources
+> Task :expo-manifests:preDebugBuild UP-TO-DATE
+> Task :expo-manifests:processDebugNavigationResources
+> Task :expo-modules-core:preDebugBuild
+> Task :expo-modules-core:processDebugNavigationResources
+> Task :expo-updates-interface:preDebugBuild UP-TO-DATE
+> Task :expo-updates-interface:processDebugNavigationResources
+> Task :react-native-safe-area-context:preDebugBuild
+> Task :react-native-safe-area-context:processDebugNavigationResources
+> Task :react-native-screens:preDebugBuild
+> Task :react-native-screens:processDebugNavigationResources
+> Task :spvs-security:preDebugBuild UP-TO-DATE
+> Task :spvs-security:processDebugNavigationResources
+> Task :spvs-wifi:preDebugBuild UP-TO-DATE
+> Task :spvs-wifi:processDebugNavigationResources
+> Task :expo:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo:generateDebugResources
+> Task :expo:packageDebugResources
+> Task :expo:parseDebugLocalResources
+> Task :expo:generateDebugRFile
+> Task :expo-constants:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-constants:generateDebugResources
+> Task :expo-constants:packageDebugResources
+> Task :expo-constants:parseDebugLocalResources
+> Task :expo-constants:generateDebugRFile
+> Task :expo-modules-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-modules-core:generateDebugBuildConfig
+> Task :expo-modules-core:generateDebugResources
+> Task :expo-modules-core:packageDebugResources
+> Task :expo-modules-core:parseDebugLocalResources
+> Task :expo-modules-core:generateDebugRFile
+> Task :app:generateAutolinkingNewArchitectureFiles
+> Task :app:generateAutolinkingPackageList
+> Task :app:generateCodegenSchemaFromJavaScript SKIPPED
+> Task :app:generateCodegenArtifactsFromSchema SKIPPED
+> Task :app:generateReactNativeEntryPoint
+> Task :app:preBuild
+> Task :app:preDebugBuild
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResValues
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :expo-modules-core:compileDebugKotlin
+> Task :app:processDebugNavigationResources
+> Task :app:parseDebugLocalResources
+> Task :app:generateDebugRFile
+> Task :expo-modules-core:javaPreCompileDebug
+> Task :expo-constants:javaPreCompileDebug
+> Task :expo-dev-client:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-dev-client:dataBindingMergeDependencyArtifactsDebug
+> Task :expo-dev-client:generateDebugResources
+> Task :expo-dev-client:packageDebugResources
+> Task :expo-dev-client:parseDebugLocalResources
+> Task :expo-dev-client:dataBindingGenBaseClassesDebug
+> Task :expo-dev-client:generateDebugBuildConfig
+> Task :expo-dev-client:generateDebugRFile
+> Task :expo-dev-client:javaPreCompileDebug
+> Task :expo-dev-launcher:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-dev-launcher:dataBindingMergeDependencyArtifactsDebug
+> Task :expo-dev-launcher:generateDebugResources
+> Task :expo-dev-launcher:packageDebugResources
+> Task :expo-dev-launcher:parseDebugLocalResources
+> Task :expo-dev-menu:generateDebugResources
+> Task :expo-dev-menu:packageDebugResources
+> Task :expo-dev-menu:parseDebugLocalResources
+> Task :expo-dev-menu:generateDebugRFile
+> Task :expo-dev-menu-interface:generateDebugResources
+> Task :expo-dev-menu-interface:packageDebugResources
+> Task :expo-dev-menu-interface:parseDebugLocalResources
+> Task :expo-dev-menu-interface:generateDebugRFile
+> Task :expo-json-utils:generateDebugResources
+> Task :expo-json-utils:packageDebugResources
+> Task :expo-json-utils:parseDebugLocalResources
+> Task :expo-json-utils:generateDebugRFile
+> Task :expo-manifests:generateDebugResources
+> Task :expo-manifests:packageDebugResources
+> Task :expo-manifests:parseDebugLocalResources
+> Task :expo-manifests:generateDebugRFile
+> Task :expo-updates-interface:generateDebugResources
+> Task :expo-updates-interface:packageDebugResources
+> Task :expo-updates-interface:parseDebugLocalResources
+> Task :expo-updates-interface:generateDebugRFile
+> Task :expo-dev-launcher:dataBindingGenBaseClassesDebug
+> Task :expo-dev-launcher:generateDebugBuildConfig
+> Task :expo-dev-launcher:generateDebugRFile
+> Task :expo-dev-menu:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-dev-menu:generateDebugBuildConfig
+> Task :expo-dev-menu-interface:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-dev-menu-interface:javaPreCompileDebug
+> Task :expo-json-utils:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-json-utils:javaPreCompileDebug
+> Task :expo-manifests:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-manifests:javaPreCompileDebug
+> Task :expo-dev-menu:javaPreCompileDebug
+> Task :expo-updates-interface:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-updates-interface:javaPreCompileDebug
+> Task :expo-dev-launcher:javaPreCompileDebug
+> Task :expo-dom-webview:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-dom-webview:generateDebugResources
+> Task :expo-dom-webview:packageDebugResources
+> Task :expo-dom-webview:parseDebugLocalResources
+> Task :expo-dom-webview:generateDebugRFile
+> Task :expo-dom-webview:javaPreCompileDebug
+> Task :expo-log-box:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-log-box:generateDebugBuildConfig
+> Task :expo-log-box:generateDebugResources
+> Task :expo-log-box:packageDebugResources
+> Task :expo-log-box:parseDebugLocalResources
+> Task :expo-log-box:generateDebugRFile
+> Task :expo-log-box:javaPreCompileDebug
+> Task :spvs-security:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :spvs-security:generateDebugResources
+> Task :spvs-security:packageDebugResources
+> Task :spvs-security:parseDebugLocalResources
+> Task :spvs-security:generateDebugRFile
+> Task :spvs-security:javaPreCompileDebug
+> Task :spvs-wifi:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :spvs-wifi:generateDebugResources
+> Task :spvs-wifi:packageDebugResources
+> Task :spvs-wifi:parseDebugLocalResources
+> Task :spvs-wifi:generateDebugRFile
+> Task :spvs-wifi:javaPreCompileDebug
+> Task :expo:javaPreCompileDebug
+> Task :react-native-safe-area-context:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-safe-area-context:generateDebugBuildConfig
+> Task :react-native-safe-area-context:generateDebugResources
+> Task :react-native-safe-area-context:packageDebugResources
+> Task :react-native-safe-area-context:parseDebugLocalResources
+> Task :react-native-safe-area-context:generateDebugRFile
+> Task :react-native-safe-area-context:compileDebugKotlin
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaProviderManager.kt:40:19 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaView.kt:8:8 'class UIManagerModule : ReactContextBaseJavaModule, LifecycleEventListener, UIManager' is deprecated. This class is part of Legacy Architecture and will be removed in a future release.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaView.kt:46:54 'class UIManagerModule : ReactContextBaseJavaModule, LifecycleEventListener, UIManager' is deprecated. This class is part of Legacy Architecture and will be removed in a future release.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaViewShadowNode.kt:9:32 'class LayoutShadowNode : ReactShadowNodeImpl' is deprecated. This class is part of Legacy Architecture and will be removed in a future release.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaViewShadowNode.kt:110:61 'class NativeViewHierarchyOptimizer : Any' is deprecated. This class is part of Legacy Architecture and will be removed in a future release.
+
+> Task :react-native-safe-area-context:javaPreCompileDebug
+> Task :react-native-safe-area-context:compileDebugJavaWithJavac
+> Task :react-native-safe-area-context:bundleLibCompileToJarDebug
+> Task :react-native-screens:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-screens:generateDebugBuildConfig
+> Task :react-native-screens:generateDebugResources
+> Task :react-native-screens:packageDebugResources
+> Task :react-native-screens:parseDebugLocalResources
+> Task :react-native-screens:generateDebugRFile
+
+> Task :expo-modules-core:compileDebugKotlin
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/CppType.kt:42:23 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/JavaCallback.kt:38:10 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/JavaCallback.kt:96:45 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:49:15 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:64:30 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:66:14 'constructor(byteBuffer: ByteBuffer): NativeArrayBuffer' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:74:39 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:75:7 'constructor(byteBuffer: ByteBuffer): NativeArrayBuffer' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:80:37 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:86:47 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:92:23 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:92:43 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:95:41 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/NativeArrayBuffer.kt:105:14 'constructor(byteBuffer: ByteBuffer): NativeArrayBuffer' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/ColorCompat.kt:115:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to field.
+- To opt in to applying to both value parameter and field, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/JSTypeConverter.kt:7:8 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/JSTypeConverter.kt:245:55 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/JSTypeConverter.kt:247:19 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/ReturnType.kt:6:8 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/ReturnType.kt:45:5 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/TypeConverterProvider.kt:19:8 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/TypeConverterProvider.kt:254:7 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+
+> Task :expo-modules-core:compileDebugJavaWithJavac
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :expo-modules-core:bundleLibCompileToJarDebug
+> Task :react-native-screens:compileDebugKotlin
+> Task :expo-constants:compileDebugKotlin
+> Task :expo-constants:compileDebugJavaWithJavac NO-SOURCE
+> Task :expo-constants:bundleLibCompileToJarDebug
+> Task :expo-dev-client:compileDebugKotlin NO-SOURCE
+> Task :expo-dev-client:compileDebugJavaWithJavac
+> Task :expo-dev-client:bundleLibCompileToJarDebug
+> Task :expo-dev-menu-interface:compileDebugKotlin NO-SOURCE
+> Task :expo-dev-menu-interface:compileDebugJavaWithJavac NO-SOURCE
+> Task :expo-dev-menu-interface:bundleLibCompileToJarDebug
+> Task :expo-json-utils:compileDebugKotlin
+> Task :expo-json-utils:compileDebugJavaWithJavac NO-SOURCE
+> Task :expo-json-utils:bundleLibCompileToJarDebug
+
+> Task :expo-manifests:compileDebugKotlin
+w: file://$SPVS_ROOT/mobile/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/EmbeddedManifest.kt:19:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/EmbeddedManifest.kt:19:86 'fun getLegacyID(): String' is deprecated. Prefer scopeKey or projectId depending on use case.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/ExpoUpdatesManifest.kt:16:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/Manifest.kt:13:3 Deprecations and opt-ins on a method overridden from 'Any' may not be reported.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/Manifest.kt:15:12 'fun getRawJson(): JSONObject' is deprecated. Prefer to use specific field getters.
+
+> Task :expo-manifests:compileDebugJavaWithJavac NO-SOURCE
+> Task :expo-manifests:bundleLibCompileToJarDebug
+> Task :expo-dev-menu:compileDebugKotlin
+
+> Task :react-native-screens:compileDebugKotlin
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/RNScreensPackage.kt:70:9 The corresponding parameter in the supertype 'BaseReactPackage' is named 'name'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/RNScreensPackage.kt:71:9 The corresponding parameter in the supertype 'BaseReactPackage' is named 'reactContext'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/RNScreensPackage.kt:83:17 'constructor(name: String, className: String, canOverrideExistingModule: Boolean, needsEagerInit: Boolean, hasConstants: Boolean, isCxxModule: Boolean, isTurboModule: Boolean): ReactModuleInfo' is deprecated. This constructor is deprecated and will be removed in the future. Use ReactModuleInfo(String, String, boolean, boolean, boolean, boolean)].
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/Screen.kt:54:77 Unchecked cast of '(CoordinatorLayout.Behavior<View!>?..CoordinatorLayout.Behavior<*>?)' to 'BottomSheetBehavior<Screen>'.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/Screen.kt:59:33 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/Screen.kt:534:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenContainer.kt:73:74 'static field HIDE_NOT_ALWAYS: Int' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenContainer.kt:252:18 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenContainer.kt:262:18 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenFragment.kt:225:37 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenFragment.kt:242:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenFragment.kt:258:22 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenFragment.kt:327:22 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStack.kt:120:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:179:18 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:236:31 'var targetElevation: Float' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:239:13 'fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:450:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:457:22 'fun onPrepareOptionsMenu(p0: Menu): Unit' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:460:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:465:22 'fun onCreateOptionsMenu(p0: Menu, p1: MenuInflater): Unit' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfig.kt:199:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfig.kt:209:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:48:42 'fun replaceSystemWindowInsets(p0: Int, p1: Int, p2: Int, p3: Int): @NonNull() WindowInsetsCompat' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:49:39 'val systemWindowInsetLeft: Int' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:51:39 'val systemWindowInsetRight: Int' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:52:39 'val systemWindowInsetBottom: Int' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreensModule.kt:104:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarView.kt:137:29 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/DimmingView.kt:66:9 The corresponding parameter in the supertype 'ReactCompoundView' is named 'touchX'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/DimmingView.kt:67:9 The corresponding parameter in the supertype 'ReactCompoundView' is named 'touchY'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/DimmingView.kt:71:9 The corresponding parameter in the supertype 'ReactCompoundViewGroup' is named 'touchX'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/DimmingView.kt:72:9 The corresponding parameter in the supertype 'ReactCompoundViewGroup' is named 'touchY'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/common/event/BaseEventEmitter.kt:12:38 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/modals/dimmingview/DimmingView.kt:64:9 The corresponding parameter in the supertype 'ReactCompoundView' is named 'touchX'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/modals/dimmingview/DimmingView.kt:65:9 The corresponding parameter in the supertype 'ReactCompoundView' is named 'touchY'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/modals/dimmingview/DimmingView.kt:69:9 The corresponding parameter in the supertype 'ReactCompoundViewGroup' is named 'touchX'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/modals/dimmingview/DimmingView.kt:70:9 The corresponding parameter in the supertype 'ReactCompoundViewGroup' is named 'touchY'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/modals/formsheet/FormSheetContentView.kt:11:8 'object ReactFeatureFlags : Any' is deprecated. Use com.facebook.react.internal.featureflags.ReactNativeFeatureFlags instead.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/modals/formsheet/FormSheetContentView.kt:39:33 'fun getEventDispatcher(context: ReactContext, uiManagerType: Int): EventDispatcher?' is deprecated. UIManagerType is no longer needed.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/modals/formsheet/FormSheetContentView.kt:44:13 'object ReactFeatureFlags : Any' is deprecated. Use com.facebook.react.internal.featureflags.ReactNativeFeatureFlags instead.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/modals/formsheet/FormSheetHostViewManager.kt:38:9 The corresponding parameter in the supertype 'ViewGroupManager' is named 'view'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/tabs/host/TabsHostViewManager.kt:44:9 The corresponding parameter in the supertype 'ViewGroupManager' is named 'view'. This may cause problems when calling this function with named arguments.
+w: file://$SPVS_ROOT/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/safearea/SafeAreaView.kt:143:45 'fun consumeDisplayCutout(): @NonNull() WindowInsetsCompat' is deprecated. Deprecated in Java.
+
+> Task :expo-updates-interface:compileDebugKotlin
+> Task :expo-updates-interface:compileDebugJavaWithJavac NO-SOURCE
+> Task :expo-updates-interface:bundleLibCompileToJarDebug
+
+> Task :expo-dev-menu:compileDebugKotlin
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-menu/android/src/debug/java/com/facebook/react/devsupport/DevMenuSettingsBase.kt:6:8 'class PreferenceManager : Any' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-menu/android/src/debug/java/com/facebook/react/devsupport/DevMenuSettingsBase.kt:18:51 'class PreferenceManager : Any' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-menu/android/src/debug/java/com/facebook/react/devsupport/DevMenuSettingsBase.kt:18:69 'static fun getDefaultSharedPreferences(p0: Context!): SharedPreferences!' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-menu/android/src/debug/java/com/facebook/react/devsupport/DevMenuSettingsBase.kt:51:13 This code uses error suppression for 'NOTHING_TO_OVERRIDE'. While it might compile and work, the compiler behavior is UNSPECIFIED and WILL NOT BE PRESERVED. Please report your use case to the Kotlin issue tracker instead: https://kotl.in/issue
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-menu/android/src/debug/java/com/facebook/react/devsupport/DevMenuSettingsBase.kt:58:13 This code uses error suppression for 'NOTHING_TO_OVERRIDE'. While it might compile and work, the compiler behavior is UNSPECIFIED and WILL NOT BE PRESERVED. Please report your use case to the Kotlin issue tracker instead: https://kotl.in/issue
+
+> Task :expo-dom-webview:compileDebugKotlin
+w: file://$SPVS_ROOT/mobile/node_modules/expo/node_modules/@expo/dom-webview/android/src/main/java/expo/modules/webview/DomWebView.kt:200:16 'var allowFileAccessFromFileURLs: Boolean' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/node_modules/@expo/dom-webview/android/src/main/java/expo/modules/webview/DomWebView.kt:254:18 'fun executeOnJavaScriptThread(runnable: Runnable): Unit' is deprecated. Use RuntimeContext.schedule instead.
+
+> Task :expo-dom-webview:compileDebugJavaWithJavac NO-SOURCE
+> Task :expo-dom-webview:bundleLibCompileToJarDebug
+> Task :expo-dev-menu:compileDebugJavaWithJavac
+> Task :expo-dev-menu:bundleLibCompileToJarDebug
+> Task :expo-log-box:compileDebugKotlin
+> Task :expo-log-box:compileDebugJavaWithJavac
+> Task :expo-log-box:bundleLibCompileToJarDebug
+> Task :spvs-security:compileDebugKotlin
+> Task :spvs-security:compileDebugJavaWithJavac NO-SOURCE
+> Task :spvs-security:bundleLibCompileToJarDebug
+> Task :spvs-wifi:compileDebugKotlin
+> Task :spvs-wifi:compileDebugJavaWithJavac NO-SOURCE
+> Task :spvs-wifi:bundleLibCompileToJarDebug
+> Task :react-native-screens:javaPreCompileDebug
+> Task :react-native-screens:compileDebugJavaWithJavac
+> Task :react-native-screens:bundleLibCompileToJarDebug
+> Task :app:javaPreCompileDebug
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :expo:generateDebugAssets UP-TO-DATE
+> Task :expo:mergeDebugAssets
+> Task :expo-constants:generateDebugAssets UP-TO-DATE
+> Task :expo-constants:mergeDebugAssets
+> Task :expo-dev-client:generateDebugAssets UP-TO-DATE
+> Task :expo-dev-client:mergeDebugAssets
+> Task :expo-dev-launcher:generateDebugAssets UP-TO-DATE
+> Task :expo-dev-launcher:mergeDebugAssets
+> Task :expo-dev-menu:generateDebugAssets UP-TO-DATE
+> Task :expo-dev-menu:mergeDebugAssets
+> Task :expo-dev-menu-interface:generateDebugAssets UP-TO-DATE
+> Task :expo-dev-menu-interface:mergeDebugAssets
+> Task :expo-dom-webview:generateDebugAssets UP-TO-DATE
+> Task :expo-dom-webview:mergeDebugAssets
+> Task :expo-json-utils:generateDebugAssets UP-TO-DATE
+> Task :expo-json-utils:mergeDebugAssets
+> Task :expo-log-box:generateDebugAssets UP-TO-DATE
+> Task :expo-log-box:mergeDebugAssets
+> Task :expo-manifests:generateDebugAssets UP-TO-DATE
+> Task :expo-manifests:mergeDebugAssets
+> Task :expo-modules-core:generateDebugAssets UP-TO-DATE
+> Task :expo-modules-core:mergeDebugAssets
+> Task :expo-updates-interface:generateDebugAssets UP-TO-DATE
+> Task :expo-updates-interface:mergeDebugAssets
+> Task :react-native-safe-area-context:generateDebugAssets UP-TO-DATE
+> Task :react-native-safe-area-context:mergeDebugAssets
+> Task :react-native-screens:generateDebugAssets UP-TO-DATE
+> Task :react-native-screens:mergeDebugAssets
+> Task :spvs-security:generateDebugAssets UP-TO-DATE
+> Task :spvs-security:mergeDebugAssets
+> Task :spvs-wifi:generateDebugAssets UP-TO-DATE
+> Task :spvs-wifi:mergeDebugAssets
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :expo-dev-launcher:compileDebugKotlin
+> Task :app:generateDebugGlobalSynthetics
+> Task :expo-constants:processDebugJavaRes
+> Task :expo-dev-client:processDebugJavaRes NO-SOURCE
+> Task :expo-dev-menu:processDebugJavaRes
+> Task :expo-dev-menu-interface:processDebugJavaRes NO-SOURCE
+> Task :expo-dom-webview:processDebugJavaRes
+> Task :expo-json-utils:processDebugJavaRes
+> Task :expo-log-box:processDebugJavaRes
+> Task :expo-manifests:processDebugJavaRes
+> Task :expo-modules-core:processDebugJavaRes
+> Task :expo-updates-interface:processDebugJavaRes
+> Task :react-native-safe-area-context:processDebugJavaRes
+> Task :react-native-screens:processDebugJavaRes
+> Task :spvs-security:processDebugJavaRes
+> Task :spvs-wifi:processDebugJavaRes
+> Task :app:checkDebugDuplicateClasses
+> Task :app:desugarDebugFileDependencies
+
+> Task :expo-dev-launcher:compileDebugKotlin
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-launcher/android/src/debug/java/expo/modules/devlauncher/DevLauncherController.kt:515:12 Call uses reflection API which is not found in compilation classpath. Make sure you have kotlin-reflect.jar in the classpath.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-launcher/android/src/debug/java/expo/modules/devlauncher/launcher/DevLauncherRecentlyOpenedAppsRegistry.kt:33:47 Unchecked cast of 'MutableMap<Any?, Any?>' to 'MutableMap<String, Any>'.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-launcher/android/src/debug/java/expo/modules/devlauncher/launcher/DevLauncherRecentlyOpenedAppsRegistry.kt:51:27 'fun getRawJson(): JSONObject' is deprecated. Prefer to use specific field getters.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-launcher/android/src/debug/java/expo/modules/devlauncher/modules/DevLauncherModule.kt:14:29 'fun getRawJson(): JSONObject' is deprecated. Prefer to use specific field getters.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-launcher/android/src/debug/java/expo/modules/devlauncher/react/DevLauncherBridgelessDevSupportManager.kt:46:38 This code uses error suppression for 'NOTHING_TO_OVERRIDE'. While it might compile and work, the compiler behavior is UNSPECIFIED and WILL NOT BE PRESERVED. Please report your use case to the Kotlin issue tracker instead: https://kotl.in/issue
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-launcher/android/src/debug/java/expo/modules/devlauncher/react/DevLauncherDevSupportManagerFactory.kt:18:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file://$SPVS_ROOT/mobile/node_modules/expo-dev-launcher/android/src/main/java/expo/modules/devlauncher/DevLauncherPackage.kt:15:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+
+> Task :app:mergeExtDexDebug
+> Task :expo-dev-launcher:compileDebugJavaWithJavac
+> Task :expo-dev-launcher:bundleLibCompileToJarDebug
+> Task :expo-dev-launcher:processDebugJavaRes
+> Task :react-native-safe-area-context:bundleLibRuntimeToJarDebug
+> Task :react-native-screens:bundleLibRuntimeToJarDebug
+> Task :expo-constants:bundleLibRuntimeToJarDebug
+> Task :expo-dev-client:bundleLibRuntimeToJarDebug
+> Task :expo-dev-launcher:bundleLibRuntimeToJarDebug
+> Task :expo-dev-menu:bundleLibRuntimeToJarDebug
+> Task :expo-dev-menu-interface:bundleLibRuntimeToJarDebug
+> Task :expo-dom-webview:bundleLibRuntimeToJarDebug
+> Task :expo-json-utils:bundleLibRuntimeToJarDebug
+> Task :expo-log-box:bundleLibRuntimeToJarDebug
+> Task :expo-manifests:bundleLibRuntimeToJarDebug
+> Task :expo-modules-core:bundleLibRuntimeToJarDebug
+> Task :expo-updates-interface:bundleLibRuntimeToJarDebug
+> Task :spvs-security:bundleLibRuntimeToJarDebug
+> Task :spvs-wifi:bundleLibRuntimeToJarDebug
+
+> Task :expo:compileDebugKotlin
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/ExpoModulesPackage.kt:34:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:22:8 'class ReactInstanceManager : Any' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:103:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:103:43 'class ReactInstanceManager : Any' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:104:21 'val reactInstanceManager: ReactInstanceManager' is deprecated. Deprecated in Java.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/fetch/ExpoFetchModule.kt:15:8 'class NativeArrayBuffer : Destructible' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/fetch/ExpoFetchModule.kt:33:39 'constructor(reactContext: ReactContext): ForwardingCookieHandler' is deprecated. Use the default constructor.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/fetch/ExpoFetchModule.kt:111:27 'constructor(byteBuffer: ByteBuffer): NativeArrayBuffer' is deprecated. Use ArrayBuffer instead.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/fetch/NativeResponse.kt:44:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file://$SPVS_ROOT/mobile/node_modules/expo/android/src/main/java/expo/modules/fetch/NativeResponse.kt:46:11 'fun deallocate(): Unit' is deprecated. Use sharedObjectDidRelease() instead.
+
+> Task :expo:compileDebugJavaWithJavac NO-SOURCE
+> Task :expo:bundleLibCompileToJarDebug
+> Task :expo:processDebugJavaRes
+> Task :expo:bundleLibRuntimeToJarDebug
+
+> Task :app:compileDebugKotlin
+w: file://$SPVS_ROOT/mobile/android/app/src/main/java/edu/spvs/student/MainActivity.kt:36:20 'constructor(activity: ReactActivity, mainComponentName: String, fabricEnabled: Boolean): DefaultReactActivityDelegate' is deprecated. Creating DefaultReactActivityDelegate with flags is deprecated.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:mergeDebugJavaResource
+> Task :app:mergeLibDexDebug
+> Task :expo:writeDebugAarMetadata
+> Task :expo-constants:writeDebugAarMetadata
+> Task :expo-dev-client:writeDebugAarMetadata
+> Task :expo-dev-launcher:writeDebugAarMetadata
+> Task :expo-dev-menu:writeDebugAarMetadata
+> Task :expo-dom-webview:writeDebugAarMetadata
+> Task :expo-dev-menu-interface:writeDebugAarMetadata
+> Task :expo-json-utils:writeDebugAarMetadata
+> Task :expo-manifests:writeDebugAarMetadata
+> Task :expo-log-box:writeDebugAarMetadata
+> Task :expo-modules-core:writeDebugAarMetadata
+> Task :expo-updates-interface:writeDebugAarMetadata
+> Task :react-native-screens:writeDebugAarMetadata
+> Task :react-native-safe-area-context:writeDebugAarMetadata
+> Task :spvs-wifi:writeDebugAarMetadata
+> Task :spvs-security:writeDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :expo:extractDeepLinksDebug
+> Task :expo:processDebugManifest
+> Task :expo-constants:extractDeepLinksDebug
+> Task :expo-constants:processDebugManifest
+> Task :app:checkDebugAarMetadata
+> Task :expo-dev-client:extractDeepLinksDebug
+> Task :expo-dev-client:processDebugManifest
+> Task :expo-dev-launcher:extractDeepLinksDebug
+> Task :expo-dev-launcher:processDebugManifest
+> Task :expo-dev-menu:extractDeepLinksDebug
+> Task :expo-dev-menu:processDebugManifest
+> Task :expo-dev-menu-interface:extractDeepLinksDebug
+> Task :expo-dev-menu-interface:processDebugManifest
+> Task :expo-dom-webview:extractDeepLinksDebug
+> Task :expo-dom-webview:processDebugManifest
+> Task :expo-json-utils:extractDeepLinksDebug
+> Task :expo-json-utils:processDebugManifest
+> Task :expo-log-box:extractDeepLinksDebug
+> Task :expo-log-box:processDebugManifest
+> Task :expo-manifests:extractDeepLinksDebug
+> Task :expo-manifests:processDebugManifest
+> Task :expo-modules-core:extractDeepLinksDebug
+
+> Task :expo-modules-core:processDebugManifest
+$SPVS_ROOT/mobile/node_modules/expo-modules-core/android/src/main/AndroidManifest.xml:8:9-11:45 Warning:
+	meta-data#com.facebook.soloader.enabled@android:value was tagged at AndroidManifest.xml:8 to replace other declarations but no other declaration present
+
+> Task :expo-updates-interface:extractDeepLinksDebug
+> Task :expo-updates-interface:processDebugManifest
+> Task :react-native-safe-area-context:extractDeepLinksDebug
+
+> Task :react-native-safe-area-context:processDebugManifest
+package="com.th3rdwave.safeareacontext" found in source AndroidManifest.xml: $SPVS_ROOT/mobile/node_modules/react-native-safe-area-context/android/src/main/AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.th3rdwave.safeareacontext" from the source AndroidManifest.xml: $SPVS_ROOT/mobile/node_modules/react-native-safe-area-context/android/src/main/AndroidManifest.xml.
+
+> Task :react-native-screens:extractDeepLinksDebug
+> Task :react-native-screens:processDebugManifest
+> Task :spvs-security:extractDeepLinksDebug
+> Task :spvs-security:processDebugManifest
+> Task :spvs-wifi:extractDeepLinksDebug
+> Task :spvs-wifi:processDebugManifest
+> Task :expo:mapDebugSourceSetPaths
+> Task :expo-constants:mapDebugSourceSetPaths
+> Task :expo-dev-client:mapDebugSourceSetPaths
+> Task :expo-dev-launcher:mapDebugSourceSetPaths
+> Task :expo-dev-menu:mapDebugSourceSetPaths
+> Task :expo-dev-menu-interface:mapDebugSourceSetPaths
+> Task :expo-dom-webview:mapDebugSourceSetPaths
+> Task :expo-json-utils:mapDebugSourceSetPaths
+> Task :expo-log-box:mapDebugSourceSetPaths
+> Task :expo-manifests:mapDebugSourceSetPaths
+> Task :expo-modules-core:mapDebugSourceSetPaths
+> Task :expo-updates-interface:mapDebugSourceSetPaths
+> Task :react-native-safe-area-context:mapDebugSourceSetPaths
+> Task :react-native-screens:mapDebugSourceSetPaths
+> Task :spvs-security:mapDebugSourceSetPaths
+> Task :spvs-wifi:mapDebugSourceSetPaths
+> Task :expo:mergeDebugJniLibFolders
+> Task :expo:mergeDebugNativeLibs NO-SOURCE
+> Task :expo:copyDebugJniLibsProjectOnly
+> Task :expo-constants:mergeDebugJniLibFolders
+> Task :expo-constants:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-constants:copyDebugJniLibsProjectOnly
+> Task :expo-dev-client:mergeDebugJniLibFolders
+> Task :expo-dev-client:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-dev-client:copyDebugJniLibsProjectOnly
+> Task :expo-dev-launcher:mergeDebugJniLibFolders
+> Task :expo-dev-launcher:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-dev-launcher:copyDebugJniLibsProjectOnly
+> Task :expo-dev-menu:mergeDebugJniLibFolders
+> Task :expo-dev-menu:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-dev-menu:copyDebugJniLibsProjectOnly
+> Task :expo-dev-menu-interface:mergeDebugJniLibFolders
+> Task :expo-dev-menu-interface:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-dev-menu-interface:copyDebugJniLibsProjectOnly
+> Task :expo-dom-webview:mergeDebugJniLibFolders
+> Task :expo-dom-webview:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-dom-webview:copyDebugJniLibsProjectOnly
+> Task :expo-json-utils:mergeDebugJniLibFolders
+> Task :expo-json-utils:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-json-utils:copyDebugJniLibsProjectOnly
+> Task :expo-log-box:mergeDebugJniLibFolders
+> Task :expo-log-box:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-log-box:copyDebugJniLibsProjectOnly
+> Task :expo-manifests:mergeDebugJniLibFolders
+> Task :expo-manifests:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-manifests:copyDebugJniLibsProjectOnly
+> Task :expo-modules-core:unpackExpoModulesV2Cpp
+> Task :app:compileDebugNavigationResources
+> Task :expo-modules-core:configureCMakeDebug[arm64-v8a]
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:mergeDebugResources
+> Task :expo:compileDebugLibraryResources
+> Task :expo-constants:compileDebugLibraryResources
+> Task :expo-dev-client:compileDebugLibraryResources
+> Task :expo-dev-launcher:compileDebugLibraryResources
+> Task :expo-dev-menu:compileDebugLibraryResources
+> Task :expo-dev-menu-interface:compileDebugLibraryResources
+> Task :expo-dom-webview:compileDebugLibraryResources
+> Task :expo-json-utils:compileDebugLibraryResources
+> Task :expo-log-box:compileDebugLibraryResources
+> Task :expo-manifests:compileDebugLibraryResources
+> Task :expo-modules-core:compileDebugLibraryResources
+> Task :expo-updates-interface:compileDebugLibraryResources
+> Task :react-native-safe-area-context:compileDebugLibraryResources
+> Task :react-native-screens:compileDebugLibraryResources
+> Task :spvs-security:compileDebugLibraryResources
+> Task :spvs-wifi:compileDebugLibraryResources
+
+> Task :app:processDebugMainManifest
+$SPVS_ROOT/mobile/android/app/src/debug/AndroidManifest.xml Warning:
+	provider#expo.modules.filesystem.FileSystemFileProvider@android:authorities was tagged at AndroidManifest.xml:0 to replace other declarations but no other declaration present
+
+> Task :app:expoDebugOverrideMaxSdkConflicts
+---------- Expo Max Sdk Override Plugin ----------
+>>> No 'android:maxSdkVersion' conflicts found
+--------------------------------------------------
+
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+> Task :app:transformDebugClassesWithAsm
+> Task :app:dexBuilderDebug
+> Task :expo-modules-core:buildCMakeDebug[arm64-v8a]
+> Task :app:mergeProjectDexDebug
+> Task :app:configureCMakeDebug[arm64-v8a]
+> Task :app:buildCMakeDebug[arm64-v8a]
+> Task :expo-modules-core:mergeDebugJniLibFolders
+> Task :expo-modules-core:mergeDebugNativeLibs
+> Task :expo-modules-core:copyDebugJniLibsProjectOnly
+> Task :expo-updates-interface:mergeDebugJniLibFolders
+> Task :expo-updates-interface:mergeDebugNativeLibs NO-SOURCE
+> Task :expo-updates-interface:copyDebugJniLibsProjectOnly
+> Task :react-native-safe-area-context:mergeDebugJniLibFolders
+> Task :react-native-safe-area-context:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-safe-area-context:copyDebugJniLibsProjectOnly
+> Task :react-native-screens:configureCMakeDebug[arm64-v8a]
+> Task :react-native-screens:buildCMakeDebug[arm64-v8a]
+> Task :react-native-screens:mergeDebugJniLibFolders
+> Task :react-native-screens:mergeDebugNativeLibs
+> Task :react-native-screens:copyDebugJniLibsProjectOnly
+> Task :spvs-security:mergeDebugJniLibFolders
+> Task :spvs-security:mergeDebugNativeLibs NO-SOURCE
+> Task :spvs-security:copyDebugJniLibsProjectOnly
+> Task :spvs-wifi:mergeDebugJniLibFolders
+> Task :spvs-wifi:mergeDebugNativeLibs NO-SOURCE
+> Task :spvs-wifi:copyDebugJniLibsProjectOnly
+> Task :app:mergeDebugJniLibFolders
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:mergeDebugNativeLibs
+> Task :app:stripDebugDebugSymbols
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+
+[Incubating] Problems report is available at: file://$SPVS_ROOT/mobile/android/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 18m 29s
+396 actionable tasks: 364 executed, 32 up-to-date

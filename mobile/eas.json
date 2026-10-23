@@ -1,0 +1,10 @@
+{
+ "cli":{"version":">=16.0.0","appVersionSource":"local"},
+ "build":{
+  "development":{"developmentClient":true,"distribution":"internal","env":{"SPVS_APP_ATTEST_ENV":"development"}},
+  "simulator":{"extends":"development","ios":{"simulator":true}},
+  "preview":{"distribution":"internal","env":{"SPVS_APP_ATTEST_ENV":"production"}},
+  "production":{"autoIncrement":true,"env":{"SPVS_APP_ATTEST_ENV":"production"}}
+ },
+ "submit":{"production":{}}
+}

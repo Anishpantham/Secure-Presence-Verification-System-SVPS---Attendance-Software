@@ -16,10 +16,15 @@ Input contracts are in `app/schemas/contracts.py`. Auth and shared rate limits a
 
 Use `npm ci`, not an unreviewed dependency refresh, for normal development. The web API wrapper holds tokens in memory and serializes refresh-token rotation. React Query invalidates data after mutations and polls active views. Charts read real aggregate API data. Shared form controls must preserve explicit labels and server errors.
 
-The mobile API client rotates tokens and stores them in SecureStore. Signing uses `@noble/hashes` with a protocol test against Node's HMAC implementation. Camera frames are resized to width 640, encoded as JPEG, submitted in memory and removed from the local camera cache. Permission denials and absent native modules return explicit unsupported/unavailable evidence. The Android module lives under `mobile/modules/spvs-wifi`; Expo autolinking must discover it in a development build. iOS provides no equivalent scan module in this distribution.
+The mobile API client rotates tokens and stores them in SecureStore. New signing uses the native P-256 module; legacy HMAC compatibility uses `@noble/hashes` with a Node interoperability test. Camera frames are resized to width 640, encoded as JPEG, submitted in memory and removed from the local camera cache. Permission denials and absent native modules return explicit unsupported/unavailable evidence. The Android module lives under `mobile/modules/spvs-wifi`; Expo autolinking must discover it in a development build. The iOS module exposes only permitted current-network BSSID and no RSSI scan.
 
 ## Tests and packaging
 
 Run the commands in `docs/TESTING_STRATEGY.md`. Add security regression tests for authorization, challenge binding, concurrency and malformed input when changing relevant paths. The API tests' vision substitution is explicitly test-only; do not import that fixture into application code.
 
-`scripts/package_submission.py` generates PDFs and a ZIP from actual source and documentation, excluding `.env`, dependency trees, local databases, native generated folders and live evidence. It verifies archive CRCs and PDF text/pages. Review `SPVS_VERIFICATION_REPORT.md` before publishing a new package. No script should embed credentials or imply unrun phone tests have passed.
+`scripts/package_final.py` generates final PDFs and a ZIP from actual source and documentation, excluding `.env`, dependency trees, local databases, native generated folders and live evidence. It verifies archive CRCs and PDF text/pages. Review `SPVS_FINAL_VERIFICATION_REPORT.md` before publishing a new package. No script should embed credentials or imply unrun phone tests have passed.
+
+
+## Cross-platform completion update
+
+Use Python 3.12, Node 22 or 24 compatible with the locked Expo version, JDK 17 and current Xcode on Apple Silicon. `make setup` preserves generated local secrets. `npm ci` honors each lockfile; `npx expo prebuild --no-install` regenerates native projects from checked-in plugins/modules. Do not edit generated iOS/Android projects as the only source of a fix. Run type checking, tests, both platform exports and native builds after changing module contracts. See CROSS_PLATFORM_IMPLEMENTATION.md and SETUP_AND_DEMO_GUIDE.md for platform-specific execution. Final packaging uses `scripts/package_final.py`; the earlier packaging script remains historical.

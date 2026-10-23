@@ -8,9 +8,9 @@ Logout revokes refresh sessions. Already-issued access tokens remain valid until
 
 ## Device binding
 
-After password confirmation the server issues a random 256-bit credential, returned once. It is encrypted server-side and stored through Expo SecureStore on the phone. A signed request covers the UTF-8 bytes of `idempotency_key + "." + payload`, using HMAC-SHA256. `payload` is the exact JSON string sent to the server, eliminating cross-language JSON canonicalization ambiguity. A static device identifier alone is never accepted as proof.
+New registration verifies a password and one-use nonce proof from a native P-256 key. The private key remains inside Android Keystore or iOS Secure Enclave (Keychain for simulator); only canonical SPKI public-key bytes reach the server. Evidence signs exact UTF-8 `idempotency_key + "." + payload` with ECDSA/SHA-256 and a base64 DER signature. Existing HMAC devices remain compatible; new legacy registrations are disabled by default.
 
-The database has a partial unique active-device index. Approved reset revokes old devices. This is possession of a device-held secret, not hardware-backed signing attestation. Android SecureStore uses Keystore-backed encryption, and iOS uses Keychain; root/jailbreak extraction, backups, instrumentation and credential sharing remain possible. The included attestation adapter always returns unverified. To add Play Integrity/App Attest, verify provider signatures, app/package identity, signing-certificate digest, nonce binding, expiry, replay and provider verdict before changing that boundary. Never forward a client boolean as a verdict.
+The database has a partial unique active-device index. Approved reset revokes old devices; reinstall/key loss cannot silently create a replacement authorized key. Reported hardware backing is not independent key attestation. App Attest verifies a configured pinned chain, app ID, nonce, environment and public key, then checks assertions with a strictly increasing counter. Genuine Apple interoperability and physical-device evaluation remain outstanding. Play Integrity remains unconfigured and fails closed. Never forward a client boolean as a verdict. Full setup and verification limits are in CROSS_PLATFORM_IMPLEMENTATION.md.
 
 ## Evidence and decisions
 
@@ -25,3 +25,8 @@ Fernet protects templates and signing credentials at rest with a dedicated key. 
 Rate buckets live in PostgreSQL, shared across workers. The API does not trust caller-supplied forwarded headers for rate identity; behind a reverse proxy, connection IP limits can group multiple clients. Account limits remain independent. Configure trusted proxy handling and infrastructure limits for deployment. Bounded request bodies, decoded image dimensions and model serialization reduce resource abuse but do not replace load testing or upstream request throttling.
 
 Audit rows are append-only through ordinary application APIs except their reviewed flag. A database administrator can still alter them: this is not tamper-proof external audit storage. Implement a protected external append-only sink if that is an institutional requirement.
+
+
+## Cross-platform completion update
+
+New clients use native non-exported P-256 keys and proof of possession. Android hardware backing is queried locally; physical iPhones require Secure Enclave and simulators use device-only Keychain. Storage metadata alone is not server-verified hardware attestation. App Attest verification enforces a configured pinned Apple root, app identity, nonce, environment, key binding and increasing assertion counter. Synthetic certificates verify logic only; actual Apple-provider acceptance remains unverified. Android Play Integrity remains fail closed. Legacy HMAC registration is disabled by default, existing keys migrate through audited resets. Exact enrollment retries recover a lost HTTP response without permitting different replay payloads. Required attestation cannot be replaced by a favorable GPS score.

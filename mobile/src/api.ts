@@ -1,6 +1,7 @@
+import {defaultApiUrl} from './platform';
 import * as SecureStore from 'expo-secure-store';
 import type {DeviceCredential,User} from './contracts';
-const BASE=process.env.EXPO_PUBLIC_API_URL||'http://10.0.2.2:8000/api/v1';
+const BASE=process.env.EXPO_PUBLIC_API_URL||defaultApiUrl();
 if(!__DEV__&&!BASE.startsWith('https://'))throw new Error('Release builds require an HTTPS API endpoint');
 type Tokens={access_token:string;refresh_token:string};
 let tokens:Tokens|null=null;
