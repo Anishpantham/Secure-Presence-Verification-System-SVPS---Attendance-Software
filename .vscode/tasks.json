@@ -94,6 +94,18 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "SPVS: iOS device build",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-c",
+				"xcodebuild -workspace '${workspaceFolder}/mobile/ios/SPVSStudent.xcworkspace' -scheme SPVSStudent -configuration Debug -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath '${workspaceFolder}/work/ios-device-derived' -allowProvisioningUpdates -allowProvisioningDeviceRegistration build > '${workspaceFolder}/work/ios-device-build.log' 2>&1; spvs_build_status=$?; tail -n 45 '${workspaceFolder}/work/ios-device-build.log'; exit \"$spvs_build_status\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

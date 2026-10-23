@@ -1,7 +1,7 @@
 # Native iOS validation on the local Mac
 
 Date: 2026-10-23. Branch: `spvs/ios-native-completion`, starting at `3591220`.
-This is an incremental validation record. Physical iPhone testing and genuine
+This is an incremental validation record. Physical iPhone enrollment/attendance testing and genuine
 Apple App Attest remain pending. Earlier Linux reports are historical.
 
 ## Observed environment
@@ -11,14 +11,14 @@ Apple App Attest remain pending. Earlier Linux reports are historical.
 | Host | Darwin arm64, macOS 27.0 (26A428); user identifies MacBook Air M4 |
 | Xcode | 27.1 (27A9275), selected at `/Applications/Xcode.app/Contents/Developer` |
 | Simulator | iPhone 18 Pro, iOS 27.0 (24A434); iOS 27.1 also installed |
-| Target physical device | User's iPhone 16 Pro; device OS and pairing not yet verified |
+| Target physical device | iPhone 16 Pro, iOS 27.0.1 (24A446); USB pairing and enabled Developer Mode verified |
 | Node / npm | 24.13.0 / 11.6.2 |
 | Ruby / Bundler | Homebrew Ruby 3.3.13 / Bundler 4.0.23 |
 | CocoaPods | 1.16.2; 115 pods installed, including SpvsSecurity and SpvsWifi |
 | Expo / React Native / React | 58.0.17 / 0.88.0 / 19.3.0 |
 | TypeScript | Updated mobile tooling to Expo's recommended 6.0.3 |
 | Backend | Python 3.12.8; frozen uv dependencies; PostgreSQL 16.15 |
-| Signing | Initial audit: zero valid code-signing identities; no connected iPhone |
+| Signing | Initial audit had no identity; user subsequently selected a Personal Team and an Apple Development identity is now available |
 
 ## Changes and reproducibility
 
@@ -152,7 +152,7 @@ Metro. Never use the phone's `localhost` as the Mac's API address.
 | Database migrations | Upgrade and schema check passed |
 | Xcode simulator build | Passed: `BUILD SUCCEEDED`; final build wrapper exit 0 |
 | Simulator app launch | Installed and launched (`edu.spvs.student`); Expo development launcher visible; Open prompt awaits user interaction |
-| Signed physical-device build | Pending Apple account, provisioning and connected device |
+| Signed physical-device build | Passed with Personal Team; installed on iPhone 16 Pro; launch blocked by iOS security/profile-trust error |
 | Genuine Apple App Attest | Not configured or tested |
 
 Backend App Attest tests use synthetic certificates. These results do not
@@ -170,6 +170,70 @@ launch nor model tests establish real-camera or physical-iPhone behavior.
 
 ## Next manual gate and physical-device evidence
 
+### Personal Team Wi-Fi capability configuration
+
+The user removed Access Wi-Fi Information in Xcode because their Personal Team
+could not provision it. The Expo plugin previously restored it unconditionally.
+It now adds `com.apple.developer.networking.wifi-info` only when
+`SPVS_IOS_WIFI_INFO=1`. Otherwise it removes that key, including a stale value
+from an earlier supported-team build. No other capability logic or native
+current-network code was changed. App Attest remains separately configured.
+
+The local gitignored `mobile/.env` explicitly sets `SPVS_IOS_WIFI_INFO=0`.
+For a supported Apple Developer Team with a matching provisioning profile, use:
+
+```sh
+cd mobile
+SPVS_IOS_WIFI_INFO=1 npx expo prebuild --platform ios --no-install --no-clean
+SPVS_IOS_WIFI_INFO=1 ../backend/.venv/bin/python ../scripts/verify_native_config.py
+```
+
+For this Personal Team development build, use:
+
+```sh
+cd mobile
+SPVS_IOS_WIFI_INFO=0 npx expo prebuild --platform ios --no-install --no-clean
+SPVS_IOS_WIFI_INFO=0 ../backend/.venv/bin/python ../scripts/verify_native_config.py
+```
+
+Both generated variants passed the native configuration checker. The opt-in
+generated the Wi-Fi entitlement with value `true`; the final opt-out generated
+an empty entitlement dictionary, matching the user's current Xcode configuration.
+The selected team, automatic signing and bundle identifier survived prebuild.
+Expo's actual introspection evaluator also verified unset, `0` and `1` modes,
+including preservation of unrelated App Attest and keychain entitlement values.
+These introspection inputs are configuration tests, not provider validation.
+The mobile regression suite passed all 28 tests again, and CocoaPods completed
+`pod install --deployment` against the retained lockfile.
+
+The native `NEHotspotNetwork.fetchCurrent` implementation is retained. Without
+the entitlement, useful current-network evidence is not expected; the existing
+unavailable-evidence handling and server review/retry policy remain in force.
+No synthetic Wi-Fi evidence or attestation is substituted.
+
+The signed device build uses the selected local Xcode team:
+
+```sh
+xcodebuild -workspace mobile/ios/SPVSStudent.xcworkspace -scheme SPVSStudent \
+  -configuration Debug -sdk iphoneos -destination 'generic/platform=iOS' \
+  -derivedDataPath work/ios-device-derived \
+  -allowProvisioningUpdates -allowProvisioningDeviceRegistration build
+```
+
+Device build output is retained at `work/ios-device-build.log`.
+The build reported `BUILD SUCCEEDED`, and `codesign --verify --deep --strict`
+passed on the completed app. Signed entitlements contain the application/team
+identifiers and `get-task-allow`; Wi-Fi Information and App Attest are absent.
+The embedded profile matches the signed app, includes the connected iPhone, and
+expires at 2026-10-30 17:49:02 UTC.
+
+`devicectl device install app` confirmed installation on the physical iPhone.
+The subsequent launch was rejected with CoreDevice error 10002 / application
+Security error 3, whose message includes a profile not explicitly trusted by the
+user. Signature verification and profile/device matching passed locally. The
+next manual step is to trust the development profile on the iPhone and retry
+launch. No successful physical launch or student flow is claimed yet.
+
 Follow Apple's [signing workflow](https://help.apple.com/xcode/mac/current/en.lproj/dev60b6fbbc7.html)
 and [Developer Mode instructions](https://developer.apple.com/documentation/xcode/enabling-developer-mode-on-a-device).
 Add the Apple account in Xcode Settings, connect and unlock the iPhone over USB,
@@ -186,8 +250,8 @@ The following remain unverified on a physical iPhone:
   unavailable Wi-Fi information and interrupted-network retries.
 - Secure Enclave key creation/signing and device registration; reinstall/key-loss
   behavior and administrator-approved recovery.
-- Signed installation, Apple provisioning/capabilities and genuine App Attest
-  registration/assertions with the matching server trust configuration.
+- Trusted physical-device launch and genuine App Attest registration/assertions
+  with a supported Apple team and matching server trust configuration.
 
 Retain the server's review/retry defaults. Simulator keys and synthetic tests
 must not be represented as physical Secure Enclave or genuine Apple attestation.
