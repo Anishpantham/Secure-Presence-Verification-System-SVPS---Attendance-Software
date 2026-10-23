@@ -80,7 +80,7 @@ def test_native_signed_attendance_api(client,setup_flow,db,platform):
     assert client.post('/api/v1/attendance/verify',headers=headers,json=tamper).status_code==403
 
 
-@pytest.mark.parametrize('ios_policy,state',[('review','PENDING_REVIEW'),('retry','REQUIRES_RETRY'),('gps_only','PRESENT')])
+@pytest.mark.parametrize('ios_policy,state',[('review','PENDING_REVIEW'),('retry','REQUIRES_RETRY'),('gps_only','PENDING_REVIEW')])
 def test_ios_policy_is_distinct_and_auditable(ios_policy,state):
     location=Location(latitude=12,longitude=77,accuracy_m=5,captured_at=now(),accuracy_authorization='full')
     policy=Obj(max_accuracy_m=35,max_location_age_s=20,wifi_unavailable='gps_only',ios_presence=ios_policy,require_attestation=False)
@@ -181,3 +181,12 @@ def test_required_attestation_gate_is_independent_of_ios_gps_only():
     args=(location,[],'unavailable',Obj(latitude=12,longitude=77,radius_m=60),[],Obj(max_accuracy_m=35,max_location_age_s=20,wifi_unavailable='gps_only',ios_presence='gps_only',require_attestation=True),now())
     assert evaluate(*args,platform='ios',wifi_source='none').state=='PENDING_REVIEW'
     assert evaluate(*args,platform='ios',wifi_source='none',attestation_verified=True).state=='PRESENT'
+
+
+def test_ios_gps_only_cannot_be_selected_by_unverified_platform_claim():
+    location=Location(latitude=12,longitude=77,accuracy_m=5,captured_at=now())
+    args=(location,[],'unavailable',Obj(latitude=12,longitude=77,radius_m=60),[],Obj(max_accuracy_m=35,max_location_age_s=20,wifi_unavailable='reject',ios_presence='gps_only',require_attestation=False),now())
+    unverified=evaluate(*args,platform='ios',wifi_source='none')
+    assert unverified.state=='PENDING_REVIEW' and 'IOS_PLATFORM_ATTESTATION_REQUIRED' in unverified.reasons
+    verified=evaluate(*args,platform='ios',wifi_source='none',attestation_verified=True)
+    assert verified.state=='PRESENT' and verified.summary['presence_assurance']=='GPS_ONLY'

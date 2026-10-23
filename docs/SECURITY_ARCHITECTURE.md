@@ -30,3 +30,6 @@ Audit rows are append-only through ordinary application APIs except their review
 ## Cross-platform completion update
 
 New clients use native non-exported P-256 keys and proof of possession. Android hardware backing is queried locally; physical iPhones require Secure Enclave and simulators use device-only Keychain. Storage metadata alone is not server-verified hardware attestation. App Attest verification enforces a configured pinned Apple root, app identity, nonce, environment, key binding and increasing assertion counter. Synthetic certificates verify logic only; actual Apple-provider acceptance remains unverified. Android Play Integrity remains fail closed. Legacy HMAC registration is disabled by default, existing keys migrate through audited resets. Exact enrollment retries recover a lost HTTP response without permitting different replay payloads. Required attestation cannot be replaced by a favorable GPS score.
+
+
+Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, even if the global attestation requirement is off. The registered platform is client-reported; without this gate an unverified client could select a weaker platform policy. With App Attest unavailable/unconfigured, iPhone verification remains review/retry. GPS-only evidence still has lower presence assurance after app verification.

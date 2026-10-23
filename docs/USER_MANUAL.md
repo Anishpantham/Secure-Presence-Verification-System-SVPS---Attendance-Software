@@ -36,3 +36,6 @@ History shows official records and attempts separately. Request review of a disp
 ## Cross-platform completion update
 
 On iPhone allow Camera and Precise Location. SPVS may read the current Wi-Fi BSSID when Apple permits it; it cannot scan nearby networks. Attendance can legitimately remain PENDING_REVIEW under the institution's iPhone policy. Administrators configure iPhone presence independently from Android missing-Wi-Fi policy, with an audit reason. The Device capabilities panel distinguishes legacy signing, reported native storage and verified App Attest registration. Register Apple app attestation only after institutional setup. Reinstall/key loss requires the existing reset-review workflow. To re-enroll a face, delete the existing template with password confirmation, consent again, then capture a new live sequence.
+
+
+Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, even if the global attestation requirement is off. The registered platform is client-reported; without this gate an unverified client could select a weaker platform policy. With App Attest unavailable/unconfigured, iPhone verification remains review/retry. GPS-only evidence still has lower presence assurance after app verification.

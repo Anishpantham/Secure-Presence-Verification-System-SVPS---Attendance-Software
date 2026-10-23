@@ -2,12 +2,12 @@
 
 | Suite | Passed | Failures/errors | Skipped |
 |---|---:|---:|---:|
-| Backend | 108 | 0 | 0 |
+| Backend | 109 | 0 | 0 |
 | Mobile | 28 | 0 | 0 |
 | Dashboard | 8 | 0 | 0 |
 | Browser | 3 | 0 | 0 |
 
-Total: **147 passed**. See FINAL_COMPLETION_REPORT.md for test boundaries, commands and intermediate failures. Baseline evidence is retained separately.
+Total: **148 passed**. See FINAL_COMPLETION_REPORT.md for test boundaries, commands and intermediate failures. Baseline evidence is retained separately.
 
 | Capability | Observed status |
 |---|---|

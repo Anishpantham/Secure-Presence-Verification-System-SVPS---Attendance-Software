@@ -15,7 +15,7 @@ The starting checkout was clean and matched the supplied commit. The original 72
 - Native P-256 device keys: Android Keystore, physical-iPhone Secure Enclave and simulator Keychain; exact-byte signatures and nonce-based proof of possession; legacy HMAC compatibility with new legacy registrations disabled by default.
 - Additive PostgreSQL migrations for device keys, one-use security challenges, App Attest keys/counters and separate iOS policy. Device signature checks participate in row locking with revocation. Exact enrollment retry recovers a lost HTTP response; different request replay is denied.
 - Apple App Attest support detection, key generation, attestation and assertion bridge; backend pinned-root chain/nonce/app/environment/key checks and monotonic counters. Genuine Apple configuration and validation are still required. Google Play Integrity remains unconfigured and never reports success.
-- iOS current-network BSSID through the permitted NetworkExtension API, no fabricated RSSI or AP scans; precise/reduced location authorization and fresh fix handling; default iOS review with explicit audited retry/GPS-only choices.
+- iOS current-network BSSID through the permitted NetworkExtension API, no fabricated RSSI or AP scans; precise/reduced location authorization and fresh fix handling; default iOS review with explicit audited retry/GPS-only choices. Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, preventing unverified platform claims from selecting a weaker automatic policy.
 - Shared camera challenge state machine with ordering, expiry/background cancellation, temporary-image cleanup and actionable biometric errors. Same actual backend models and mandatory identity gates serve both platforms.
 - Reproducible Expo configuration, local module podspecs/autolinking, iOS permission strings/entitlements/minimum OS, icons, secure release transport defaults, Android backup exclusion, EAS profiles and Apple Silicon build scripts.
 - Dashboard policy controls and actual device capability list distinguish reported hardware storage, legacy signing and verified App Attest registration.
@@ -25,12 +25,12 @@ The starting checkout was clean and matched the supplied commit. The original 72
 
 | Suite | Passed | Failures/errors | Skipped |
 |---|---:|---:|---:|
-| Backend | 108 | 0 | 0 |
+| Backend | 109 | 0 | 0 |
 | Mobile | 28 | 0 | 0 |
 | Dashboard | 8 | 0 | 0 |
 | Browser | 3 | 0 | 0 |
 
-**147 passed**, with failed/skipped counts shown above. JUnit evidence is in `docs/evidence/final`. Backend API happy paths explicitly substitute vision only in tests; real models are independently executed on public reference portraits/no-face/multiple-face/quality inputs. Synthetic certificate chains test verifier logic, not Apple-provider acceptance. React Native host components and sensors are mocked for logic/component tests; no simulator or phone interaction is represented by those results.
+**148 passed**, with failed/skipped counts shown above. JUnit evidence is in `docs/evidence/final`. Backend API happy paths explicitly substitute vision only in tests; real models are independently executed on public reference portraits/no-face/multiple-face/quality inputs. Synthetic certificate chains test verifier logic, not Apple-provider acceptance. React Native host components and sensors are mocked for logic/component tests; no simulator or phone interaction is represented by those results.
 
 ## Builds and test matrix
 

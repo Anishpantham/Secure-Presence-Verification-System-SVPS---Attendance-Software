@@ -58,3 +58,6 @@ Server inference and temporal tests do not establish live-camera usability, biom
 ## Native build procedures
 
 See SETUP_AND_DEMO_GUIDE.md and `scripts/build_mobile_macos.sh`. Android builds require JDK 17, the SDK/NDK versions emitted by the pinned Expo prebuild and Gradle's trusted repositories. iOS requires macOS, a supported Xcode version (the pinned React Native helper declares at least 16.1; use a current supported Xcode), command-line tools, Ruby/Bundler and CocoaPods. Simulator compilation does not verify Secure Enclave or App Attest. Physical iPhone builds require signing and matching capabilities. TestFlight requires an Apple Developer membership, App Store Connect record, distribution provisioning and a genuine archive/upload. No unsigned file is renamed to IPA.
+
+
+Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, even if the global attestation requirement is off. The registered platform is client-reported; without this gate an unverified client could select a weaker platform policy. With App Attest unavailable/unconfigured, iPhone verification remains review/retry. GPS-only evidence still has lower presence assurance after app verification.

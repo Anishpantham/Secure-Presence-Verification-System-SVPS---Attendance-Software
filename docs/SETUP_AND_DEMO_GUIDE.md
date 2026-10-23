@@ -134,3 +134,6 @@ EAS is optional. The checked-in eas.json defines development, simulator, preview
 - Gradle 403/network/TLS failures: inspect the exact official repository URL. Allow it through the institutional network and configure the JVM proxy/CA correctly. Preserve TLS and artifact verification. Do not mirror an unverified AAR manually.
 - Xcode/CocoaPods errors: verify active Xcode, compatible simulator runtime, Ruby/Bundler and generated podspecs. Source code or prebuild success does not prove native compilation.
 - App Attest rejected: check TeamID.bundleID, environment, official root fingerprint, matching entitlement and physical-device support. A verified synthetic test certificate is not an Apple attestation.
+
+
+Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, even if the global attestation requirement is off. The registered platform is client-reported; without this gate an unverified client could select a weaker platform policy. With App Attest unavailable/unconfigured, iPhone verification remains review/retry. GPS-only evidence still has lower presence assurance after app verification.

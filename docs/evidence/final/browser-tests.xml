@@ -1,10 +1,10 @@
-<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="54.39703900000001">
-<testsuite name="workflows.spec.ts" timestamp="2026-10-23T07:14:57.701Z" hostname="" tests="3" failures="0" skipped="0" time="41.279" errors="0">
-<testcase name="administrator configures a room, creates a session and exports real records" classname="workflows.spec.ts" time="17.792">
+<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="9.02938">
+<testsuite name="workflows.spec.ts" timestamp="2026-10-23T07:30:02.738Z" hostname="" tests="3" failures="0" skipped="0" time="6.415" errors="0">
+<testcase name="administrator configures a room, creates a session and exports real records" classname="workflows.spec.ts" time="3.171">
 </testcase>
-<testcase name="faculty access is scoped and administrator route is unavailable" classname="workflows.spec.ts" time="11.661">
+<testcase name="faculty access is scoped and administrator route is unavailable" classname="workflows.spec.ts" time="1.547">
 </testcase>
-<testcase name="administrator configures the separate iPhone presence policy with an audit reason" classname="workflows.spec.ts" time="11.826">
+<testcase name="administrator configures the separate iPhone presence policy with an audit reason" classname="workflows.spec.ts" time="1.697">
 </testcase>
 </testsuite>
 </testsuites>

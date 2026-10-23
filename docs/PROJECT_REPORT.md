@@ -145,3 +145,6 @@ The generated PDF appends architecture/ER/sequence diagrams, the API map, biomet
 ## Cross-platform completion update
 
 This continuation adds native Android Keystore/iOS Secure Enclave P-256 signing, nonce-based device registration, Apple App Attest verification architecture, current-network-only iOS Wi-Fi evidence, precise-location handling and a separate audited iPhone presence policy. Shared enrollment/liveness/session screens continue to use the real backend model pipeline. Automated evidence distinguishes real-model smoke tests from synthetic API/certificate tests, native compilation from JS exports, and unperformed physical-device validation. The appended cross-platform chapter and final verification report are authoritative for release outcomes; no biometric accuracy or provider-backed success has been invented.
+
+
+Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, even if the global attestation requirement is off. The registered platform is client-reported; without this gate an unverified client could select a weaker platform policy. With App Attest unavailable/unconfigured, iPhone verification remains review/retry. GPS-only evidence still has lower presence assurance after app verification.

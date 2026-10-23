@@ -54,6 +54,10 @@ def evaluate(location, wifi, wifi_status, room, references, policy, current, pre
         summary['ios_policy'] = ios_policy
         if ios_policy == 'retry':
             return Decision('REQUIRES_RETRY', ['IOS_PRESENCE_EVIDENCE_INSUFFICIENT'], 30, summary)
+        # A client-reported platform must not select a weaker automatic policy.
+        if ios_policy == 'gps_only' and not attestation_verified:
+            reasons.append('IOS_PLATFORM_ATTESTATION_REQUIRED')
+            score += 50
         if ios_policy != 'gps_only':
             reasons.append('IOS_PRESENCE_REVIEW_REQUIRED')
             score += 25

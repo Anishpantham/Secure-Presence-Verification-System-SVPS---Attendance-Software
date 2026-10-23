@@ -1,10 +1,10 @@
 
 Running 3 tests using 1 worker
 
-(node:12387) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:27748) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ✓  1 e2e/workflows.spec.ts:6:1 › administrator configures a room, creates a session and exports real records (17.8s)
-  ✓  2 e2e/workflows.spec.ts:29:1 › faculty access is scoped and administrator route is unavailable (11.7s)
-  ✓  3 e2e/workflows.spec.ts:37:1 › administrator configures the separate iPhone presence policy with an audit reason (11.8s)
+  ✓  1 e2e/workflows.spec.ts:6:1 › administrator configures a room, creates a session and exports real records (3.2s)
+  ✓  2 e2e/workflows.spec.ts:29:1 › faculty access is scoped and administrator route is unavailable (1.5s)
+  ✓  3 e2e/workflows.spec.ts:37:1 › administrator configures the separate iPhone presence policy with an audit reason (1.7s)
 
-  3 passed (54.4s)
+  3 passed (9.0s)
