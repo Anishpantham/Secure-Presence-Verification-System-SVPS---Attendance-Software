@@ -1,5 +1,8 @@
 # SPVS engineering verification report
 
+**Historical baseline report.** Current validation and publication status are in
+[current status](docs/CURRENT_STATUS.md); the 24 October audit is pre-publication history.
+
 Generated **2026-10-23 03:02 IST** from the actual workspace and test outputs.
 
 ## Delivery status

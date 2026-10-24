@@ -1,5 +1,29 @@
 # Release checkpoint
 
+## Current synchronized delivery - 25 October 2026
+
+Application implementation checkpoint:
+`26b2895a83fdf8014e5a4a3cb5aa20d8af23deb7`.
+The continuation branch `spvs/ios-native-completion` is published and tracks its
+origin branch. Code, documentation and regenerated release artifacts are included
+in [PR #4](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/4)
+into main. That PR and the Git refs record the live merge/head state. PRs #1-#3
+are historical merged deliveries.
+
+The source ZIP, project/setup PDFs, packaged Markdown and checksum manifest are
+regenerated together and accompany the current arm64 debug APK. The archive's
+file manifest identifies exact source content without embedding its own future
+commit hash. See [current status](docs/CURRENT_STATUS.md) and
+[synchronization details](docs/REPOSITORY_SYNC_2026-10-25.md).
+Android physical testing waits for the user to connect the phone; production
+release gates remain open. The dated 24 October audit preserves the earlier gap.
+
+## Historical completion publication checkpoint
+
+The remainder records the earlier publication instructions and state, including
+the then-draft PR #2. Do not use its branch-switch instructions as the current
+continuation workflow.
+
 - Repository: https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software
 - Base branch: spvs/complete-implementation-20261022
 - Base commit: b19777df3cb3210330075c702e5e98f487213a5d

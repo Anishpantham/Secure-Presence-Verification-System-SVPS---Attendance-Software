@@ -86,4 +86,6 @@ def throttle(db: Session, key: str, limit: int, seconds=60):
     blocked = bucket.count > limit
     db.commit()
     if blocked:
-        raise HTTPException(429, "Too many requests; try again shortly", headers={"Retry-After": str(seconds)})
+        from math import ceil
+        remaining = max(1, ceil(seconds - (current - bucket.window_at).total_seconds()))
+        raise HTTPException(429, "Too many requests; try again shortly", headers={"Retry-After": str(remaining)})

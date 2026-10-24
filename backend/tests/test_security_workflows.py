@@ -131,6 +131,24 @@ def test_rate_limit_invalid_logins(client, world):
     assert statuses[-1]==429 and statuses[0]==401
 
 
+def test_rate_limit_reports_remaining_window_without_extending_it(db,monkeypatch):
+    from app.core import security
+    from fastapi import HTTPException
+    from datetime import timedelta
+    from app.models.entities import now
+    import pytest
+    start=now()
+    monkeypatch.setattr(security,'now',lambda:start)
+    security.throttle(db,'cooldown-test',1,300)
+    monkeypatch.setattr(security,'now',lambda:start+timedelta(seconds=270))
+    with pytest.raises(HTTPException) as failure:
+        security.throttle(db,'cooldown-test',1,300)
+    assert failure.value.status_code==429
+    assert failure.value.headers['Retry-After']=='30'
+    monkeypatch.setattr(security,'now',lambda:start+timedelta(seconds=300))
+    security.throttle(db,'cooldown-test',1,300)
+
+
 def test_validation_does_not_echo_password(client):
     r=client.post('/api/v1/auth/login',json={"email":"invalid","password":"PRIVATE-SENTINEL"})
     assert r.status_code==422 and 'PRIVATE-SENTINEL' not in r.text

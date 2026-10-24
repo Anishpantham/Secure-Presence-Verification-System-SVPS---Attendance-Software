@@ -1,0 +1,129 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "SPVS: dashboard build",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build",
+				"--prefix",
+				"dashboard"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "SPVS: local PostgreSQL",
+			"type": "shell",
+			"command": "/opt/homebrew/opt/postgresql@16/bin/postgres",
+			"args": [
+				"-D",
+				"${workspaceFolder}/.runtime/postgres",
+				"-h",
+				"127.0.0.1",
+				"-k",
+				"${workspaceFolder}/.runtime/postgres-socket"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "SPVS: iOS simulator build",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"${workspaceFolder}/scripts/build_mobile_macos.sh",
+				"ios-simulator"
+			],
+			"options": {
+				"env": {
+					"EXPO_PUBLIC_API_URL": "http://localhost:8000/api/v1",
+					"SPVS_DEV_HTTP": "1",
+					"CI": "1",
+					"EXPO_NO_TELEMETRY": "1",
+					"SPVS_IOS_DESTINATION": "platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0"
+				}
+			},
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "SPVS: API",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"${workspaceFolder}/scripts/backend.sh",
+				"uvicorn",
+				"app.main:app",
+				"--host",
+				"0.0.0.0",
+				"--port",
+				"8000"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "SPVS: Metro",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				"mobile",
+				"start",
+				"--",
+				"--lan"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "SPVS: mobile exports",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"export",
+				"--prefix",
+				"mobile"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "SPVS: iOS device build",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-c",
+				"xcodebuild -workspace '${workspaceFolder}/mobile/ios/SPVSStudent.xcworkspace' -scheme SPVSStudent -configuration Debug -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath '${workspaceFolder}/work/ios-device-derived' -allowProvisioningUpdates -allowProvisioningDeviceRegistration build > '${workspaceFolder}/work/ios-device-build.log' 2>&1; spvs_build_status=$?; tail -n 45 '${workspaceFolder}/work/ios-device-build.log'; exit \"$spvs_build_status\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "SPVS: Android debug build",
+			"type": "shell",
+			"command": "env",
+			"args": [
+				"GRADLE_USER_HOME=${workspaceFolder}/.runtime/gradle",
+				"SPVS_SKIP_NPM_CI=1",
+				"SPVS_DEV_HTTP=1",
+				"SPVS_ANDROID_ARCHITECTURES=arm64-v8a",
+				"EXPO_PUBLIC_API_URL=http://10.0.11.85:8000/api/v1",
+				"bash",
+				"scripts/build_mobile_macos.sh",
+				"android"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

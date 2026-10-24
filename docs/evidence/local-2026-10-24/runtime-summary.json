@@ -1,0 +1,44 @@
+{
+  "captured_at": "2026-10-24T14:29:44.648952+00:00",
+  "scope": "Local demo account; no names, coordinates, IDs, keys, templates or raw frames included",
+  "enrolled": true,
+  "consent_at": "2026-10-24T14:37:27.199693+05:30",
+  "events": [
+    {
+      "kind": "DEVICE_REGISTERED",
+      "time": "2026-10-23T23:45:13.823148+05:30"
+    },
+    {
+      "kind": "BIOMETRIC_ENROLLED",
+      "time": "2026-10-24T14:37:27.203001+05:30"
+    }
+  ],
+  "attendance_attempts": [
+    {
+      "time": "2026-10-24T14:43:49.754883+05:30",
+      "state": "PENDING_REVIEW",
+      "reasons": [
+        "IOS_PRESENCE_REVIEW_REQUIRED"
+      ],
+      "evidence": {
+        "distance_m": 3.7,
+        "accuracy_m": 9.272996132196925,
+        "wifi_status": "unavailable",
+        "wifi_source": "none",
+        "presence_assurance": "GPS_ONLY",
+        "current_network_match": false,
+        "ios_policy": "review",
+        "liveness": "PASSED",
+        "attestation": "APP_ATTEST_ASSERTION_MISSING"
+      }
+    }
+  ],
+  "official_attendance_record_count": 0,
+  "classroom_wifi_references": 0,
+  "policy": {
+    "ios_presence": "review",
+    "wifi_unavailable": "review",
+    "require_attestation": false
+  },
+  "active_session_count": 0
+}

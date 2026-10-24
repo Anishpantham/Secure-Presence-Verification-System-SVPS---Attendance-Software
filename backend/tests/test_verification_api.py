@@ -171,3 +171,23 @@ def test_biometric_enrollment_consent_and_deletion(client,setup_flow,db,world):
     assert client.get('/api/v1/biometrics',headers=headers).json()['enrolled'] is True
     assert client.request('DELETE','/api/v1/biometrics',headers=headers,json={'email':world['student'].email,'password':PASSWORD}).status_code==204
     assert client.get('/api/v1/biometrics',headers=headers).json()['enrolled'] is False
+
+
+def test_enrollment_returns_missed_step_without_allowing_replay(client,setup_flow,db,world,monkeypatch):
+    headers,_,device,_,_,_=setup_flow
+    db.delete(db.get(BiometricProfile,world['student'].id));db.commit()
+    c=client.post('/api/v1/challenges',headers=headers,json={'device_id':device['id'],'purpose':'enrollment'}).json()
+    class FailedVision:
+        def verify(self,frames,challenge):
+            raise VisionError('LIVENESS_SEQUENCE_FAILED',diagnostics={
+                'completed_actions':1,'expected_action':'TURN_LEFT','frame_count':8})
+    monkeypatch.setattr('app.api.verification.get_vision',lambda:FailedVision())
+    evidence={'challenge_id':c['id'],'device_id':device['id'],'frames':[
+        {'jpeg':str(i)*120,'captured_at':now().isoformat()} for i in range(8)],'consent':True}
+    request=sign(evidence,device['credential'])
+    response=client.post('/api/v1/biometrics/enroll',headers=headers,json=request)
+    assert response.status_code==422
+    assert response.json()['error']=={'code':422,'message':'LIVENESS_SEQUENCE_FAILED',
+        'details':{'completed_actions':1,'expected_action':'TURN_LEFT','frame_count':8}}
+    assert client.get('/api/v1/biometrics',headers=headers).json()['enrolled'] is False
+    assert client.post('/api/v1/biometrics/enroll',headers=headers,json=request).status_code==409

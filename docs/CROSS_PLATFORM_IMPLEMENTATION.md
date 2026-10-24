@@ -1,6 +1,6 @@
 # Cross-platform implementation
 
-This completion extends commit `b19777df3cb3210330075c702e5e98f487213a5d`; FastAPI/PostgreSQL, React dashboard and Expo/React Native remain the architecture. The source supports Android and iOS. See FINAL_COMPLETION_REPORT.md for observed builds and tests; source implementation is not physical-device validation.
+This completion extends commit `b19777df3cb3210330075c702e5e98f487213a5d`; FastAPI/PostgreSQL, React dashboard and Expo/React Native remain the architecture. The source supports Android and iOS. See [current status](CURRENT_STATUS.md) and [current verification](FINAL_COMPLETION_REPORT.md) for observed builds/tests. The historical cloud record is HISTORICAL_CLOUD_COMPLETION_2026-10-23.md. Source implementation is not physical-device validation.
 
 ## Shared application and platform adapters
 
@@ -11,16 +11,16 @@ Authentication, enrollment and deletion/re-enrollment, session selection, random
 | Face images | Expo Camera front camera | Expo Camera front camera | Same YuNet/SFace and MediaPipe inference |
 | Liveness | JPEG still sequence, randomized prompts | Same protocol | Sequence, timing, duplicate-frame and identity gates |
 | Device signature | Android Keystore P-256 | Secure Enclave P-256 on physical devices; Keychain on simulator | ECDSA SHA-256, DER signature, registered SPKI key |
-| Nearby Wi-Fi | Recent OS scan cache, measured BSSID/RSSI | Not available to ordinary apps | Never synthesized |
+| Nearby Wi-Fi | Recent OS readings or awaited scan-completion callback, measured BSSID/RSSI | Not available to ordinary apps | Never synthesized |
 | Current Wi-Fi | Scan evidence | NEHotspotNetwork.fetchCurrent, BSSID only | Separate current-network signal; no invented RSSI |
 | Location | Expo location provider; coarse/full permission | Core Location through Expo and native accuracyAuthorization | Freshness, uncertainty, geofence, mock flag, travel checks |
 | App attestation | Play Integrity remains unconfigured | App Attest native API plus server verifier | Unverified evidence is never reported as verified |
 
 ## Permissions and reproducible projects
 
-`app.config.js` and `plugins/withSpvs.js` configure bundle/package `edu.spvs.student`, display name SPVS Student, portrait orientation, icons, launch screen, iOS 16.4 minimum, camera/location/local-network descriptions, Access Wi-Fi Information entitlement and Android backup exclusion. Set `SPVS_APP_ATTEST_ENV=development` or `production` when generating an App Attest build. The entitlement is deliberately absent without that explicit setting. No background location, microphone or unrestricted iOS Wi-Fi scan is requested. Android location permission gates scan access; scan throttling and OEM restrictions can return unavailable.
+`app.config.js` and `plugins/withSpvs.js` configure bundle/package `edu.spvs.student`, display name SPVS Student, portrait orientation, icons, launch screen, iOS 16.4 minimum, camera/location/local-network descriptions and Android backup exclusion. Access Wi-Fi Information is disabled by default for Personal Team compatibility. Supported Apple Developer Team builds opt in with `SPVS_IOS_WIFI_INFO=1` before prebuild and require a matching provisioning profile. Unsetting it or setting `0` removes only the Wi-Fi entitlement, including one left by a previous build; the native current-network implementation remains. Set the same variable when running `scripts/verify_native_config.py`. App Attest is separately controlled by `SPVS_APP_ATTEST_ENV=development` or `production`; its existing behavior is unchanged. No background location, microphone or unrestricted iOS Wi-Fi scan is requested. Android location permission gates scan access; scan throttling and OEM restrictions can return unavailable.
 
-Run `npm ci` then `npx expo prebuild --no-install`. Generated Android and Xcode projects are derived artifacts, excluded from Git and the source ZIP. Local Swift/Kotlin Expo modules and podspecs are included. `python3 scripts/verify_native_config.py` checks generated files, not native compilation. The CocoaPods Gemfile pins 1.16.2; run `bundle install` before `bundle exec pod install`. A Podfile.lock must be reviewed and retained after the first genuine macOS installation; this Linux run cannot produce a validated CocoaPods resolution.
+Run `npm ci` then `npx expo prebuild --no-install --no-clean`. Expo 58 defaults to clearing native directories unless `--no-clean` is supplied. Generated Android and Xcode projects are derived artifacts; only the resolved iOS Podfile.lock is retained in Git. Local Swift/Kotlin Expo modules and podspecs are included. `python3 scripts/verify_native_config.py` checks generated files, not native compilation. The CocoaPods Gemfile pins 1.16.2; run `bundle install` before `bundle exec pod install`. The [local Mac validation](IOS_MAC_VALIDATION.md) records the genuine CocoaPods resolution and Xcode run; the original Linux report remains historical.
 
 Release transport requires an HTTPS API endpoint. For an isolated local development network only, set `SPVS_DEV_HTTP=1` before prebuild and use a development client. Production configuration defaults to TLS and disables Android cleartext. Do not use local HTTP for real student data. Android emulator defaults to 10.0.2.2; iOS simulator defaults to localhost. Set EXPO_PUBLIC_API_URL explicitly for physical phones and release builds.
 
@@ -46,6 +46,19 @@ The verifier is covered by synthetic certificate/signature tests. It has **not**
 Play Integrity is a fail-closed boundary: no decoded client verdict is trusted. To finish its provider adapter, configure a Google Cloud project linked to Play Console, package identity and allowed signing-certificate digests, obtain a standard Integrity token bound to SHA256 of the exact request, decode it through Google's authenticated server API, enforce request package/hash/timestamp and app/device verdicts, and add replay/quota/error tests on Play-distributed physical devices. This release does not claim that integration is configured or verified.
 
 ## Presence policy and assurance
+
+The Android scanner reuses readings at most 15 seconds old, otherwise waits up
+to eight seconds for a successful system scan broadcast. Concurrent calls share
+one scan; timeout/cancellation removes listeners. Coarse and precise location
+permissions are requested together and precise access is required. Settings
+includes a local-only Wi-Fi setup check for reference collection. See the
+[field procedure](TESTING_STRATEGY.md#android-wi-fi-setup-and-field-test).
+
+The current iOS `review` policy always requires review, including when the current
+BSSID matches. There is no separate automatic Wi-Fi-match approval mode. The
+Personal Team development build lacks the Wi-Fi entitlement, and the local demo
+classroom currently has no AP references. These are configuration and policy
+limits; the Android scan fix does not change them.
 
 Android retains `wifi_unavailable=review|reject|gps_only`. iOS has a separate audited `ios_presence=review|retry|gps_only`, default review. A GPS-only opt-in applies only after mandatory identity, device, liveness and GPS gates; it never overrides failed identity or a required unverified attestation. Every attempt records platform, policy, reported key storage and presence assurance. Missing Wi-Fi is distinct from a mismatched observed network. A permitted iOS current BSSID does not raise GPS to multi-AP fingerprint assurance. Reduced-accuracy location requires retry even when a client reports a small numeric radius. GPS coordinates and Wi-Fi observations remain potentially spoofable client evidence.
 

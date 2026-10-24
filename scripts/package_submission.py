@@ -283,6 +283,9 @@ def styles():
         pdfmetrics.registerFont(pdfmetrics.Font("Body-Bold","Helvetica-Bold","WinAnsiEncoding"))
         pdfmetrics.registerFont(pdfmetrics.Font("Mono","Courier","WinAnsiEncoding"))
         pdfmetrics.registerFontFamily("Body",normal="Body",bold="Body-Bold",italic="Body",boldItalic="Body-Bold")
+    # ReportLab's built-in-font fallback also needs a family mapping for inline
+    # code spans; otherwise macOS hosts without DejaVu fail on <font face="Mono">.
+    pdfmetrics.registerFontFamily("Mono",normal="Mono",bold="Mono",italic="Mono",boldItalic="Mono")
     sheet=getSampleStyleSheet()
     sheet.add(ParagraphStyle(name="P",fontName="Body",fontSize=9,leading=14,textColor=INK,spaceAfter=8))
     sheet.add(ParagraphStyle(name="H1",fontName="Body-Bold",fontSize=22,leading=29,textColor=INK,spaceBefore=8,spaceAfter=18,keepWithNext=True))

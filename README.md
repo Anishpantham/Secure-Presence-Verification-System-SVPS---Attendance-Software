@@ -1,5 +1,14 @@
 # Secure Presence Verification System · SPVS
 
+Start with the [current status](docs/CURRENT_STATUS.md) and the
+[25 October synchronization checkpoint](docs/REPOSITORY_SYNC_2026-10-25.md).
+The [24 October ecosystem audit](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md)
+preserves the historical state before publication.
+Native build evidence is in [iOS Mac validation](docs/IOS_MAC_VALIDATION.md) and
+[Android Mac validation](docs/ANDROID_MAC_VALIDATION.md). iPhone enrollment and
+one attendance submission are observed; that submission requires review.
+Physical Android Wi-Fi testing remains pending.
+
 A working college attendance project with **two verification layers**: identity and physical presence. FastAPI/PostgreSQL enforce decisions; a React dashboard manages institution workflows; an Expo development app captures real student evidence.
 
 **Assurance boundary:** this is a production-inspired semester project, not a certified biometric or device-attestation product. Real SFace inference and server-side liveness logic are implemented. Phone capture, Android Wi-Fi behavior, and liveness usability require the real-device evaluation in `docs/TESTING_STRATEGY.md`. Play Integrity is unconfigured. Apple App Attest now has native and server verification code, tested with synthetic certificates; genuine provider/device interoperability is unverified and deployment configuration is required.
@@ -89,6 +98,6 @@ There are no BLE beacons, ESP32 devices, ultrasonic tokens, surveillance cameras
 
 ## Cross-platform completion delivery
 
-Start with `docs/FINAL_COMPLETION_REPORT.md` for current test/build evidence and remaining release gates. `docs/CROSS_PLATFORM_IMPLEMENTATION.md` explains native P-256 device keys, Apple App Attest verification, iPhone current-network privacy restrictions and auditable iOS presence policy. `scripts/build_mobile_macos.sh` provides Android, iOS simulator and signed-device build entry points for Apple Silicon. Final artifacts live in `release/final/`; previous delivery artifacts remain unchanged.
+Start with [current status](docs/CURRENT_STATUS.md) and [current verification](docs/FINAL_COMPLETION_REPORT.md) for evidence and release gates. The original cloud run is preserved in `docs/HISTORICAL_CLOUD_COMPLETION_2026-10-23.md`. `docs/CROSS_PLATFORM_IMPLEMENTATION.md` explains native keys, App Attest and platform-specific presence policies. `scripts/build_mobile_macos.sh` provides native Mac build entry points. `release/final/` contains the regenerated source ZIP/PDF/Markdown delivery and the verified Android development APK; see [artifact status](release/final/CURRENT_STATUS.md).
 
 New device registrations require native key proof by default. Apply all Alembic migrations before updating clients. Existing HMAC devices remain compatible until an audited reset. Provider attestation and physical-device biometric performance must not be inferred from automated test counts.

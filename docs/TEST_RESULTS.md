@@ -1,4 +1,36 @@
-# Final test and build results
+# Current and historical test/build results
+
+## Current local checkpoint - 24 October 2026
+
+| Suite | Passed | Failures/errors | Skipped | Evidence |
+| --- | ---: | ---: | ---: | --- |
+| Backend, full suite | 120 | 0 | 0 | [JUnit](evidence/local-2026-10-24/backend-tests.xml) |
+| Mobile | 42 | 0 | 0 | [JUnit](evidence/local-2026-10-24/mobile-tests.xml) |
+| Dashboard | 8 | 0 | 0 | [JUnit](evidence/local-2026-10-24/dashboard-tests.xml) |
+| Android native Wi-Fi | 10 | 0 | 0 | [JUnit](evidence/local-2026-10-24/android-wifi-tests.xml) |
+
+Total: **180 passed** across these four suites. The backend/mobile/dashboard
+results were rerun for the audit; the native results are from the preceding
+verified local Android build. Historical browser tests are excluded from this
+total. Mobile TypeScript and the dashboard production build passed. Native
+Android compilation and APK signature verification passed; physical Android
+testing is pending. See [Android validation](ANDROID_MAC_VALIDATION.md).
+
+iOS simulator and signed-device builds passed in the earlier local Mac run.
+Physical iPhone enrollment succeeded on 24 October; an attendance submission
+passed face/liveness/GPS but required review for iOS presence policy. No official
+attendance record was created. See [iOS validation](IOS_MAC_VALIDATION.md).
+
+Fresh npm audits: [mobile](evidence/local-2026-10-24/mobile-audit.json) reports
+5 high affected package entries; [dashboard](evidence/local-2026-10-24/dashboard-audit.json)
+reports zero. Backend vulnerability auditing was not rerun locally. Upstream
+deprecation warnings and genuine provider-attestation/calibration gaps remain.
+
+See the [full audit](LOCAL_ECOSYSTEM_REPORT_2026-10-24.md) for scope and provenance.
+
+## Historical cloud completion run - 23 October 2026
+
+The tables and statements in this section describe that earlier run only.
 
 | Suite | Passed | Failures/errors | Skipped |
 |---|---:|---:|---:|

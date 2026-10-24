@@ -1,30 +1,83 @@
 package edu.spvs.wifi
 
 import android.content.Context
+import android.content.BroadcastReceiver
+import android.content.Intent
+import android.content.IntentFilter
 import android.net.wifi.WifiManager
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
+import expo.modules.kotlin.Promise
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
 /** Real, recent Android scan results only. OS scan throttling may yield unavailable evidence. */
 class SpvsWifiModule : Module() {
+  private val handler = Handler(Looper.getMainLooper())
+  private var pending: WifiScanSession? = null
+  private val waiters = mutableListOf<Promise>()
+  @Volatile private var destroyed = false
+
   override fun definition() = ModuleDefinition {
     Name("SpvsWifi")
-    AsyncFunction("scan") {
-      val context = appContext.reactContext ?: throw IllegalStateException("No React context")
-      val manager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-      try {
-        @Suppress("DEPRECATION")
-        manager.startScan() // Asynchronous hint; never pretend the scan completed immediately.
-        val nowMicros = SystemClock.elapsedRealtimeNanos() / 1000
-        val observations = manager.scanResults.filter {
-          val age = nowMicros - it.timestamp
-          age >= 0 && age <= 15_000_000 && it.BSSID != "02:00:00:00:00:00"
-        }.take(50).map { mapOf("bssid" to it.BSSID.lowercase(), "rssi" to it.level) }
-        mapOf("status" to if (observations.isEmpty()) "unavailable" else "available", "observations" to observations)
-      } catch (e: SecurityException) {
-        mapOf("status" to "permission_denied", "observations" to emptyList<Any>())
-      }
+    AsyncFunction("scan") { promise: Promise ->
+      handler.post { scan(promise) }
     }
+    OnDestroy {
+      destroyed = true
+      handler.post { pending?.cancel() }
+    }
+  }
+
+  private fun scan(promise: Promise) {
+    val context = appContext.reactContext?.applicationContext
+    if (destroyed || context == null) {
+      promise.resolve(mapOf("status" to "unavailable", "source" to "none", "observations" to emptyList<Any>()))
+      return
+    }
+    waiters.add(promise)
+    if (pending != null) return // Concurrent callers share a single scan and timeout.
+    val manager = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
+    val session = WifiScanSession(
+      read = {
+        freshReadings(manager.scanResults.map { WifiReading(it.BSSID ?: "", it.level, it.timestamp) },
+          SystemClock.elapsedRealtimeNanos() / 1000)
+      },
+      startScan = {
+        @Suppress("DEPRECATION")
+        manager.startScan()
+      },
+      listen = { completed ->
+        val receiver = object : BroadcastReceiver() {
+          override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == WifiManager.SCAN_RESULTS_AVAILABLE_ACTION) {
+              completed(intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false))
+            }
+          }
+        }
+        val filter = IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
+        // Wi-Fi broadcasts may originate from privileged system components.
+        if (Build.VERSION.SDK_INT >= 33) context.registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED)
+        else context.registerReceiver(receiver, filter)
+        val unregister: () -> Unit = { context.unregisterReceiver(receiver) }
+        unregister
+      },
+      scheduleTimeout = { expired ->
+        val timeout = Runnable { expired() }
+        handler.postDelayed(timeout, 8_000)
+        val cancel: () -> Unit = { handler.removeCallbacks(timeout) }
+        cancel
+      },
+      complete = { result ->
+        pending = null
+        val promises = waiters.toList()
+        waiters.clear()
+        promises.forEach { it.resolve(result) }
+      }
+    )
+    pending = session
+    session.start()
   }
 }

@@ -1,5 +1,8 @@
 # SPVS delivery
 
+**Historical baseline delivery.** Start with [current local status](docs/CURRENT_STATUS.md)
+for the Mac/iPhone/Android continuation and publication status.
+
 Start with `README.md` inside the ZIP or the setup/demo PDF.
 
 - `SPVS_COMPLETE_PROJECT.zip` — actual backend, dashboard, mobile source, migration, tests, lockfiles, documentation, verified models and recorded evidence.

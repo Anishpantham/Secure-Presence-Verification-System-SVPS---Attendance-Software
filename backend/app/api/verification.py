@@ -5,6 +5,7 @@ from datetime import timedelta
 
 import numpy as np
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -175,9 +176,12 @@ def enroll_biometrics(data: SignedEvidence, user: User = Depends(student), db: S
     try:
         template, _ = vision.verify(evidence.frames, item)
     except VisionError as exc:
-        audit(db, user.id, "ENROLLMENT_FAILED", severity="WARNING", reason=str(exc))
+        audit(db, user.id, "ENROLLMENT_FAILED", severity="WARNING", reason=str(exc), **exc.diagnostics)
         db.commit()
-        raise HTTPException(422, str(exc))
+        # Return only capture-stage diagnostics, never biometric measurements.
+        details = {key: value for key, value in exc.diagnostics.items()
+                   if key in {"completed_actions", "expected_action", "frame_count", "missing_landmark_frames", "frame_index"}}
+        return JSONResponse({"error": {"code": 422, "message": str(exc), "details": details}}, status_code=422)
     db.add(BiometricProfile(student_id=user.id, template_encrypted=cipher().encrypt(template.astype("float32").tobytes()), model_version=MODEL_VERSION))
     item.enrollment_request_hash = enrollment_hash
     audit(db, user.id, "BIOMETRIC_ENROLLED", model=MODEL_VERSION)

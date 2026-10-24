@@ -1,11 +1,18 @@
 # Known limitations and release boundary
 
+The [current local status](CURRENT_STATUS.md) supersedes historical build and
+test claims. Xcode/simulator and signed-device builds have run. One physical
+iPhone enrollment and one pending-review attendance attempt are recorded in
+[iOS validation](IOS_MAC_VALIDATION.md). Android native compilation and unit
+tests passed, but physical Android testing and genuine Apple App Attest remain
+outstanding.
+
 ## Verification assurance
 
 - A normal phone can be rooted, instrumented or used with injected camera/location data. A native device signature (or a legacy HMAC) proves key possession, not trustworthy physical capture.
 - Temporal landmark liveness is a heuristic. It is not ISO-certified presentation-attack detection, and sophisticated replay or deepfake attacks may succeed. The action vocabulary is small even though challenge IDs and ordering are randomized.
 - SFace is a real pretrained model, but the chosen threshold has not been calibrated on this institution. The public-portrait smoke tests do not estimate FAR, FRR, fairness or operational accuracy.
-- Real-camera head-direction conventions, blink timing, enrollment usability and sustained phone-to-server attendance must be validated on physical devices. Automated transaction tests use an explicitly substituted vision component; they do not replace that evaluation.
+- The corrected head-direction and blink flow worked for the observed iPhone enrollment. Sustained usability, both turn directions across phones, and broader device/user evaluation remain unverified. Automated transaction tests use an explicitly substituted vision component; they do not replace that evaluation.
 - GPS and Wi-Fi support approximate physical presence, not absolute classroom proof. Rounded location history supports only coarse anomaly rules. The absence of a mock-location flag does not establish honesty.
 - Wi-Fi scans are implemented only through a local Android module and depend on OS permissions, enabled location, recent scan availability and throttling. iOS may provide a permitted current BSSID only; no RSSI scan is fabricated. The separate default iPhone policy requires review.
 - Play Integrity remains an unconfigured provider boundary. App Attest has native and server code, but Apple configuration and genuine provider/device validation remain outstanding. Requiring unverified attestation moves otherwise eligible attempts to review.
@@ -24,7 +31,15 @@
 
 ## Dependency audit boundary
 
-The current backend and dashboard audit results are recorded in `TEST_RESULTS.md` and the verification report. The Expo dependency tree currently contains two upstream advisories without published fixes: `braces` nested-pattern stack exhaustion (GHSA-vfj7-8cjw-p6xm) and `node-forge` RSA signature verification (GHSA-86w9-cpqp-85rv). npm propagates these through 15 affected package entries; that is not 15 distinct root flaws. These concern Metro/build tooling and Expo certificate utilities in this project. The application's HMAC implementation uses `@noble/hashes` and the server uses Python cryptography. Do not expose the development bundler to untrusted networks or treat this explanation as a general security clearance. Re-audit before distribution and adopt upstream fixes when available.
+The 24 October npm audit reports **5 high-severity mobile package entries** and
+zero dashboard findings. Direct advisory records identify `node-forge`
+(GHSA-86w9-cpqp-85rv) and `zod` (GHSA-mrhx-c7xc-m3w5); the other affected entries
+are dependency propagation. See the [saved mobile audit](evidence/local-2026-10-24/mobile-audit.json).
+The earlier 15-entry/braces result remains historical; no dependency upgrade was
+performed during this audit. npm still proposes an incompatible Expo 44 downgrade
+for parts of the tree. Backend vulnerability scanning was not rerun; its older
+zero-finding report is not a current clearance. Keep development tooling private
+and review compatible fixes before distribution.
 
 See the verification report for exact build, native compilation and physical-device test status. An exported JavaScript bundle is not an installed/tested Android APK, and Linux validation is not macOS ARM64 validation.
 
@@ -32,7 +47,7 @@ See the verification report for exact build, native compilation and physical-dev
 
 The baseline release failed downloading the React Native Android AAR with HTTP 403. This completion explicitly configures the managed proxy and CA trust, retaining TLS verification. The latest actual build outcome supersedes that baseline and is recorded in FINAL_COMPLETION_REPORT.md. JavaScript exports are reported separately from native compilation and physical-device testing.
 
-## Cross-platform completion update
+## Historical cross-platform completion update (23 October cloud run)
 
 The current native build outcomes are in FINAL_COMPLETION_REPORT.md. No physical Android or iPhone run, Xcode compilation, simulator interaction, Apple Silicon execution, genuine Apple attestation registration, Play Integrity provider verification, institutional deployment or population biometric calibration is claimed. App Attest certificate/assertion logic is implemented and synthetic-tested; Apple receipt risk analysis is not implemented. CocoaPods resolution awaits macOS; no validated Podfile.lock is invented. `braces` <=3.0.3 and `node-forge` <=1.4.0 remain affected upstream; official registry latest versions were still 3.0.3 and 1.4.0 during this run. npm reports 15 affected mobile package entries from these two root advisories. Do not use npm force-fix downgrades to incompatible Expo 44/React Native 0.72. Keep Metro/dev tooling private, build only trusted source and do not use its vulnerable certificate utilities as an institutional trust authority. Backend and dashboard audit results are recorded separately.
 

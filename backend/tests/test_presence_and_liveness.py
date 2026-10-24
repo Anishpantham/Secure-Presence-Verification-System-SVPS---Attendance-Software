@@ -101,6 +101,14 @@ def test_wrong_liveness_action_rejected():
     with pytest.raises(VisionError,match='SEQUENCE'):validate_sequence(observations,['CENTER','TURN_RIGHT','CENTER','BLINK','CENTER'],start,start+timedelta(seconds=60))
 
 
+def test_failed_sequence_reports_only_stage_progress():
+    start,observations=sequence()
+    with pytest.raises(VisionError) as failure:
+        validate_sequence(observations,['CENTER','TURN_RIGHT','CENTER','BLINK','CENTER'],start,start+timedelta(seconds=60))
+    assert str(failure.value)=='LIVENESS_SEQUENCE_FAILED'
+    assert failure.value.diagnostics=={'completed_actions':1,'expected_action':'TURN_RIGHT','frame_count':11}
+
+
 def test_liveness_requires_open_closed_open():
     start,observations=sequence()
     for o in observations:o.ear=.3

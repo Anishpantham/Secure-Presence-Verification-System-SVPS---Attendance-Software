@@ -16,7 +16,8 @@ artifacts/*
 *.db
 .runtime/
 mobile/android/
-mobile/ios/
+mobile/ios/*
+!mobile/ios/Podfile.lock
 *.tsbuildinfo
 **/test-results/
 **/playwright-report/

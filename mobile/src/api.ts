@@ -1,6 +1,7 @@
 import {defaultApiUrl} from './platform';
 import * as SecureStore from 'expo-secure-store';
 import type {DeviceCredential,User} from './contracts';
+import {ApiError,retryAfterSeconds} from './apiErrors';
 const BASE=process.env.EXPO_PUBLIC_API_URL||defaultApiUrl();
 if(!__DEV__&&!BASE.startsWith('https://'))throw new Error('Release builds require an HTTPS API endpoint');
 type Tokens={access_token:string;refresh_token:string};
@@ -14,7 +15,7 @@ export async function api<T>(path:string,options:RequestInit={},retry=true):Prom
   if(!refreshPromise)refreshPromise=(async()=>{const r=await fetch(BASE+'/auth/refresh',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({refresh_token:tokens!.refresh_token})});if(!r.ok){await signOut();throw new Error('Session expired. Sign in again.')}await save(await r.json())})().finally(()=>{refreshPromise=null});
   await refreshPromise;return api(path,options,false);
  }
- if(!response.ok){const body=await response.json().catch(()=>({}));throw new Error(body.error?.message||`Request failed (${response.status})`)}
+ if(!response.ok){const body=await response.json().catch(()=>({}));throw new ApiError(body.error?.message||`Request failed (${response.status})`,response.status,retryAfterSeconds(response.headers.get('Retry-After')),body.error?.details)}
  if(response.status===204)return undefined as T;return response.json();
 }
 export const post=<T>(path:string,data:unknown={})=>api<T>(path,{method:'POST',body:JSON.stringify(data)});

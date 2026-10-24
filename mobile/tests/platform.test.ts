@@ -1,6 +1,6 @@
 import {beforeEach,it,expect,vi,describe} from 'vitest';
 const mocks=vi.hoisted(()=>({os:'ios',module:null as any,permission:'granted',accuracy:'full',fix:{coords:{latitude:12,longitude:77,accuracy:5},timestamp:0,mocked:false}}));
-vi.mock('react-native',()=>({Platform:{get OS(){return mocks.os}},PermissionsAndroid:{PERMISSIONS:{ACCESS_FINE_LOCATION:'location'},RESULTS:{GRANTED:'granted'},request:async()=>mocks.permission}}));
+vi.mock('react-native',()=>({Platform:{get OS(){return mocks.os}},PermissionsAndroid:{PERMISSIONS:{ACCESS_FINE_LOCATION:'location',ACCESS_COARSE_LOCATION:'coarse'},RESULTS:{GRANTED:'granted'},requestMultiple:async()=>({location:mocks.permission,coarse:mocks.permission})}}));
 vi.mock('expo-modules-core',()=>({requireOptionalNativeModule:()=>mocks.module}));
 vi.mock('expo-location',()=>({Accuracy:{High:4},requestForegroundPermissionsAsync:async()=>({status:mocks.permission}),hasServicesEnabledAsync:async()=>true,getCurrentPositionAsync:async()=>mocks.fix}));
 import {platformAdapter,defaultApiUrl} from '../src/platform';
@@ -11,6 +11,8 @@ it('Android uses the emulator gateway default',()=>{mocks.os='android';expect(de
 it('iOS only requests current-network evidence without inventing RSSI',async()=>{mocks.module.currentNetwork=async()=>({status:'available',source:'current_network',currentBssid:'aa:bb:cc:dd:ee:ff',observations:[]});const result=await platformAdapter().wifi();expect(result.source).toBe('current_network');expect(result.observations).toEqual([]);expect(result).not.toHaveProperty('rssi')});
 it('missing native Wi-Fi module is explicit',async()=>{mocks.module=null;expect((await platformAdapter().wifi()).status).toBe('unsupported')});
 it('Android scan permission denial does not fabricate data',async()=>{mocks.os='android';mocks.permission='denied';mocks.module.scan=vi.fn();expect((await platformAdapter().wifi()).status).toBe('permission_denied');expect(mocks.module.scan).not.toHaveBeenCalled()});
+it('Android reports completed native scan evidence',async()=>{mocks.os='android';mocks.module.scan=async()=>({status:'available',observations:[{bssid:'aa:bb:cc:dd:ee:ff',rssi:-55}]});expect(await platformAdapter().wifi()).toEqual({status:'available',source:'scan',observations:[{bssid:'aa:bb:cc:dd:ee:ff',rssi:-55}]})});
+it('Android timeout does not claim a scan source',async()=>{mocks.os='android';mocks.module.scan=async()=>({status:'unavailable',observations:[]});expect(await platformAdapter().wifi()).toEqual({status:'unavailable',source:'none',observations:[]})});
 it('reduced iOS accuracy requires retry',async()=>{mocks.accuracy='reduced';await expect(collectLocation()).rejects.toThrow('Precise Location')});
 it('location permission denial has a recovery instruction',async()=>{mocks.permission='denied';await expect(collectLocation()).rejects.toThrow('settings')});
 it('stale positions are not submitted as fresh',async()=>{mocks.fix.timestamp=Date.now()-60000;await expect(collectLocation()).rejects.toThrow('stale')});

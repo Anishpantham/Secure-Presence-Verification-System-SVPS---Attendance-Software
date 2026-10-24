@@ -4,28 +4,67 @@ SPVS_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 [[ "$(uname -s)" == Darwin ]] || { echo 'Native macOS builds require macOS and Xcode/Android Studio.' >&2; exit 1; }
 cd "$SPVS_ROOT/mobile"
 : "${EXPO_PUBLIC_API_URL:?Set EXPO_PUBLIC_API_URL to the reachable API /api/v1 URL before building}"
-npm ci
+# Use the opt-in only after a successful npm ci for the current lockfile.
+if [[ "${SPVS_SKIP_NPM_CI:-0}" != 1 ]]; then
+  npm ci --cache "$SPVS_ROOT/.runtime/npm-cache"
+fi
+
+install_ios_pods() {
+  # Keep the system Ruby untouched; use the documented Homebrew Ruby if present.
+  if [[ -d /opt/homebrew/opt/ruby@3.3/bin ]]; then
+    export PATH="/opt/homebrew/opt/ruby@3.3/bin:$PATH"
+  fi
+  export BUNDLE_GEMFILE="$SPVS_ROOT/mobile/Gemfile"
+  export BUNDLE_PATH="${BUNDLE_PATH:-$SPVS_ROOT/.runtime/bundle}"
+  bundle check || bundle install
+  (cd ios && bundle exec pod install)
+}
 case "${1:-}" in
  android)
-  export JAVA_HOME="${JAVA_HOME:-$(/usr/libexec/java_home -v 17)}"
-  export ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
-  npx expo prebuild --platform android --no-install
-  (cd android && ./gradlew :app:assembleDebug --no-daemon)
+  if [[ -z "${JAVA_HOME:-}" ]]; then
+    if [[ -d /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ]]; then
+      export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
+    else
+      export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
+    fi
+  fi
+  if [[ -z "${ANDROID_HOME:-}" ]]; then
+    if [[ -d "$SPVS_ROOT/.runtime/android-sdk/platform-tools" ]]; then
+      export ANDROID_HOME="$SPVS_ROOT/.runtime/android-sdk"
+    else
+      export ANDROID_HOME="$HOME/Library/Android/sdk"
+    fi
+  fi
+  npx expo prebuild --platform android --no-install --no-clean
+  SPVS_ANDROID_ARGS=(:app:assembleDebug --no-daemon)
+  if [[ -n "${SPVS_ANDROID_ARCHITECTURES:-}" ]]; then
+    SPVS_ANDROID_ARGS+=("-PreactNativeArchitectures=$SPVS_ANDROID_ARCHITECTURES")
+  fi
+  (cd android && ./gradlew "${SPVS_ANDROID_ARGS[@]}")
   mkdir -p "$SPVS_ROOT/release/final"
   cp android/app/build/outputs/apk/debug/app-debug.apk "$SPVS_ROOT/release/final/SPVS_ANDROID_DEBUG.apk"
   ;;
  ios-simulator)
   xcodebuild -version
-  npx expo prebuild --platform ios --no-install
-  (cd ios && bundle exec pod install)
-  xcodebuild -workspace ios/SPVSStudent.xcworkspace -scheme SPVSStudent -configuration Debug \
-    -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-    -derivedDataPath "$SPVS_ROOT/work/ios-derived" CODE_SIGNING_ALLOWED=NO build
+  npx expo prebuild --platform ios --no-install --no-clean
+  install_ios_pods
+  mkdir -p "$SPVS_ROOT/work"
+  SPVS_BUILD_LOG="$SPVS_ROOT/work/ios-simulator-build.log"
+  if xcodebuild -workspace ios/SPVSStudent.xcworkspace -scheme SPVSStudent -configuration Debug \
+    -sdk iphonesimulator -destination "${SPVS_IOS_DESTINATION:-generic/platform=iOS Simulator}" \
+    -derivedDataPath "$SPVS_ROOT/work/ios-derived" CODE_SIGNING_ALLOWED=NO build > "$SPVS_BUILD_LOG" 2>&1; then
+    tail -n 5 "$SPVS_BUILD_LOG"
+  else
+    tail -n 100 "$SPVS_BUILD_LOG"
+    echo "Full build log: $SPVS_BUILD_LOG" >&2
+    exit 1
+  fi
+  echo "Full build log: $SPVS_BUILD_LOG"
   ;;
  ios-device)
   xcodebuild -version
-  npx expo prebuild --platform ios --no-install
-  (cd ios && bundle exec pod install)
+  npx expo prebuild --platform ios --no-install --no-clean
+  install_ios_pods
   echo 'Open ios/SPVSStudent.xcworkspace; select your Apple team and connected iPhone, then Run.'
   open ios/SPVSStudent.xcworkspace
   ;;

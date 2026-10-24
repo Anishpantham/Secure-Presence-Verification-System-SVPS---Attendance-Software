@@ -51,6 +51,19 @@ def test_real_model_distinguishes_public_reference_faces(vision):
     assert score < settings().face_threshold
 
 
+def test_landmark_miss_preserves_real_face_identity(vision, monkeypatch):
+    sample=Path('../.runtime/astronaut.png')
+    if not sample.exists():pytest.skip('Public reference image not downloaded')
+    image=cv2.imread(str(sample));_,jpg=cv2.imencode('.jpg',image)
+    frame=SimpleNamespace(jpeg=base64.b64encode(jpg).decode(),captured_at=now())
+    tracked=vision.observe(frame)
+    # Only simulate tracking loss; detection and identity still use real models.
+    monkeypatch.setattr(vision,'mesh',SimpleNamespace(detect=lambda image: SimpleNamespace(face_landmarks=[])))
+    untracked=vision.observe(frame)
+    assert untracked.ear is None and untracked.yaw is None
+    assert similarity(tracked.embedding,untracked.embedding)>settings().face_threshold
+
+
 def test_real_detector_rejects_multiple_faces(vision):
     path=Path('../.runtime/astronaut.png')
     if not path.exists():pytest.skip('Run scripts/download_test_samples.py')

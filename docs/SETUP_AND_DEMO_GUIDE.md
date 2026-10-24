@@ -1,5 +1,8 @@
 # SPVS final setup and demonstration guide
 
+See [Native iOS Mac validation](IOS_MAC_VALIDATION.md) for the actual 2026-10-23
+Apple Silicon setup, current commands and pending physical-iPhone checks.
+
 Use the source ZIP from this completion branch and read FINAL_COMPLETION_REPORT.md before presenting capabilities. Keep the baseline release intact. Commands below are for a MacBook Air M4 with macOS and a trusted development network. The Linux execution report does not claim these Mac commands were run on Apple Silicon.
 
 ## 1. Prerequisites
@@ -81,13 +84,24 @@ npx expo start --dev-client
 
 The script runs a genuine Gradle assembleDebug and copies its output to release/final/SPVS_ANDROID_DEBUG.apk only on success. Install with `adb install -r android/app/build/outputs/apk/debug/app-debug.apk` from mobile, or use Android Studio. The debug development client needs Metro; it is not a signed production app. Use `adb reverse tcp:8081 tcp:8081` when developing over USB. Configure the API endpoint consistently in the terminal running Metro.
 
+The [24 October Mac Android build](ANDROID_MAC_VALIDATION.md) also works with
+official command-line SDK tools; Android Studio is not required for that path.
+The build script discovers Homebrew Java 17 and `.runtime/android-sdk` when
+available, while respecting explicit `JAVA_HOME` and `ANDROID_HOME` settings.
+The saved **SPVS: Android debug build** task targets arm64-v8a. Use
+`SPVS_ANDROID_ARCHITECTURES` to select another supported architecture. After
+installation, sign in and use **Settings → Wi-Fi setup check** before attempting
+attendance. Register actual classroom AP references using measured data.
+
 For release distribution remove SPVS_DEV_HTTP, set an HTTPS API URL, configure institution-owned signing keys outside Git and build a reviewed release variant. Never distribute the debug signing key as an institutional credential.
 
 ## 5. iOS project, CocoaPods and simulator
 
 ```sh
 cd mobile
-gem install bundler
+brew install ruby@3.3
+export PATH="/opt/homebrew/opt/ruby@3.3/bin:$PATH"
+export BUNDLE_PATH="$PWD/../.runtime/bundle"
 bundle install
 cd ..
 export EXPO_PUBLIC_API_URL=http://localhost:8000/api/v1
@@ -97,7 +111,7 @@ cd mobile
 npx expo run:ios
 ```
 
-The script generates `ios/SPVSStudent.xcworkspace`, installs pods and invokes xcodebuild with simulator SDK and CODE_SIGNING_ALLOWED=NO. The simulator can test navigation/network/permission states; it cannot establish Secure Enclave, App Attest, live-camera liveness or real Wi-Fi behavior. Retain and review the generated Podfile.lock after the first successful native resolution. No validated CocoaPods lock or simulator result is claimed from Linux.
+The script generates `ios/SPVSStudent.xcworkspace` with `--no-clean`, installs pods and invokes xcodebuild with simulator SDK and CODE_SIGNING_ALLOWED=NO. The simulator can test navigation/network/permission states; it cannot establish Secure Enclave, App Attest, live-camera liveness or real Wi-Fi behavior. The resolved Ruby and CocoaPods lockfiles are now retained from the [Mac run](IOS_MAC_VALIDATION.md); earlier Linux results did not establish iOS compilation.
 
 ## 6. Physical iPhone and App Attest
 
