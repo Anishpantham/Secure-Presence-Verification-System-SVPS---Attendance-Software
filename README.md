@@ -1,7 +1,9 @@
 # Secure Presence Verification System · SPVS
 
-Start with the [current local status](docs/CURRENT_STATUS.md) and the
-[24 October local ecosystem / GitHub audit](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md).
+Start with the [current status](docs/CURRENT_STATUS.md) and the
+[25 October synchronization checkpoint](docs/REPOSITORY_SYNC_2026-10-25.md).
+The [24 October ecosystem audit](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md)
+preserves the historical state before publication.
 Native build evidence is in [iOS Mac validation](docs/IOS_MAC_VALIDATION.md) and
 [Android Mac validation](docs/ANDROID_MAC_VALIDATION.md). iPhone enrollment and
 one attendance submission are observed; that submission requires review.
@@ -96,6 +98,6 @@ There are no BLE beacons, ESP32 devices, ultrasonic tokens, surveillance cameras
 
 ## Cross-platform completion delivery
 
-Start with [current status](docs/CURRENT_STATUS.md) for current evidence and release gates. `docs/FINAL_COMPLETION_REPORT.md` preserves the historical cloud completion run. `docs/CROSS_PLATFORM_IMPLEMENTATION.md` explains native P-256 device keys, Apple App Attest verification, iPhone current-network privacy restrictions and auditable iOS presence policy. `scripts/build_mobile_macos.sh` provides Android, iOS simulator and signed-device build entry points for Apple Silicon. `release/final/` contains historical ZIP/PDF reports and the newer local Android APK; see [artifact status](release/final/CURRENT_STATUS.md) before distributing them together.
+Start with [current status](docs/CURRENT_STATUS.md) and [current verification](docs/FINAL_COMPLETION_REPORT.md) for evidence and release gates. The original cloud run is preserved in `docs/HISTORICAL_CLOUD_COMPLETION_2026-10-23.md`. `docs/CROSS_PLATFORM_IMPLEMENTATION.md` explains native keys, App Attest and platform-specific presence policies. `scripts/build_mobile_macos.sh` provides native Mac build entry points. `release/final/` contains the regenerated source ZIP/PDF/Markdown delivery and the verified Android development APK; see [artifact status](release/final/CURRENT_STATUS.md).
 
 New device registrations require native key proof by default. Apply all Alembic migrations before updating clients. Existing HMAC devices remain compatible until an audited reset. Provider attestation and physical-device biometric performance must not be inferred from automated test counts.

@@ -1,10 +1,12 @@
-"""Build only the new final deliverables; preserve the prior release artifacts."""
+"""Regenerate a coordinated final delivery; prior snapshots remain in Git history."""
 from pathlib import Path
 import hashlib
 import json
 import os
-import shutil
+import re
+import subprocess
 import zipfile
+from datetime import datetime, timezone
 from pypdf import PdfReader
 import package_submission as render
 
@@ -21,6 +23,7 @@ def source_files():
         dirs[:]=[d for d in dirs if d not in excluded and not (relative==Path('mobile') and d in ('android','ios'))]
         for name in names:
             path=Path(directory)/name
+            if name == '.DS_Store':continue
             if name=='.env' or name.startswith('.env.') and name!='.env.example':continue
             if name.endswith(('.pyc','.log','.db','.tsbuildinfo','.keystore','.jks')) or name=='work-baseline.xml':continue
             if path.is_symlink():continue
@@ -36,11 +39,20 @@ def source_files():
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
     sheet=render.styles()
-    reports=['PROJECT_REPORT.md','CROSS_PLATFORM_IMPLEMENTATION.md','SYSTEM_ARCHITECTURE.md','DATABASE_DESIGN.md','API_DOCUMENTATION.md','BIOMETRIC_DESIGN.md','SECURITY_ARCHITECTURE.md','THREAT_MODEL.md','TEST_RESULTS.md','REQUIREMENTS_TRACEABILITY.md','KNOWN_LIMITATIONS.md','FINAL_COMPLETION_REPORT.md','REFERENCES.md']
+    reports=['PROJECT_REPORT.md','CURRENT_STATUS.md','CROSS_PLATFORM_IMPLEMENTATION.md','SYSTEM_ARCHITECTURE.md','DATABASE_DESIGN.md','API_DOCUMENTATION.md','BIOMETRIC_DESIGN.md','SECURITY_ARCHITECTURE.md','THREAT_MODEL.md','TEST_RESULTS.md','REQUIREMENTS_TRACEABILITY.md','KNOWN_LIMITATIONS.md','FINAL_COMPLETION_REPORT.md','REPOSITORY_SYNC_2026-10-25.md','REFERENCES.md']
     render.render_pdf(OUT/'SPVS_FINAL_PROJECT_REPORT.pdf',[DOCS/name for name in reports],sheet)
-    render.render_pdf(OUT/'SPVS_FINAL_SETUP_AND_DEMO_GUIDE.pdf',[DOCS/name for name in ['SETUP_AND_DEMO_GUIDE.md','DEPLOYMENT_GUIDE.md','USER_MANUAL.md','DEMO_SCRIPT.md','TEST_RESULTS.md']],sheet)
+    render.render_pdf(OUT/'SPVS_FINAL_SETUP_AND_DEMO_GUIDE.pdf',[DOCS/name for name in ['SETUP_AND_DEMO_GUIDE.md','CURRENT_STATUS.md','DEPLOYMENT_GUIDE.md','USER_MANUAL.md','DEMO_SCRIPT.md','TEST_RESULTS.md']],sheet)
     for name in ['SPVS_FINAL_VERIFICATION_REPORT.md','SPVS_FINAL_DELIVERY_README.md']:
-        shutil.copy2(ROOT/name,OUT/name)
+        # Root-relative document links must remain valid in release/final.
+        def relocate_link(match):
+            target = match.group(2)
+            if '://' in target or target.startswith('#'):
+                return match.group(0)
+            path, separator, fragment = target.partition('#')
+            relocated = Path(os.path.relpath(ROOT/path, OUT)).as_posix()
+            return match.group(1) + relocated + separator + fragment + match.group(3)
+        body = re.sub(r'(\[[^\]]+\]\()([^\s)]+)(\))', relocate_link, (ROOT/name).read_text())
+        (OUT/name).write_text(body)
     manifest=DOCS/'FINAL_FILE_MANIFEST.txt'
     files=source_files()
     manifest.write_text('\n'.join(f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.relative_to(ROOT)}' for p in files if p!=manifest)+'\n')
@@ -52,13 +64,19 @@ def main():
         assert z.testzip() is None
         required=['backend/app/main.py','backend/app/services/app_attest.py','backend/alembic/versions/5c9d2a1e8b70_cross_platform_security.py','dashboard/src/App.tsx','mobile/App.tsx','mobile/modules/spvs-security/ios/SpvsSecurityModule.swift','mobile/modules/spvs-security/android/src/main/java/edu/spvs/security/SpvsSecurityModule.kt','mobile/modules/spvs-wifi/ios/SpvsWifiModule.swift','mobile/package-lock.json','docs/CROSS_PLATFORM_IMPLEMENTATION.md','docs/FINAL_COMPLETION_REPORT.md','models/face_landmarker.task','models/face_recognition_sface_2021dec.onnx']
         assert all('spvs-root/'+name in z.namelist() for name in required)
+        current_required=['mobile/ios/Podfile.lock','mobile/Gemfile.lock','mobile/src/WifiDiagnostics.tsx','mobile/src/apiErrors.ts','mobile/modules/spvs-wifi/android/src/main/java/edu/spvs/wifi/WifiScanSession.kt','mobile/modules/spvs-wifi/android/src/test/java/edu/spvs/wifi/WifiScanSessionTest.kt','docs/CURRENT_STATUS.md','docs/REPOSITORY_SYNC_2026-10-25.md','docs/evidence/local-2026-10-24/android-wifi-tests.xml']
+        assert all('spvs-root/'+name in z.namelist() for name in current_required)
         assert not any('/node_modules/' in name or '/.venv/' in name or '/.runtime/' in name or name.endswith(('/.env','.keystore','.jks')) for name in z.namelist())
-    checks={'zip_crc':'passed','archive_members':len(files),'required_source_files':'passed','pdfs':{}}
+        for line in manifest.read_text().splitlines():
+            expected, relative = line.split('  ', 1)
+            assert hashlib.sha256(z.read('spvs-root/'+relative)).hexdigest() == expected, relative
+    checks={'created_at':datetime.now(timezone.utc).isoformat(),'source_base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_scope':'Working-tree snapshot atop source_base_commit, including delivery documentation; exact included hashes are in docs/FINAL_FILE_MANIFEST.txt. The publication commit is not embedded into itself.','publication_pr':'https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/4','zip_crc':'passed','archive_members':len(files),'required_source_files':'passed','source_manifest_hashes':'passed','pdfs':{}}
     for path in OUT.glob('SPVS_FINAL_*.pdf'):
         pdf=PdfReader(path);text='\n'.join(page.extract_text() or '' for page in pdf.pages)
         assert len(pdf.pages)>=5 and 'SPVS' in text and len(text)>4000
         checks['pdfs'][path.name]={'pages':len(pdf.pages),'extractable_characters':len(text),'readable':True}
-    checks['artifacts']={p.name:{'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in OUT.glob('SPVS_*') if p.is_file()}
+    artifact_files=list(OUT.glob('SPVS_*'))+[OUT/'CURRENT_STATUS.md']
+    checks['artifacts']={p.name:{'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in artifact_files if p.is_file()}
     (OUT/'artifact-checks.json').write_text(json.dumps(checks,indent=2)+'\n')
     print(json.dumps(checks,indent=2))
 

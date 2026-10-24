@@ -1,6 +1,6 @@
 # Cross-platform implementation
 
-This completion extends commit `b19777df3cb3210330075c702e5e98f487213a5d`; FastAPI/PostgreSQL, React dashboard and Expo/React Native remain the architecture. The source supports Android and iOS. See [current status](CURRENT_STATUS.md) for observed local builds/tests; FINAL_COMPLETION_REPORT.md is the historical cloud completion record. Source implementation is not physical-device validation.
+This completion extends commit `b19777df3cb3210330075c702e5e98f487213a5d`; FastAPI/PostgreSQL, React dashboard and Expo/React Native remain the architecture. The source supports Android and iOS. See [current status](CURRENT_STATUS.md) and [current verification](FINAL_COMPLETION_REPORT.md) for observed builds/tests. The historical cloud record is HISTORICAL_CLOUD_COMPLETION_2026-10-23.md. Source implementation is not physical-device validation.
 
 ## Shared application and platform adapters
 

@@ -1,16 +1,22 @@
 # Release checkpoint
 
-## Current local continuation - 24 October 2026
+## Current synchronized delivery - 25 October 2026
 
-GitHub main is `3591220eb380b7d09a022362a4b9e44c6e684032`. The local branch
-`spvs/ios-native-completion` is at `ac97c60941a13c02b9b197d52fd427adcf219e35`,
-four commits ahead and zero behind, with further uncommitted code/tests/APK/docs.
-Its remote branch and upstream do not yet exist. PRs #1, #2 and #3 are merged.
-See [the exact audit and publication gaps](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md).
+Application implementation checkpoint:
+`26b2895a83fdf8014e5a4a3cb5aa20d8af23deb7`.
+The continuation branch `spvs/ios-native-completion` is published and tracks its
+origin branch. Code, documentation and regenerated release artifacts are included
+in [PR #4](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/4)
+into main. That PR and the Git refs record the live merge/head state. PRs #1-#3
+are historical merged deliveries.
 
-The Android APK has been replaced by the new local build; the ZIP/PDF/packaged
-Markdown deliverables remain historical. Commit the intended pending files before
-publishing the current branch. This audit did not commit, push or merge.
+The source ZIP, project/setup PDFs, packaged Markdown and checksum manifest are
+regenerated together and accompany the current arm64 debug APK. The archive's
+file manifest identifies exact source content without embedding its own future
+commit hash. See [current status](docs/CURRENT_STATUS.md) and
+[synchronization details](docs/REPOSITORY_SYNC_2026-10-25.md).
+Android physical testing waits for the user to connect the phone; production
+release gates remain open. The dated 24 October audit preserves the earlier gap.
 
 ## Historical completion publication checkpoint
 

@@ -1,5 +1,10 @@
 # SPVS local ecosystem and GitHub synchronization report
 
+**Historical pre-publication audit.** The Git gaps, pending file counts and
+artifact ages below describe the 24 October inspection. They are superseded for
+publication/delivery status by the [25 October synchronization report](REPOSITORY_SYNC_2026-10-25.md).
+The original findings are retained for traceability.
+
 **Audit date:** 24 October 2026, Asia/Kolkata. GitHub and local state were checked
 starting at 19:54 IST; automated evidence was refreshed during this audit.
 This report covers the local Mac continuation after the last published main

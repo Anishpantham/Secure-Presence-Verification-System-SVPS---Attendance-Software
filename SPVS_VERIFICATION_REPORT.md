@@ -1,7 +1,7 @@
 # SPVS engineering verification report
 
-**Historical baseline report.** Current local validation and GitHub status are in
-[the 24 October audit](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md).
+**Historical baseline report.** Current validation and publication status are in
+[current status](docs/CURRENT_STATUS.md); the 24 October audit is pre-publication history.
 
 Generated **2026-10-23 03:02 IST** from the actual workspace and test outputs.
 
