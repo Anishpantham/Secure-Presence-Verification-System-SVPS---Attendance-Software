@@ -43,6 +43,14 @@ An attributable attendance attempt contains `id`, `state`, `reasons`, `risk_scor
 
 HTTP errors use `{"error":{"code":403,"message":"..."}}`. Validation responses include field locations without echoing sensitive input. Typical codes are 401 authentication failure, 403 role/device/signature denial, 404 missing resource, 409 conflict/replay, 413 body limit, 422 invalid evidence, 429 rate limit and 503 missing verification service/models. Never treat an HTTP failure as an attendance approval.
 
+Enrollment vision failures additionally return optional `error.details` with
+allowlisted stage/count fields: `completed_actions`, `expected_action`,
+`frame_count`, `missing_landmark_frames`, and `frame_index`. No image, landmark
+coordinate or embedding is returned. The client uses these fields for targeted
+retry instructions. Rate-limit `Retry-After` reports the remaining bucket window.
+Definitive 4xx rejections discard the saved request; network/5xx failures can
+retain the same signed submission for idempotent recovery.
+
 Most operational lists expose the latest 500 rows; course and enrollment lists are not paginated. CSV export includes all records in the authorized selection. Large institutions need cursor pagination, query optimization and retention jobs before deployment.
 
 

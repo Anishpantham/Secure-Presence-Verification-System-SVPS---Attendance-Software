@@ -1,5 +1,23 @@
 # Release checkpoint
 
+## Current local continuation - 24 October 2026
+
+GitHub main is `3591220eb380b7d09a022362a4b9e44c6e684032`. The local branch
+`spvs/ios-native-completion` is at `ac97c60941a13c02b9b197d52fd427adcf219e35`,
+four commits ahead and zero behind, with further uncommitted code/tests/APK/docs.
+Its remote branch and upstream do not yet exist. PRs #1, #2 and #3 are merged.
+See [the exact audit and publication gaps](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md).
+
+The Android APK has been replaced by the new local build; the ZIP/PDF/packaged
+Markdown deliverables remain historical. Commit the intended pending files before
+publishing the current branch. This audit did not commit, push or merge.
+
+## Historical completion publication checkpoint
+
+The remainder records the earlier publication instructions and state, including
+the then-draft PR #2. Do not use its branch-switch instructions as the current
+continuation workflow.
+
 - Repository: https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software
 - Base branch: spvs/complete-implementation-20261022
 - Base commit: b19777df3cb3210330075c702e5e98f487213a5d

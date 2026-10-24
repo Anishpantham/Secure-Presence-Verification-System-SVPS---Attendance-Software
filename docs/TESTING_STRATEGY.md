@@ -50,6 +50,38 @@ Dashboard unit tests exercise login, errors, role navigation, record filtering, 
 
 Record phone model, OS, app build, permissions, model hashes, face threshold, lighting, measured positions, timings and observed database outcome. Use volunteers who consent. Do not upload their samples into the public repository. A semester report should include only measurements actually collected.
 
+### Android Wi-Fi setup and field test
+
+Install a newly compiled native Android build after changing the Wi-Fi module;
+Metro reload alone cannot update Kotlin. The scanner reuses platform readings
+at most 15 seconds old or waits up to eight seconds for a successful scan
+broadcast. A throttled request can receive another platform scan within that
+window. Timeout, permission denial and cancellation never fabricate observations.
+Concurrent calls share a scan. Listeners and timers are removed on completion.
+
+Use **Settings → Wi-Fi setup check** with Wi-Fi, location services and precise
+location permission enabled. This diagnostic displays real BSSID/RSSI readings
+locally without submitting an attendance attempt. It does not identify which
+access points belong to the institution: an administrator must confirm those
+against the router/controller inventory. Phone Wi-Fi MAC addresses and network
+names are not substitutes for AP BSSIDs.
+
+Collect multiple readings inside the classroom, in the corridor and in an
+adjacent room before setting minimum RSSI references in the dashboard. Repeat
+on different phone models. Test outside the classroom while **still inside the
+GPS geofence** to isolate whether Wi-Fi contributes useful discrimination.
+The current rule requires at least half the reference APs to meet their minimum
+RSSI; if nearby rooms also meet that rule, record the limitation and revise the
+design rather than claiming classroom accuracy. Keep the review policy while
+measurements and references are incomplete.
+
+Use a separate Android test student when preserving an existing registered
+iPhone. A real user's device replacement must follow the audited reset flow.
+Record scan timeouts and denied-permission results as well as successful scans.
+Native scan lifecycle/filtering tests live in the Wi-Fi module and run with
+`./gradlew :spvs-wifi:testDebugUnitTest` from `mobile/android`; these do not replace
+physical-radio tests.
+
 ## Dependency and deployment validation
 
 Run `npm audit --json` in each client and `pip-audit` against the locked backend runtime requirements. Keep unresolved upstream advisories visible; do not use `--force` to silently downgrade the SDK. Verify container builds on the intended architecture, health/readiness and migration restart. Mac ARM64 instructions are provided but an x86_64 cloud test is not an Apple Silicon execution result.

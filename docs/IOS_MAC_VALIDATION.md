@@ -1,8 +1,36 @@
 # Native iOS validation on the local Mac
 
 Date: 2026-10-23. Branch: `spvs/ios-native-completion`, starting at `3591220`.
-This is an incremental validation record. Physical iPhone enrollment/attendance testing and genuine
-Apple App Attest remain pending. Earlier Linux reports are historical.
+This is an incremental validation record. The dated 24 October update below
+records successful physical iPhone enrollment and an attendance attempt requiring
+review. Genuine Apple App Attest and broader hardware testing remain pending.
+Earlier Linux reports and the 23 October checkpoints below are historical.
+
+## 24 October continuation: real enrollment and attendance
+
+The user confirmed face enrollment succeeded and was substantially easier after
+the capture fixes. The local database confirms `BIOMETRIC_ENROLLED` at
+2026-10-24 14:37:27 IST. A physical iPhone attendance submission at 14:43:49 IST
+passed face matching, liveness and the configured GPS checks, then returned
+`PENDING_REVIEW` with `IOS_PRESENCE_REVIEW_REQUIRED`. The phone was 3.7 m from
+the configured classroom pin with about 9.27 m reported location accuracy.
+No official attendance record was created. These are one-person observations,
+not population accuracy or anti-spoofing evidence.
+
+The signed app lacks Wi-Fi Information and App Attest entitlements. Current
+Wi-Fi evidence was unavailable, no classroom AP references are configured, and
+the iOS review policy is unchanged. No GPS-only autoapproval was enabled.
+The one-hour demo session ended at 15:39:40 IST on 24 October.
+
+Fixes include the unmirrored camera turn-direction mapping, photo-driven blink
+cues, 700 ms prompt settling time, at most two missing-landmark frames with full
+identity checks on every frame, specific missed-step errors, and accurate
+rate-limit retry timing. See [biometric design](BIOMETRIC_DESIGN.md),
+[current test results](TEST_RESULTS.md), and the
+[local ecosystem audit](LOCAL_ECOSYSTEM_REPORT_2026-10-24.md).
+
+The remaining physical-iPhone checklist later in this file describes the earlier
+checkpoint; this update supersedes its enrollment/initial-submission items only.
 
 ## Observed environment
 

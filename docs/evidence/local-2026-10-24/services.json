@@ -1,0 +1,29 @@
+{
+  "captured_at": "2026-10-24T14:37:43.493242+00:00",
+  "python_version": "3.12.8",
+  "services": {
+    "api_health": {
+      "http_status": 200,
+      "result": {
+        "status": "ok",
+        "database": "connected"
+      }
+    },
+    "api_readiness": {
+      "http_status": 200,
+      "result": {
+        "status": "ready",
+        "face_models": "loaded",
+        "attestation": "not_configured"
+      }
+    },
+    "metro": {
+      "http_status": 200,
+      "result": "packager-status:running"
+    },
+    "dashboard": {
+      "reachable": false,
+      "error_type": "ConnectError"
+    }
+  }
+}

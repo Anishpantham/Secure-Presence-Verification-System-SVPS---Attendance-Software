@@ -21,10 +21,26 @@ install_ios_pods() {
 }
 case "${1:-}" in
  android)
-  export JAVA_HOME="${JAVA_HOME:-$(/usr/libexec/java_home -v 17)}"
-  export ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
+  if [[ -z "${JAVA_HOME:-}" ]]; then
+    if [[ -d /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ]]; then
+      export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
+    else
+      export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
+    fi
+  fi
+  if [[ -z "${ANDROID_HOME:-}" ]]; then
+    if [[ -d "$SPVS_ROOT/.runtime/android-sdk/platform-tools" ]]; then
+      export ANDROID_HOME="$SPVS_ROOT/.runtime/android-sdk"
+    else
+      export ANDROID_HOME="$HOME/Library/Android/sdk"
+    fi
+  fi
   npx expo prebuild --platform android --no-install --no-clean
-  (cd android && ./gradlew :app:assembleDebug --no-daemon)
+  SPVS_ANDROID_ARGS=(:app:assembleDebug --no-daemon)
+  if [[ -n "${SPVS_ANDROID_ARCHITECTURES:-}" ]]; then
+    SPVS_ANDROID_ARGS+=("-PreactNativeArchitectures=$SPVS_ANDROID_ARCHITECTURES")
+  fi
+  (cd android && ./gradlew "${SPVS_ANDROID_ARGS[@]}")
   mkdir -p "$SPVS_ROOT/release/final"
   cp android/app/build/outputs/apk/debug/app-debug.apk "$SPVS_ROOT/release/final/SPVS_ANDROID_DEBUG.apk"
   ;;

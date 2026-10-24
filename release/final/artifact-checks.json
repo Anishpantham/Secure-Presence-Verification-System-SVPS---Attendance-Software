@@ -36,8 +36,14 @@
       "sha256": "e2c79c71657533682adaf9e7d7eb69a05c9ec17e546adb349695273539cd8ce0"
     },
     "SPVS_ANDROID_DEBUG.apk": {
-      "bytes": 77946846,
-      "sha256": "0c3bc2a1d938e0ce49b3e84ec56d4efd4376d8e332e9f1f10859e610cd478e9e"
+      "bytes": 77979730,
+      "sha256": "9bd8032bc87b6f74fc86a2fe11897915fcd598081f514473c424294ec54cd3d6"
     }
-  }
+  },
+  "historical_apk": {
+    "bytes": 77946846,
+    "sha256": "0c3bc2a1d938e0ce49b3e84ec56d4efd4376d8e332e9f1f10859e610cd478e9e"
+  },
+  "updated_at": "2026-10-24T14:37:41.328218+00:00",
+  "validation_scope": "ZIP/PDF/packaged Markdown retain the 2026-10-23 historical release. APK replaced by the 2026-10-24 local Mac arm64 debug build. See CURRENT_STATUS.md; this is not a synchronized new release package."
 }

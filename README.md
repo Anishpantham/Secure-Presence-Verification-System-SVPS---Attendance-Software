@@ -1,7 +1,11 @@
 # Secure Presence Verification System · SPVS
 
-For the 2026-10-23 local Apple Silicon/Xcode validation and the pending physical
-iPhone checks, see [Native iOS Mac validation](docs/IOS_MAC_VALIDATION.md).
+Start with the [current local status](docs/CURRENT_STATUS.md) and the
+[24 October local ecosystem / GitHub audit](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md).
+Native build evidence is in [iOS Mac validation](docs/IOS_MAC_VALIDATION.md) and
+[Android Mac validation](docs/ANDROID_MAC_VALIDATION.md). iPhone enrollment and
+one attendance submission are observed; that submission requires review.
+Physical Android Wi-Fi testing remains pending.
 
 A working college attendance project with **two verification layers**: identity and physical presence. FastAPI/PostgreSQL enforce decisions; a React dashboard manages institution workflows; an Expo development app captures real student evidence.
 
@@ -92,6 +96,6 @@ There are no BLE beacons, ESP32 devices, ultrasonic tokens, surveillance cameras
 
 ## Cross-platform completion delivery
 
-Start with `docs/FINAL_COMPLETION_REPORT.md` for current test/build evidence and remaining release gates. `docs/CROSS_PLATFORM_IMPLEMENTATION.md` explains native P-256 device keys, Apple App Attest verification, iPhone current-network privacy restrictions and auditable iOS presence policy. `scripts/build_mobile_macos.sh` provides Android, iOS simulator and signed-device build entry points for Apple Silicon. Final artifacts live in `release/final/`; previous delivery artifacts remain unchanged.
+Start with [current status](docs/CURRENT_STATUS.md) for current evidence and release gates. `docs/FINAL_COMPLETION_REPORT.md` preserves the historical cloud completion run. `docs/CROSS_PLATFORM_IMPLEMENTATION.md` explains native P-256 device keys, Apple App Attest verification, iPhone current-network privacy restrictions and auditable iOS presence policy. `scripts/build_mobile_macos.sh` provides Android, iOS simulator and signed-device build entry points for Apple Silicon. `release/final/` contains historical ZIP/PDF reports and the newer local Android APK; see [artifact status](release/final/CURRENT_STATUS.md) before distributing them together.
 
 New device registrations require native key proof by default. Apply all Alembic migrations before updating clients. Existing HMAC devices remain compatible until an audited reset. Provider attestation and physical-device biometric performance must not be inferred from automated test counts.

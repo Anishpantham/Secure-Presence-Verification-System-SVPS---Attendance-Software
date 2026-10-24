@@ -1,5 +1,10 @@
 # Secure Presence Verification System
 
+Current validation and local/GitHub synchronization are recorded in
+[the 24 October ecosystem audit](LOCAL_ECOSYSTEM_REPORT_2026-10-24.md).
+This academic narrative should be read alongside that dated evidence; historical
+delivery PDFs have not been regenerated from the local continuation.
+
 ## Title page
 
 **A two-layer attendance verification platform for educational institutions**

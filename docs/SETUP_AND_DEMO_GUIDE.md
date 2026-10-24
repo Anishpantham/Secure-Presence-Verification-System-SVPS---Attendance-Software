@@ -84,6 +84,15 @@ npx expo start --dev-client
 
 The script runs a genuine Gradle assembleDebug and copies its output to release/final/SPVS_ANDROID_DEBUG.apk only on success. Install with `adb install -r android/app/build/outputs/apk/debug/app-debug.apk` from mobile, or use Android Studio. The debug development client needs Metro; it is not a signed production app. Use `adb reverse tcp:8081 tcp:8081` when developing over USB. Configure the API endpoint consistently in the terminal running Metro.
 
+The [24 October Mac Android build](ANDROID_MAC_VALIDATION.md) also works with
+official command-line SDK tools; Android Studio is not required for that path.
+The build script discovers Homebrew Java 17 and `.runtime/android-sdk` when
+available, while respecting explicit `JAVA_HOME` and `ANDROID_HOME` settings.
+The saved **SPVS: Android debug build** task targets arm64-v8a. Use
+`SPVS_ANDROID_ARCHITECTURES` to select another supported architecture. After
+installation, sign in and use **Settings → Wi-Fi setup check** before attempting
+attendance. Register actual classroom AP references using measured data.
+
 For release distribution remove SPVS_DEV_HTTP, set an HTTPS API URL, configure institution-owned signing keys outside Git and build a reviewed release variant. Never distribute the debug signing key as an institutional credential.
 
 ## 5. iOS project, CocoaPods and simulator

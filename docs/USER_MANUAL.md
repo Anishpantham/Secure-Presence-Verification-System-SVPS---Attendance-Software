@@ -22,6 +22,13 @@ For an open session, tap Verify my attendance. The app checks eligibility/device
 
 History shows official records and attempts separately. Request review of a disputed attempt with an explanation. A PENDING_REVIEW result is not confirmed presence. Settings opens OS permission controls and signs out. Enrollment allows password-confirmed template deletion; Device allows a replacement request. No background location collection is implemented.
 
+**Settings → Wi-Fi setup check** displays available access-point IDs and measured
+signal strengths on Android, or permitted connected-network information on
+iPhone. It does not upload observations, require device registration, or record
+attendance. Confirm classroom AP identities with an administrator before using
+them as references. Enable precise location and location services; repeated scans
+may be throttled. An unavailable result is not proof that Wi-Fi is switched off.
+
 ## Result interpretation
 
 | State | Meaning | Next action |

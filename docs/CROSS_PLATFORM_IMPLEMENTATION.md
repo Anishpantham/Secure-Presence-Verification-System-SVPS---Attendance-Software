@@ -1,6 +1,6 @@
 # Cross-platform implementation
 
-This completion extends commit `b19777df3cb3210330075c702e5e98f487213a5d`; FastAPI/PostgreSQL, React dashboard and Expo/React Native remain the architecture. The source supports Android and iOS. See FINAL_COMPLETION_REPORT.md for observed builds and tests; source implementation is not physical-device validation.
+This completion extends commit `b19777df3cb3210330075c702e5e98f487213a5d`; FastAPI/PostgreSQL, React dashboard and Expo/React Native remain the architecture. The source supports Android and iOS. See [current status](CURRENT_STATUS.md) for observed local builds/tests; FINAL_COMPLETION_REPORT.md is the historical cloud completion record. Source implementation is not physical-device validation.
 
 ## Shared application and platform adapters
 
@@ -11,7 +11,7 @@ Authentication, enrollment and deletion/re-enrollment, session selection, random
 | Face images | Expo Camera front camera | Expo Camera front camera | Same YuNet/SFace and MediaPipe inference |
 | Liveness | JPEG still sequence, randomized prompts | Same protocol | Sequence, timing, duplicate-frame and identity gates |
 | Device signature | Android Keystore P-256 | Secure Enclave P-256 on physical devices; Keychain on simulator | ECDSA SHA-256, DER signature, registered SPKI key |
-| Nearby Wi-Fi | Recent OS scan cache, measured BSSID/RSSI | Not available to ordinary apps | Never synthesized |
+| Nearby Wi-Fi | Recent OS readings or awaited scan-completion callback, measured BSSID/RSSI | Not available to ordinary apps | Never synthesized |
 | Current Wi-Fi | Scan evidence | NEHotspotNetwork.fetchCurrent, BSSID only | Separate current-network signal; no invented RSSI |
 | Location | Expo location provider; coarse/full permission | Core Location through Expo and native accuracyAuthorization | Freshness, uncertainty, geofence, mock flag, travel checks |
 | App attestation | Play Integrity remains unconfigured | App Attest native API plus server verifier | Unverified evidence is never reported as verified |
@@ -46,6 +46,19 @@ The verifier is covered by synthetic certificate/signature tests. It has **not**
 Play Integrity is a fail-closed boundary: no decoded client verdict is trusted. To finish its provider adapter, configure a Google Cloud project linked to Play Console, package identity and allowed signing-certificate digests, obtain a standard Integrity token bound to SHA256 of the exact request, decode it through Google's authenticated server API, enforce request package/hash/timestamp and app/device verdicts, and add replay/quota/error tests on Play-distributed physical devices. This release does not claim that integration is configured or verified.
 
 ## Presence policy and assurance
+
+The Android scanner reuses readings at most 15 seconds old, otherwise waits up
+to eight seconds for a successful system scan broadcast. Concurrent calls share
+one scan; timeout/cancellation removes listeners. Coarse and precise location
+permissions are requested together and precise access is required. Settings
+includes a local-only Wi-Fi setup check for reference collection. See the
+[field procedure](TESTING_STRATEGY.md#android-wi-fi-setup-and-field-test).
+
+The current iOS `review` policy always requires review, including when the current
+BSSID matches. There is no separate automatic Wi-Fi-match approval mode. The
+Personal Team development build lacks the Wi-Fi entitlement, and the local demo
+classroom currently has no AP references. These are configuration and policy
+limits; the Android scan fix does not change them.
 
 Android retains `wifi_unavailable=review|reject|gps_only`. iOS has a separate audited `ios_presence=review|retry|gps_only`, default review. A GPS-only opt-in applies only after mandatory identity, device, liveness and GPS gates; it never overrides failed identity or a required unverified attestation. Every attempt records platform, policy, reported key storage and presence assurance. Missing Wi-Fi is distinct from a mismatched observed network. A permitted iOS current BSSID does not raise GPS to multi-AP fingerprint assurance. Reduced-accuracy location requires retry even when a client reports a small numeric radius. GPS coordinates and Wi-Fi observations remain potentially spoofable client evidence.
 

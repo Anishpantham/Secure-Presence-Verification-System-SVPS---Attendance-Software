@@ -1,0 +1,383 @@
+{
+  "captured_at": "2026-10-24T14:39:42.320177+00:00",
+  "scope": "Source-control metadata only; no environment contents or database data",
+  "repository_url": "https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software",
+  "remote_verification": "Live GitHub repository/commit/branch/PR tools plus fresh git fetch on 2026-10-24",
+  "github_default_branch": "main",
+  "github_visibility": "public",
+  "github_current_working_branch_exists": false,
+  "github_pull_requests": {
+    "1": "merged",
+    "2": "merged",
+    "3": "merged"
+  },
+  "workspace": "/Users/anishpantham/Downloads/SPVS/SPVS",
+  "branch": "spvs/ios-native-completion",
+  "head": "ac97c60941a13c02b9b197d52fd427adcf219e35",
+  "local_main": "3591220eb380b7d09a022362a4b9e44c6e684032",
+  "remote_main": "3591220eb380b7d09a022362a4b9e44c6e684032",
+  "upstream": null,
+  "ahead_of_remote_main": 4,
+  "behind_remote_main": 0,
+  "remote_refs": {
+    "origin": "3591220eb380b7d09a022362a4b9e44c6e684032",
+    "origin/main": "3591220eb380b7d09a022362a4b9e44c6e684032",
+    "origin/spvs/complete-implementation-20261022": "0ddd78a68d55c37c09704ac9d3880359e07520b2",
+    "origin/spvs/final-completion-cross-platform": "c1e04f09a42c54aa71fc96e68549420c997c7386"
+  },
+  "unpublished_commits": [
+    {
+      "sha": "ac97c60941a13c02b9b197d52fd427adcf219e35",
+      "date": "2026-10-23T23:47:29+05:30",
+      "subject": "Record physical iPhone login and native device registration"
+    },
+    {
+      "sha": "428975e8c0037ccb4386347b9c19a5b2c83ec042",
+      "date": "2026-10-23T23:32:03+05:30",
+      "subject": "Record trusted SPVS launch on physical iPhone"
+    },
+    {
+      "sha": "8f699d9317bf02aee6cb847497c28ef0cfbd817a",
+      "date": "2026-10-23T23:26:27+05:30",
+      "subject": "Make iOS Wi-Fi capability opt-in for supported signing teams"
+    },
+    {
+      "sha": "f1b23f5743c799ad1032fa242c07872a99f02836",
+      "date": "2026-10-23T19:51:22+05:30",
+      "subject": "Validate native iOS simulator build on Apple Silicon"
+    }
+  ],
+  "committed_changes_vs_remote_main": [
+    "M\t.gitignore",
+    "A\t.vscode/tasks.json",
+    "M\tREADME.md",
+    "M\tdocs/CROSS_PLATFORM_IMPLEMENTATION.md",
+    "M\tdocs/DEVELOPER_GUIDE.md",
+    "A\tdocs/IOS_MAC_VALIDATION.md",
+    "M\tdocs/KNOWN_LIMITATIONS.md",
+    "M\tdocs/SETUP_AND_DEMO_GUIDE.md",
+    "M\tdocs/TEST_RESULTS.md",
+    "M\tmobile/.env.example",
+    "A\tmobile/Gemfile.lock",
+    "M\tmobile/app.json",
+    "A\tmobile/ios/Podfile.lock",
+    "M\tmobile/package-lock.json",
+    "M\tmobile/package.json",
+    "M\tmobile/plugins/withSpvs.js",
+    "M\tscripts/build_mobile_macos.sh",
+    "M\tscripts/verify_native_config.py"
+  ],
+  "audit_start_counts": {
+    "modified_tracked": 21,
+    "untracked_files": 7,
+    "total_file_entries": 28,
+    "staged": 0,
+    "deleted": 0
+  },
+  "final_counts": {
+    "modified_tracked": 39,
+    "untracked_files": 20,
+    "staged_entries": 0,
+    "deleted_entries": 0,
+    "total_file_entries": 59
+  },
+  "worktree_changes": [
+    {
+      "path": ".vscode/tasks.json",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "README.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "RELEASE_CHECKPOINT.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "SPVS_DELIVERY_README.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "SPVS_FINAL_DELIVERY_README.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "SPVS_FINAL_VERIFICATION_REPORT.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "SPVS_VERIFICATION_REPORT.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "backend/app/api/verification.py",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "backend/app/core/security.py",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "backend/app/services/vision.py",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "backend/tests/test_presence_and_liveness.py",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "backend/tests/test_security_workflows.py",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "backend/tests/test_verification_api.py",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "backend/tests/test_vision_models.py",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/API_DOCUMENTATION.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/BIOMETRIC_DESIGN.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/CROSS_PLATFORM_IMPLEMENTATION.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/FINAL_COMPLETION_REPORT.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/IOS_MAC_VALIDATION.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/KNOWN_LIMITATIONS.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/PROJECT_REPORT.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/SETUP_AND_DEMO_GUIDE.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/TESTING_STRATEGY.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/TEST_RESULTS.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "docs/USER_MANUAL.md",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "mobile/App.tsx",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "mobile/modules/spvs-wifi/android/build.gradle",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "mobile/modules/spvs-wifi/android/src/main/java/edu/spvs/wifi/SpvsWifiModule.kt",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "mobile/src/api.ts",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "mobile/src/capture.ts",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "mobile/src/platform/index.ts",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "mobile/src/protocol.ts",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "mobile/tests/capture.test.ts",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "mobile/tests/platform.test.ts",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "release/final/SPVS_ANDROID_DEBUG.apk",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "release/final/artifact-checks.json",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "scripts/build_mobile_macos.sh",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "scripts/package_final.py",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "scripts/package_submission.py",
+      "index_status": " ",
+      "worktree_status": "M"
+    },
+    {
+      "path": "backend/tests/test_capture_recovery.py",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/ANDROID_MAC_VALIDATION.md",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/evidence/local-2026-10-24/android-wifi-tests.xml",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/evidence/local-2026-10-24/backend-tests.xml",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/evidence/local-2026-10-24/dashboard-audit.json",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/evidence/local-2026-10-24/dashboard-tests.xml",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/evidence/local-2026-10-24/mobile-audit.json",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/evidence/local-2026-10-24/mobile-tests.xml",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/evidence/local-2026-10-24/repository-state.json",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/evidence/local-2026-10-24/runtime-summary.json",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/evidence/local-2026-10-24/services.json",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "docs/reports/LOCAL_ECOSYSTEM_REPORT_2026-10-24.pdf",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "mobile/modules/spvs-wifi/android/src/main/java/edu/spvs/wifi/WifiScanSession.kt",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "mobile/modules/spvs-wifi/android/src/test/java/edu/spvs/wifi/WifiScanSessionTest.kt",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "mobile/src/WifiDiagnostics.tsx",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "mobile/src/apiErrors.ts",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "mobile/tests/api.test.ts",
+      "index_status": "?",
+      "worktree_status": "?"
+    },
+    {
+      "path": "release/final/CURRENT_STATUS.md",
+      "index_status": "?",
+      "worktree_status": "?"
+    }
+  ],
+  "publication_performed": false,
+  "secrets_tracked": []
+}

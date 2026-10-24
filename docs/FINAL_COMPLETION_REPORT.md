@@ -1,5 +1,11 @@
 # SPVS final completion and verification report
 
+**Historical cloud checkpoint (23 October).** Build/device/test statements below
+describe that run. They are superseded for current local status by
+[CURRENT_STATUS.md](CURRENT_STATUS.md) and the
+[24 October ecosystem report](LOCAL_ECOSYSTEM_REPORT_2026-10-24.md).
+PRs #2 and #3 have since merged; the local Mac continuation is not yet published.
+
 Completion branch: `spvs/final-completion-cross-platform`, based on `spvs/complete-implementation-20261022` at `b19777df3cb3210330075c702e5e98f487213a5d`. Reporting date: 23 October 2026 (Asia/Kolkata). Source/delivery commits and PR are recorded in RELEASE_CHECKPOINT.md after publication.
 
 ## Release assessment

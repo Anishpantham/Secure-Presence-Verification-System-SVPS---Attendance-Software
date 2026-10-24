@@ -28,6 +28,19 @@ The server issues an unpredictable UUID challenge bound to a student, device, pu
 
 Face Mesh computes eye aspect ratio (EAR) from six landmarks per eye, averaged across both eyes. A blink must transition open (`EAR > 0.23`) → closed (`EAR < 0.19`) → open. Head direction is a signed nose displacement relative to eye centers, normalized by interocular distance. Center is absolute displacement below 0.12; turns exceed 0.18 in the requested direction. Two consecutive observations must support each non-blink pose. This is a heuristic displacement proxy rather than a calibrated three-dimensional head-pose estimator.
 
+Turn names use the student's own left/right. For unmirrored captures, nose
+movement toward image-right maps to `TURN_LEFT`; the displacement sign is
+inverted before evaluating the action. The client gives 700 ms to respond to a
+new instruction and keeps each blink phase visible across completed photos.
+
+At most two frames may lack MediaPipe landmarks, with at least eight tracked
+frames still required. Missing landmarks do not supply liveness evidence and
+reset any incomplete pose/blink. Every frame, including an untracked frame,
+must still pass image quality, single-face detection and identity comparison.
+Persistent tracking loss rejects the sequence. Enrollment errors return only
+stage/count diagnostics to provide specific retry guidance; no images, landmark
+coordinates or embeddings are returned or logged.
+
 A sequence contains 8–40 frames, has increasing timestamps separated by 0.08–2.5 seconds, spans at least two seconds, remains inside the challenge time window, and may not claim a final capture more than two seconds in the future. Identical encoded frames are rejected. Mobile captures unmirrored camera images and synchronizes capture timestamps to the challenge's server clock. Direction conventions, timing and EAR thresholds require physical-camera validation; basic frame rates can miss a fast blink, so the UI asks for a slow close/open action.
 
 ## Limits and measured evidence

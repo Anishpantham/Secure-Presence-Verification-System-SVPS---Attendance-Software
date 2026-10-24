@@ -106,6 +106,24 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "SPVS: Android debug build",
+			"type": "shell",
+			"command": "env",
+			"args": [
+				"GRADLE_USER_HOME=${workspaceFolder}/.runtime/gradle",
+				"SPVS_SKIP_NPM_CI=1",
+				"SPVS_DEV_HTTP=1",
+				"SPVS_ANDROID_ARCHITECTURES=arm64-v8a",
+				"EXPO_PUBLIC_API_URL=http://10.0.11.85:8000/api/v1",
+				"bash",
+				"scripts/build_mobile_macos.sh",
+				"android"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

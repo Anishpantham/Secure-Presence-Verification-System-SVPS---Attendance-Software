@@ -14,7 +14,9 @@ MODEL_VERSION = "opencv-sface-2021dec-128-yunet-2023mar"
 
 
 class VisionError(ValueError):
-    pass
+    def __init__(self, message, *, diagnostics=None):
+        super().__init__(message)
+        self.diagnostics = diagnostics or {}
 
 
 def normalize(vector):
@@ -31,9 +33,23 @@ def similarity(a, b):
 @dataclass
 class Observation:
     timestamp: object
-    ear: float
-    yaw: float
+    ear: float | None
+    yaw: float | None
     embedding: np.ndarray
+
+
+def landmark_metrics(points):
+    def ear(ids):
+        p = points[ids]
+        return (np.linalg.norm(p[1]-p[5]) + np.linalg.norm(p[2]-p[4])) / (2 * np.linalg.norm(p[0]-p[3]))
+    eye_ratio = (ear([33,160,158,133,153,144]) + ear([362,385,387,263,373,380])) / 2
+    left, right = points[33], points[263]
+    # Commands name the person's own left/right. In an unmirrored image their
+    # left turn moves the nose toward image-right, so negate image displacement.
+    yaw = ((left[0] + right[0]) / 2 - points[1][0]) / max(1, abs(right[0]-left[0]))
+    if not np.isfinite(eye_ratio) or not np.isfinite(yaw):
+        raise VisionError("LANDMARKS_INVALID")
+    return float(eye_ratio), float(yaw)
 
 
 def validate_sequence(observations, actions, issued_at, expires_at):
@@ -45,8 +61,18 @@ def validate_sequence(observations, actions, issued_at, expires_at):
     gaps = [(b - a).total_seconds() for a, b in zip(times, times[1:])]
     if any(g < 0.08 or g > 2.5 for g in gaps) or (times[-1] - times[0]).total_seconds() < 2:
         raise VisionError("FRAME_TIMING_INVALID")
+    missing = sum(o.ear is None or o.yaw is None for o in observations)
+    if missing > 2 or len(observations) - missing < 8:
+        raise VisionError("LANDMARKS_UNAVAILABLE", diagnostics={
+            "missing_landmark_frames": missing, "frame_count": len(observations),
+        })
     index, stable, blink_open, blink_closed = 0, 0, False, False
     for obs in observations:
+        if obs.ear is None or obs.yaw is None:
+            # A tracking gap cannot prove a pose or connect an incomplete blink.
+            # All frames still undergo face detection and identity comparison.
+            stable, blink_open, blink_closed = 0, False, False
+            continue
         action = actions[index]
         if action == "BLINK":
             if obs.ear > 0.23:
@@ -66,7 +92,11 @@ def validate_sequence(observations, actions, issued_at, expires_at):
                 stable = 0
         if index == len(actions):
             return
-    raise VisionError("LIVENESS_SEQUENCE_FAILED")
+    # Retain only stage progress for troubleshooting, never frames or landmarks.
+    raise VisionError("LIVENESS_SEQUENCE_FAILED", diagnostics={
+        "completed_actions": index, "expected_action": actions[index],
+        "frame_count": len(observations),
+    })
 
 
 class Vision:
@@ -120,19 +150,13 @@ class Vision:
             embedding = normalize(self.recognizer.feature(aligned))
             result = self.mesh.detect(self.mp.Image(image_format=self.mp.ImageFormat.SRGB,
                                                     data=cv2.cvtColor(image, cv2.COLOR_BGR2RGB)))
-        if not result.face_landmarks or len(result.face_landmarks) != 1:
-            raise VisionError("LANDMARKS_UNAVAILABLE")
+        if not result.face_landmarks:
+            return Observation(frame.captured_at, None, None, embedding)
+        if len(result.face_landmarks) != 1:
+            raise VisionError("EXACTLY_ONE_FACE_REQUIRED")
         points = np.array([(p.x * image.shape[1], p.y * image.shape[0]) for p in result.face_landmarks[0]])
-        def ear(ids):
-            p = points[ids]
-            return (np.linalg.norm(p[1]-p[5]) + np.linalg.norm(p[2]-p[4])) / (2 * np.linalg.norm(p[0]-p[3]))
-        eye_ratio = (ear([33,160,158,133,153,144]) + ear([362,385,387,263,373,380])) / 2
-        # Signed nose displacement relative to eye centers, normalized by interocular span.
-        left, right = points[33], points[263]
-        yaw = (points[1][0] - (left[0] + right[0]) / 2) / max(1, abs(right[0]-left[0]))
-        if not np.isfinite(eye_ratio) or not np.isfinite(yaw):
-            raise VisionError("LANDMARKS_INVALID")
-        return Observation(frame.captured_at, float(eye_ratio), float(yaw), embedding)
+        eye_ratio, yaw = landmark_metrics(points)
+        return Observation(frame.captured_at, eye_ratio, yaw, embedding)
 
     def verify(self, frames, challenge, template=None):
         from app.models.entities import now
@@ -140,7 +164,13 @@ class Vision:
             raise VisionError("FRAME_FROM_FUTURE")
         if len({__import__("hashlib").sha256(f.jpeg.encode()).hexdigest() for f in frames}) != len(frames):
             raise VisionError("DUPLICATE_FRAMES")
-        observations = [self.observe(frame) for frame in frames]
+        observations = []
+        for index, frame in enumerate(frames):
+            try:
+                observations.append(self.observe(frame))
+            except VisionError as exc:
+                exc.diagnostics.update(frame_index=index, frame_count=len(frames))
+                raise
         validate_sequence(observations, challenge.actions, challenge.created_at, challenge.expires_at)
         reference = template if template is not None else observations[0].embedding
         scores = [similarity(reference, o.embedding) for o in observations]

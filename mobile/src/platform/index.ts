@@ -12,9 +12,11 @@ const adapters:Record<string,PlatformAdapter>={
  android:{os:'android',security,wifi:async()=>{
   const module=requireOptionalNativeModule<{scan:()=>Promise<WifiResult>}>('SpvsWifi');
   if(!module)return {...unavailable,status:'unsupported'};
-  const granted=await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-  if(granted!==PermissionsAndroid.RESULTS.GRANTED)return {...unavailable,status:'permission_denied'};
-  try{return {...await module.scan(),source:'scan'}}catch{return unavailable}
+  const permissions=await PermissionsAndroid.requestMultiple([
+   PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+  ]);
+  if(permissions[PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION]!==PermissionsAndroid.RESULTS.GRANTED)return {...unavailable,status:'permission_denied'};
+  try{const result=await module.scan();return {...result,source:result.status==='available'?'scan':'none'}}catch{return unavailable}
  }},
  ios:{os:'ios',security,wifi:async()=>{
   const module=requireOptionalNativeModule<{currentNetwork:()=>Promise<WifiResult>}>('SpvsWifi');

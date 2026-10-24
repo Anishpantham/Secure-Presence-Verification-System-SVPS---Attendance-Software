@@ -25,6 +25,11 @@ def source_files():
             if name.endswith(('.pyc','.log','.db','.tsbuildinfo','.keystore','.jks')) or name=='work-baseline.xml':continue
             if path.is_symlink():continue
             files.append(path)
+    # Generated native projects stay excluded, but the verified CocoaPods lock
+    # is tracked source needed to reproduce the locally validated iOS build.
+    pod_lock = ROOT / 'mobile/ios/Podfile.lock'
+    if pod_lock.is_file() and not pod_lock.is_symlink():
+        files.append(pod_lock)
     return sorted(files)
 
 
