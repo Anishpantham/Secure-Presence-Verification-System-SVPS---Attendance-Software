@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="46" failures="0" errors="0" time="0.068919083">
+    <testsuite name="tests/api.test.ts" timestamp="2026-10-25T22:04:46.112Z" hostname="Anishs-MacBook-Air.local" tests="8" failures="0" errors="0" skipped="0" time="0.02809175">
+        <testcase classname="tests/api.test.ts" name="explains an invalid email instead of displaying a generic request error" time="0.024242584">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="catches an embedded email space before submitting credentials" time="0.000801833">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="explains a missing password without echoing input" time="0.000469208">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="preserves an authentication rejection instead of calling it a format error" time="0.0002575">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="preserves a server rejection so a failed capture is not offered as a network retry" time="0.000320291">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="retains the server cooldown and prevents replay after rate limiting" time="0.000445">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="still permits idempotent recovery after a lost network response" time="0.000193875">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="still permits recovery after a server failure" time="0.000152375">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/capture.test.ts" timestamp="2026-10-25T22:04:46.114Z" hostname="Anishs-MacBook-Air.local" tests="17" failures="0" errors="0" skipped="0" time="0.011322333">
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; preserves server action ordering and strictly increasing timestamps" time="0.004378708">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; stops on expiration without a success result" time="0.001999666">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; stops when the app backgrounds" time="0.000390834">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; propagates camera errors" time="0.000294625">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; preserves server action ordering and strictly increasing timestamps" time="0.000509666">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; stops on expiration without a success result" time="0.000204833">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; stops when the app backgrounds" time="0.000192875">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; propagates camera errors" time="0.000182167">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="explains model quality and multiple-face failures" time="0.000299834">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="keeps blink phases visible until slow photographs complete" time="0.000484041">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="signals reopening if the camera fails while eyes are closed" time="0.000579042">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="explains a missing-landmark failure" time="0.000385709">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives specific guidance for a missed TURN_LEFT step" time="0.000129458">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives specific guidance for a missed TURN_RIGHT step" time="0.000085375">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives specific guidance for a missed CENTER step" time="0.000025833">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives specific guidance for a missed BLINK step" time="0.000022167">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives time to read and settle into each new pose" time="0.000185">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/platform.test.ts" timestamp="2026-10-25T22:04:46.116Z" hostname="Anishs-MacBook-Air.local" tests="12" failures="0" errors="0" skipped="0" time="0.010585084">
+        <testcase classname="tests/platform.test.ts" name="iOS uses the simulator localhost default" time="0.00151525">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android uses the emulator gateway default" time="0.000096958">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="iOS only requests current-network evidence without inventing RSSI" time="0.000810459">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="missing native Wi-Fi module is explicit" time="0.000247292">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android scan permission denial does not fabricate data" time="0.000775583">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android reports completed native scan evidence" time="0.000357917">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android timeout does not claim a scan source" time="0.000285333">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="reduced iOS accuracy requires retry" time="0.001241542">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="location permission denial has a recovery instruction" time="0.00033275">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="stale positions are not submitted as fresh" time="0.000326583">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="uses actual fix time and accuracy" time="0.0029745">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="missing native key module fails closed" time="0.000314709">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/progress.test.tsx" timestamp="2026-10-25T22:04:46.118Z" hostname="Anishs-MacBook-Air.local" tests="2" failures="0" errors="0" skipped="0" time="0.013009083">
+        <testcase classname="tests/progress.test.tsx" name="Android shared progress renders current stage without claiming attendance approval" time="0.010384042">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/progress.test.tsx" name="iOS shared progress renders current stage without claiming attendance approval" time="0.001681875">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/protocol.test.ts" timestamp="2026-10-25T22:04:46.119Z" hostname="Anishs-MacBook-Air.local" tests="7" failures="0" errors="0" skipped="0" time="0.005910833">
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; matches the backend HMAC byte protocol" time="0.003014125">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; binds the idempotency key" time="0.00056375">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; binds all evidence fields" time="0.00027025">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; opens at the inclusive start boundary" time="0.00008775">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; expires at the exclusive end boundary" time="0.000194833">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; never opens a closed session" time="0.000110625">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; does not describe review as approval" time="0.000170083">
+        </testcase>
+    </testsuite>
+</testsuites>

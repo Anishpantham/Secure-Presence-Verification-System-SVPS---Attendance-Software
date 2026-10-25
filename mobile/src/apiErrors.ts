@@ -4,6 +4,14 @@ export class ApiError extends Error {
  }
 }
 
+export function requestErrorMessage(path:string,status:number,message:string,fields:unknown):string{
+ if(path==='/auth/login'&&status===422&&Array.isArray(fields)){
+  if(fields.includes('body.email'))return 'Enter a valid email address without spaces.';
+  if(fields.includes('body.password'))return 'Enter your account password.';
+ }
+ return message;
+}
+
 export function retryAfterSeconds(value:string|null):number|undefined{
  if(!value)return undefined;
  const seconds=/^\d+$/.test(value)?Number(value):(Date.parse(value)-Date.now())/1000;

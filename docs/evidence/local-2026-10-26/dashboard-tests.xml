@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="8" failures="0" errors="0" time="0.501258292">
+    <testsuite name="tests/dashboard.test.tsx" timestamp="2026-10-25T22:04:47.407Z" hostname="Anishs-MacBook-Air.local" tests="8" failures="0" errors="0" skipped="0" time="0.501258292">
+        <testcase classname="tests/dashboard.test.tsx" name="Authentication &gt; submits credentials to the actual versioned API contract" time="0.137640208">
+        </testcase>
+        <testcase classname="tests/dashboard.test.tsx" name="Authentication &gt; shows an API authentication failure" time="0.068584875">
+        </testcase>
+        <testcase classname="tests/dashboard.test.tsx" name="Authentication &gt; directs students to the mobile application" time="0.066782041">
+        </testcase>
+        <testcase classname="tests/dashboard.test.tsx" name="Authentication &gt; hides administrator navigation for faculty after login" time="0.100134208">
+        </testcase>
+        <testcase classname="tests/dashboard.test.tsx" name="Forms and records &gt; filters rows by actual record content" time="0.017183542">
+        </testcase>
+        <testcase classname="tests/dashboard.test.tsx" name="Forms and records &gt; requires an audit reason and sends form values" time="0.078408458">
+        </testcase>
+        <testcase classname="tests/dashboard.test.tsx" name="Forms and records &gt; keeps failed mutations visible for correction" time="0.031203583">
+        </testcase>
+        <testcase classname="tests/dashboard.test.tsx" name="API token lifecycle &gt; rotates an expired token then retries the request" time="0.000480125">
+        </testcase>
+    </testsuite>
+</testsuites>

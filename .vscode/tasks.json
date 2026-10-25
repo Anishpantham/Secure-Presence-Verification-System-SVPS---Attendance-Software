@@ -124,6 +124,25 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "SPVS: dashboard",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"dev",
+				"--prefix",
+				"dashboard",
+				"--",
+				"--host",
+				"127.0.0.1",
+				"--port",
+				"5173",
+				"--strictPort"
+			],
+			"isBackground": true,
+			"problemMatcher": []
 		}
 	]
 }
