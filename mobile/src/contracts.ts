@@ -1,6 +1,6 @@
 export type User={id:string;name:string;email:string;role:'student'|'faculty'|'admin';active:boolean};
 export type Session={id:string;course_name:string;classroom_name:string;starts_at:string;ends_at:string;closed:boolean};
-export type Challenge={id:string;device_id:string;actions:Action[];expires_at:string;server_time:string;purpose:'attendance'|'enrollment'};
+export type Challenge={clockOffset?:number;id:string;device_id:string;actions:Action[];expires_at:string;server_time:string;purpose:'attendance'|'enrollment'};
 export type Action='CENTER'|'TURN_LEFT'|'TURN_RIGHT'|'BLINK';
 export type Frame={jpeg:string;captured_at:string};
 export type Wifi={bssid:string;rssi:number};

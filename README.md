@@ -1,5 +1,11 @@
 # Secure Presence Verification System · SPVS
 
+The `feature/acoustic-dynamic-qr-verification` branch adds mandatory dynamic QR
+and audible acoustic evidence. See [protocol and migration](docs/ACOUSTIC_DYNAMIC_QR.md),
+[physical-device/Mac guide](docs/ACOUSTIC_DEVICE_VALIDATION.md), and
+[feature verification report](docs/ACOUSTIC_COMPLETION.md). New native apps and
+Alembic migration are required; historical APK/device evidence does not validate this feature.
+
 Start with the [current status](docs/CURRENT_STATUS.md) and the
 [26 October synchronization checkpoint](docs/REPOSITORY_SYNC_2026-10-26.md).
 The [24 October ecosystem audit](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md)

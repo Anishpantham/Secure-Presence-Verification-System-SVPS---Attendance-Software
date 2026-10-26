@@ -8,7 +8,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 from starlette.exceptions import HTTPException
 
-from app.api import academic, admin, auth, verification
+from app.api import academic, admin, auth, verification, classroom_presence
 from app.core.config import settings
 from app.core.body_limit import BodyLimit
 from app.db.session import engine
@@ -68,5 +68,5 @@ def ready():
     return {"status": "ready", "face_models": "loaded", "attestation": "not_configured"}
 
 
-for router in (auth.router, academic.router, admin.router, verification.router):
+for router in (auth.router, academic.router, admin.router, verification.router, classroom_presence.router):
     app.include_router(router, prefix="/api/v1")

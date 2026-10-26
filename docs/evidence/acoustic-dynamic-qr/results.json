@@ -1,0 +1,66 @@
+{
+  "completion_date": "2026-10-27",
+  "report_timezone": "Asia/Kolkata",
+  "base_commit": "3a92b737d7b8b13e1f01d66bcb820724f7203489",
+  "branch": "feature/acoustic-dynamic-qr-verification",
+  "tests": {
+    "android-wifi-tests": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "backend-tests": {
+      "tests": 146,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "browser-tests": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dashboard-tests": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "mobile-tests": {
+      "tests": 64,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "total_passed": 234,
+  "builds": {
+    "mobile_typecheck": "passed",
+    "dashboard_production": "passed",
+    "expo_android_export": "passed",
+    "expo_ios_export": "passed (JavaScript only)",
+    "alembic_upgrade_and_check": "passed",
+    "native_generated_config": "passed",
+    "android_arm64_debug": "passed",
+    "backend_container": "passed",
+    "dashboard_container": "passed",
+    "xcode": "not performed",
+    "physical_device_acoustic_validation": "not performed"
+  },
+  "android_apk": {
+    "sha256": "cb45618c477dc2f4f38c3ef5b297996050769ac3adde2d966c0514426e8eac04",
+    "size_bytes": 79765892,
+    "contains_spvs_acoustic_module": true,
+    "signature": "apksigner verify passed; development debug signing",
+    "distributed_in_git": false
+  },
+  "limitations": [
+    "QR and audio can be recorded/shared/relayed; no cryptographic proximity proof.",
+    "One acoustic playback per 5-second reservation; 12/minute maximum.",
+    "Microphone/speaker interoperability, classroom leakage and relay tests require physical validation.",
+    "iOS native compilation/signing requires a Mac with Xcode.",
+    "Existing attestation, biometric and GPS assurance limits remain."
+  ]
+}

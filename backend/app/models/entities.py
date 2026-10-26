@@ -73,9 +73,35 @@ class Policy(Base):
     max_accuracy_m: Mapped[float] = mapped_column(Float, default=35)
     max_location_age_s: Mapped[int] = mapped_column(Integer, default=20)
     wifi_unavailable: Mapped[str] = mapped_column(String(16), default="review")
-    ios_presence: Mapped[str] = mapped_column(String(24), default="review")
+    ios_presence: Mapped[str] = mapped_column(String(24), default="dynamic")
     require_attestation: Mapped[bool] = mapped_column(Boolean, default=False)
     max_attempts: Mapped[int] = mapped_column(Integer, default=5)
+
+
+class PresenceQR(IdentityMixin, Base):
+    __tablename__ = "presence_qr"
+    session_id: Mapped[str] = mapped_column(ForeignKey("attendance_sessions.id"), index=True)
+    classroom_id: Mapped[str] = mapped_column(ForeignKey("classrooms.id"))
+    epoch: Mapped[int] = mapped_column(Integer)
+    token: Mapped[str] = mapped_column(String(300), unique=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class PresenceProof(Base):
+    # The existing liveness challenge is the single coordinated attempt identifier.
+    __tablename__ = "presence_proofs"
+    __table_args__ = (UniqueConstraint("qr_id", "student_id"),)
+    challenge_id: Mapped[str] = mapped_column(ForeignKey("challenges.id"), primary_key=True)
+    student_id: Mapped[str] = mapped_column(ForeignKey("students.user_id"), index=True)
+    qr_id: Mapped[str] = mapped_column(ForeignKey("presence_qr.id"))
+    qr_verified_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
+    ready_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    audio_hash: Mapped[str | None] = mapped_column(String(64))
+    audio_started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    audio_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    audio_verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    audio_consumed: Mapped[bool] = mapped_column(Boolean, default=False)
+    audio_request_hash: Mapped[str | None] = mapped_column(String(64))
 
 
 class Device(IdentityMixin, Base):
@@ -137,6 +163,8 @@ class AttendanceSession(IdentityMixin, Base):
     starts_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     closed: Mapped[bool] = mapped_column(Boolean, default=False)
+    presence_enabled: Mapped[bool] = mapped_column(Boolean, default=False)
+    presence_epoch: Mapped[int] = mapped_column(Integer, default=0)
 
 
 class Challenge(IdentityMixin, Base):

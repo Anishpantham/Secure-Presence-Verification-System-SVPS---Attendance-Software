@@ -36,8 +36,8 @@ export async function registerAppAttest(userId:string,device:DeviceCredential){
  await post('/attestation/register',{device_id:device.id,challenge_id:challenge.id,key_id:keyId,attestation:object});
  await saveDevice(userId,{...updated,attestationRegistered:true});
 }
-export async function signNativeEvidence(evidence:Evidence,device:DeviceCredential,idempotencyKey:string):Promise<SignedRequest>{
- if(device.credential)return signEvidence(evidence,device.credential,idempotencyKey); // Existing installations only.
+export async function signNativeEvidence(evidence:Evidence|Record<string,unknown>,device:DeviceCredential,idempotencyKey:string):Promise<SignedRequest>{
+ if(device.credential)return signEvidence(evidence as Evidence,device.credential,idempotencyKey); // Existing installations only.
  const native=platformAdapter().security();
  if(!device.keyAlias||device.installationId!==await native.installationId())throw new Error('Device key was lost or the app was reinstalled. Request an administrator-approved device reset.');
  const payload=JSON.stringify(evidence),message=`${idempotencyKey}.${payload}`;

@@ -38,8 +38,20 @@ def setup_flow(client,auth,world,db,monkeypatch):
         response=client.post('/api/v1/challenges',headers=student,json={'device_id':device['id'],'purpose':'attendance','session_id':sid})
         assert response.status_code==201,response.text
         return response.json()
-    def body(challenge=None,**overrides):
+    def body(challenge=None, presence=True, **overrides):
         c=challenge or issue()
+        if presence:
+            # Legacy regression fixtures supply completed factors; protocol endpoints
+            # are exercised independently in test_dynamic_presence.py.
+            from app.models.entities import AttendanceSession, PresenceQR, PresenceProof
+            session=db.get(AttendanceSession,sid);session.presence_enabled=True
+            if not db.get(PresenceProof,c['id']):
+                qr=PresenceQR(session_id=sid,classroom_id=session.classroom_id,epoch=session.presence_epoch,
+                    token=str(uuid4()),expires_at=now()+timedelta(seconds=10))
+                db.add(qr);db.flush()
+                db.add(PresenceProof(challenge_id=c['id'],student_id=world['student'].id,qr_id=qr.id,
+                    audio_verified_at=now(),audio_consumed=True))
+            db.commit()
         evidence={'challenge_id':c['id'],'device_id':device['id'],
           'frames':[{'jpeg':str(i)*120,'captured_at':now().isoformat()} for i in range(8)],
           'location':{'latitude':world['room'].latitude,'longitude':world['room'].longitude,'accuracy_m':5,'captured_at':now().isoformat()},

@@ -11,3 +11,7 @@ work
 release
 mobile/android
 mobile/ios
+
+**/dist
+**/test-results
+**/playwright-report
