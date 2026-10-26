@@ -11,7 +11,8 @@
       "supportsTablet": false,
       "infoPlist": {
         "NSCameraUsageDescription": "Capture face samples for consented enrollment and attendance verification.",
-        "NSLocationWhenInUseUsageDescription": "Verify your location during an attendance attempt."
+        "NSLocationWhenInUseUsageDescription": "Verify your location during an attendance attempt.",
+        "NSMicrophoneUsageDescription": "Listen briefly for the classroom attendance challenge. Audio is processed on your phone and is not uploaded or saved."
       }
     },
     "android": {
@@ -21,7 +22,8 @@
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
         "ACCESS_WIFI_STATE",
-        "CHANGE_WIFI_STATE"
+        "CHANGE_WIFI_STATE",
+        "RECORD_AUDIO"
       ]
     },
     "plugins": [
@@ -29,11 +31,16 @@
         "expo-camera",
         {
           "cameraPermission": "Allow SPVS to capture your face for attendance verification.",
-          "microphonePermission": false,
-          "recordAudioAndroid": false
+          "microphonePermission": "Listen briefly for the classroom attendance challenge. Audio is processed on your phone and is not uploaded or saved.",
+          "recordAudioAndroid": true
         }
       ],
-      ["expo-secure-store", {"faceIDPermission": false}],
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": false
+        }
+      ],
       "expo-dev-client",
       [
         "expo-location",

@@ -83,7 +83,7 @@ class PolicyInput(Input):
     max_accuracy_m: float = Field(default=35, ge=5, le=100)
     max_location_age_s: int = Field(default=20, ge=5, le=60)
     wifi_unavailable: Literal["review", "gps_only", "reject"] = "review"
-    ios_presence: Literal["review", "retry", "gps_only"] = "review"
+    ios_presence: Literal["review", "retry", "gps_only", "dynamic"] = "dynamic"
     require_attestation: bool = False
     max_attempts: int = Field(default=5, ge=1, le=10)
     reason: str = Field(min_length=10, max_length=1000)

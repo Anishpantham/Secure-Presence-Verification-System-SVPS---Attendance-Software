@@ -97,6 +97,7 @@ def active_device(db, user_id, device_id):
 @router.post("/challenges", status_code=201)
 def challenge(data: ChallengeInput, user: User = Depends(student), db: Session = Depends(get_db)):
     throttle(db, "challenge:" + user.id, 8, 300)
+    db.scalar(select(User).where(User.id == user.id).with_for_update())
     active_device(db, user.id, data.device_id)
     if data.purpose == "attendance":
         session = required(db, AttendanceSession, data.session_id)
@@ -105,7 +106,11 @@ def challenge(data: ChallengeInput, user: User = Depends(student), db: Session =
             raise HTTPException(409, "SESSION_NOT_ACTIVE")
         if not db.get(BiometricProfile, user.id):
             raise HTTPException(409, "BIOMETRIC_ENROLLMENT_REQUIRED")
-        count = db.scalar(select(func.count()).select_from(AttendanceAttempt).where(AttendanceAttempt.student_id == user.id, AttendanceAttempt.session_id == session.id))
+        ongoing = db.scalar(select(Challenge).where(Challenge.student_id == user.id, Challenge.session_id == session.id, Challenge.device_id == data.device_id,
+            Challenge.used.is_(False), Challenge.expires_at > now()).order_by(Challenge.created_at.desc()))
+        if ongoing:
+            return {**public(ongoing), "server_time": now()}
+        count = db.scalar(select(func.count()).select_from(Challenge).where(Challenge.student_id == user.id, Challenge.session_id == session.id))
         if count >= policy(db).max_attempts:
             raise HTTPException(429, "Session attempt limit reached; request faculty review")
     else:
@@ -119,7 +124,7 @@ def challenge(data: ChallengeInput, user: User = Depends(student), db: Session =
     current = now()
     item = Challenge(student_id=user.id, device_id=data.device_id, session_id=data.session_id,
                      purpose=data.purpose, actions=actions, created_at=current,
-                     expires_at=current + timedelta(seconds=settings().challenge_seconds))
+                     expires_at=current + timedelta(seconds=120 if data.purpose == "attendance" else settings().challenge_seconds))
     db.add(item)
     db.commit()
     return {**public(item), "server_time": current, "capture_guide": "Capture 4-6 frames/s, hold each pose for 1s; blink slowly. Unmirrored JPEG frames."}
@@ -221,6 +226,8 @@ def verify_attendance(data: SignedEvidence, user: User = Depends(student), db: S
     profile = db.get(BiometricProfile, user.id)
     if not profile or profile.model_version != MODEL_VERSION:
         decision = Decision("REJECTED", ["BIOMETRIC_ENROLLMENT_REQUIRED"], 80, {})
+    from app.api.classroom_presence import factor_status
+    dynamic_reason = factor_status(db, item, session, current)
     if decision is None:
         vision = get_vision()
         try:
@@ -235,7 +242,7 @@ def verify_attendance(data: SignedEvidence, user: User = Depends(student), db: S
             integrity = verify_platform_attestation(db, device, data, evidence)
             decision = evaluate(evidence.location, evidence.wifi, evidence.wifi_status, room, refs, policy(db), current, previous,
                                 platform=device.platform, wifi_source=evidence.wifi_source, current_bssid=evidence.current_bssid,
-                                attestation_verified=integrity.verified)
+                                attestation_verified=integrity.verified, dynamic_verified=dynamic_reason is None)
             decision.summary.update(platform=device.platform, device_key_algorithm=device.key_algorithm,
                                     key_storage_reported=device.key_storage, wifi_source=evidence.wifi_source)
             if data.attestation_assertion and not integrity.verified and decision.state == 'PRESENT':
@@ -248,6 +255,15 @@ def verify_attendance(data: SignedEvidence, user: User = Depends(student), db: S
                 decision.summary.update(latitude=round(evidence.location.latitude, 3), longitude=round(evidence.location.longitude, 3))
         except VisionError as exc:
             decision = Decision("REJECTED", [str(exc)], 100, {})
+    # Inference may take seconds: never create PRESENT after the session/attempt deadline.
+    if decision.state == "PRESENT" and (now() >= session.ends_at or now() >= item.expires_at):
+        decision = Decision("EXPIRED", ["SESSION_OR_CHALLENGE_EXPIRED"], 50, decision.summary)
+    decision.summary.update(qr_acoustic="PASSED" if dynamic_reason is None else dynamic_reason,
+                            presence_policy_version=2)
+    if dynamic_reason and decision.state == "PRESENT":
+        decision = Decision("PENDING_REVIEW", [dynamic_reason], 50, decision.summary)
+    elif dynamic_reason and dynamic_reason not in decision.reasons:
+        decision.reasons.append(dynamic_reason)
     item.used = True
     attempt = AttendanceAttempt(student_id=user.id, session_id=session.id, challenge_id=item.id,
         idempotency_key=data.idempotency_key, request_hash=request_hash, state=decision.state,

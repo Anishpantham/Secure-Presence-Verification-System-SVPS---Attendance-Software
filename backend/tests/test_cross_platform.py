@@ -72,7 +72,7 @@ def test_native_signed_attendance_api(client,setup_flow,db,platform):
     request=body(wifi_source='none');message=request['idempotency_key']+'.'+request['payload'];request['signature']=signature(private,message)
     response=client.post('/api/v1/attendance/verify',headers=headers,json=request)
     assert response.status_code==200,response.text
-    assert response.json()['state']==('PRESENT' if platform=='android' else 'PENDING_REVIEW')
+    assert response.json()['state']=='PRESENT'  # Both platforms have completed QR/audio in setup_flow.
     assert response.json()['evidence_summary']['platform']==platform
     replay=client.post('/api/v1/attendance/verify',headers=headers,json=request)
     assert replay.json()['id']==response.json()['id']

@@ -17,7 +17,7 @@ def haversine(lat1, lon1, lat2, lon2):
     return 6371000 * 2 * asin(min(1, sqrt(a)))
 
 
-def evaluate(location, wifi, wifi_status, room, references, policy, current, previous=None, *, platform="android", wifi_source="scan", current_bssid=None, attestation_verified=False):
+def evaluate(location, wifi, wifi_status, room, references, policy, current, previous=None, *, platform="android", wifi_source="scan", current_bssid=None, attestation_verified=False, dynamic_verified=False):
     if location is None:
         return Decision("REQUIRES_RETRY", ["LOCATION_MISSING"], 30, {})
     age = (current - location.captured_at).total_seconds()
@@ -58,7 +58,7 @@ def evaluate(location, wifi, wifi_status, room, references, policy, current, pre
         if ios_policy == 'gps_only' and not attestation_verified:
             reasons.append('IOS_PLATFORM_ATTESTATION_REQUIRED')
             score += 50
-        if ios_policy != 'gps_only':
+        if ios_policy != 'gps_only' and not (ios_policy == 'dynamic' and dynamic_verified):
             reasons.append('IOS_PRESENCE_REVIEW_REQUIRED')
             score += 25
         if current_bssid and references and not summary['current_network_match']:

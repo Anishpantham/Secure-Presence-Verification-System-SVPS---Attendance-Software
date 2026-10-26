@@ -21,6 +21,12 @@ test('administrator configures a room, creates a session and exports real record
  const response=await createdResponse;expect(response.ok()).toBeTruthy();const created=await response.json();
  await expect(page.getByRole('dialog')).toHaveCount(0);
  await page.locator(`a[href="/sessions/${created.id}"]`).filter({hasText:"Open →"}).click();await expect(page.getByRole('heading',{name:'Verification attempts'})).toBeVisible();
+ await page.getByRole('button',{name:'Start challenges',exact:true}).click();
+ await expect(page.getByAltText('Scan this rotating attendance QR code')).toBeVisible();
+ const firstQR=await page.getByAltText('Scan this rotating attendance QR code').getAttribute('src');
+ await expect.poll(()=>page.getByAltText('Scan this rotating attendance QR code').getAttribute('src'),{timeout:10000}).not.toBe(firstQR);
+ await page.getByRole('button',{name:'Stop challenges',exact:true}).click();
+ await expect(page.getByAltText('Scan this rotating attendance QR code')).toHaveCount(0);
  const download=page.waitForEvent('download');await page.getByRole('button',{name:'Export',exact:true}).click();expect((await download).suggestedFilename()).toBe('spvs-attendance.csv');
  await page.getByRole('button',{name:'Close session',exact:true}).click();await expect(page.getByRole('button',{name:'Session closed'})).toBeDisabled();
  await page.getByRole('link',{name:'Overview',exact:true}).click();await expect(page.getByRole('heading',{name:'Presence overview'})).toBeVisible();await page.screenshot({path:'../artifacts/dashboard-overview.png',fullPage:true});
