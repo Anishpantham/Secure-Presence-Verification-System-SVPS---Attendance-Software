@@ -10,6 +10,14 @@ Device reset requests appear in Administration. Verify student identity before a
 
 ## Faculty
 
+Student **Request a review** creates a dispute; it does not approve attendance.
+After reviewing the evidence and deciding a change is justified, use
+**Corrections & reviews → New correction**, select the correct session/student,
+choose the justified status and enter a reason. Then use the dispute's **Resolve**
+action to record its resolution. These are separate actions in the current UI.
+The official record has source CORRECTION; the original automated attempt and its
+reasons remain unchanged. Resolving a dispute alone does not create attendance.
+
 Courses lists assigned courses and enrolled students. Sessions opens a bounded attendance window for one course and classroom. Choose local start/end times; the API receives timezone-aware ISO timestamps. Session details refresh approximately every 15 seconds and show attempts separately from official records. Close a session to stop further automatic attendance.
 
 Inspect reasons and risk indicators before reviewing an attempt. In Corrections & reviews, choose the session and student, enter PRESENT/ABSENT/EXCUSED and a meaningful reason. A correction is visibly sourced as CORRECTION and retains its previous status. Resolving a dispute records an explanation; it does not itself create attendance. Make a separate correction if justified. Reports downloads actual authorized records as CSV.
@@ -17,6 +25,15 @@ Inspect reasons and risk indicators before reviewing an attempt. In Corrections 
 ## Student
 
 Install the development app and sign in. First register the phone using account-password confirmation. Then open Face enrollment, read the retention explanation and grant consent. Follow the center, turn and slow-blink prompts in even lighting. The server rejects zero/multiple faces, weak samples or incomplete action sequences.
+
+Enter the institution email without embedded spaces. The sign-in form uses an
+email keyboard and reports malformed email/password fields explicitly. A format
+error is distinct from an incorrect password. Never enter the `DEMO_PASSWORD=`
+label itself when using a local demo password; enter only its value.
+
+After faculty correction, refresh **My history**. Check **Official records** for
+the current status and source. The original attempt may still show PENDING REVIEW
+below it; this preserves the automated decision and does not erase the correction.
 
 For an open session, tap Verify my attendance. The app checks eligibility/device status, captures a fresh sequence, obtains a current location and gathers supported Wi-Fi observations. It signs the payload and displays the server's result. Do not leave during capture. If a network submission fails, retry the same submission to avoid a new attempt. If the challenge expires or evidence fails, start a fresh challenge when permitted.
 

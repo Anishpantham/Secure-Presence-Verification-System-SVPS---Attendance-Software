@@ -51,6 +51,18 @@ retry instructions. Rate-limit `Retry-After` reports the remaining bucket window
 Definitive 4xx rejections discard the saved request; network/5xx failures can
 retain the same signed submission for idempotent recovery.
 
+The mobile sign-in client now translates `body.email` and `body.password`
+validation fields into specific guidance and rejects embedded email whitespace
+before submission. The server's validation envelope is unchanged; no password
+values are echoed. HTTP 401 authentication failures remain distinct from format
+errors.
+
+Review lifecycle: creating a student dispute does not update attendance.
+`POST /corrections` creates/updates an official record with source CORRECTION and
+an attributable reason/audit entry. `POST /disputes/{id}/resolve` closes the dispute
+but does not create an attendance record by itself. The original attempt decision
+is retained after both operations.
+
 Most operational lists expose the latest 500 rows; course and enrollment lists are not paginated. CSV export includes all records in the authorized selection. Large institutions need cursor pagination, query optimization and retention jobs before deployment.
 
 

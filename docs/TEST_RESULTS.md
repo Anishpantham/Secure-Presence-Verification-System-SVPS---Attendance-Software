@@ -1,6 +1,28 @@
 # Current and historical test/build results
 
-## Current local checkpoint - 24 October 2026
+## Current local checkpoint - 26 October 2026
+
+| Suite | Passed | Failures/errors | Skipped | Evidence |
+| --- | ---: | ---: | ---: | --- |
+| Full backend | 120 | 0 | 0 | [JUnit](evidence/local-2026-10-26/backend-tests.xml) |
+| Mobile | 46 | 0 | 0 | [JUnit](evidence/local-2026-10-26/mobile-tests.xml) |
+| Dashboard | 8 | 0 | 0 | [JUnit](evidence/local-2026-10-26/dashboard-tests.xml) |
+| Native Wi-Fi | 10 | 0 | 0 | [JUnit](evidence/local-2026-10-26/android-wifi-tests.xml) |
+
+**184 passed**, all rerun for this checkpoint. Mobile TypeScript and dashboard
+production build passed. The APK/native build remains the verified 24 October
+development host; no native code changed, and current JavaScript is served by Metro.
+The physical Android demo reached manual faculty API correction, resolved dispute,
+attributable audit and verified phone history. Automatic classroom approval and
+faculty-browser click-through remain unverified. See [physical evidence](ANDROID_DEVICE_VALIDATION_2026-10-26.md).
+
+Fresh npm audits: [mobile](evidence/local-2026-10-26/mobile-audit.json) has 5 high
+affected package entries, [dashboard](evidence/local-2026-10-26/dashboard-audit.json)
+has zero. Backend security auditing remains historical. Prior browser/container
+checks and native build runs retain their original dates; repeated tests are not
+added to this total. See [current verification](FINAL_COMPLETION_REPORT.md).
+
+## Prior local checkpoint - 24 October 2026
 
 | Suite | Passed | Failures/errors | Skipped | Evidence |
 | --- | ---: | ---: | ---: | --- |

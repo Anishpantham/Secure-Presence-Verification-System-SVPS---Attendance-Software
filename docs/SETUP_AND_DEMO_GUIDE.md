@@ -1,7 +1,16 @@
 # SPVS final setup and demonstration guide
 
-See [Native iOS Mac validation](IOS_MAC_VALIDATION.md) for the actual 2026-10-23
-Apple Silicon setup, current commands and pending physical-iPhone checks.
+See [iOS Mac validation](IOS_MAC_VALIDATION.md) for native setup and iPhone
+observations, and [Android physical validation](ANDROID_DEVICE_VALIDATION_2026-10-26.md)
+for the completed hostel demo through manual review and phone history.
+
+Use the **SPVS: dashboard** task for the local faculty UI at
+`http://127.0.0.1:5173`. The API and Metro tasks must also be running for phone
+testing. The Motorola's Wi-Fi must actually be connected to the Mac's reachable
+network; enabling Wi-Fi without joining it is insufficient. The dedicated Android
+demo student was created in the local database and is not automatically created
+by a fresh clone/seed; create a separate student through Administration and enroll
+it in the test course when preserving an existing iPhone registration.
 
 Use the source ZIP from this completion branch and read FINAL_COMPLETION_REPORT.md before presenting capabilities. Keep the baseline release intact. Commands below are for a MacBook Air M4 with macOS and a trusted development network. The Linux execution report does not claim these Mac commands were run on Apple Silicon.
 

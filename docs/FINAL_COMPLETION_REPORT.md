@@ -1,101 +1,112 @@
 # SPVS current completion and verification report
 
-**Checkpoint: 25 October 2026 (Asia/Kolkata).** Application implementation:
-`26b2895a83fdf8014e5a4a3cb5aa20d8af23deb7`. Delivery documentation and regenerated
-artifacts extend that implementation checkpoint through
-[PR #4](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/4).
-Exact packaged source hashes are in FINAL_FILE_MANIFEST.txt inside the archive;
-artifact metadata records the source base and generation time.
+**Checkpoint: 26 October 2026 (Asia/Kolkata).**
+Application implementation: `cc8f1ddba2f1aa2e8c97f39eccb5580557e15eb5`.
+Publication: [PR #5](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/5).
+Artifact metadata and the source archive's FINAL_FILE_MANIFEST.txt identify the
+exact snapshot without embedding the delivery commit into its own files.
 
-## Delivered behavior
+## Implemented and tested
 
-The FastAPI/PostgreSQL, React dashboard and Expo/React Native architecture is
-retained. This continuation adds validated Mac/iOS build workflows, native locks,
-Personal Team compatible configuration, enrollment fixes and Android Wi-Fi recovery.
+The FastAPI/PostgreSQL, React dashboard and Expo/React Native architecture remains.
+Earlier Mac-native build, P-256 registration, camera-direction, photo-driven blink,
+bounded tracking-recovery, retry and asynchronous Android scan fixes are retained.
 
-- Enrollment maps turns to the student's own left/right for unmirrored images,
-  gives 700 ms to settle into prompts, and drives blink cues by completed photos
-  with a vibration to reopen the eyes.
-- At most two missing-landmark frames can recover, with eight tracked frames and
-  the complete action sequence still required. Every frame must pass quality,
-  single-face and identity checks. Thresholds, signatures, consent and replay
-  protections remain.
-- Typed API failures show specific missed-step guidance and the remaining retry
-  window. Definitive 4xx errors discard rejected saved submissions; network/5xx
-  errors can recover using the same signed request.
-- Android reuses actual readings at most 15 seconds old or waits up to eight
-  seconds for a successful scan broadcast. Timeout, permission loss, cancellation
-  and concurrent callers are handled explicitly.
-- Settings includes a local Wi-Fi setup check displaying measured AP IDs/RSSI
-  without submitting attendance or automatically trusting classroom references.
+The reproduced Android sign-in failure was an embedded space in the email.
+The intended credentials were valid. Correcting the field produced the actual
+Android home screen. The form now uses an email keyboard/autofill hints, catches
+embedded whitespace before submission and translates server email/password
+validation fields into clear messages without logging input.
 
-## Actual validation
+## Current automated evidence
 
-| Suite | Passed | Failed / skipped | Evidence date |
-| --- | ---: | --- | --- |
-| Full backend | 120 | 0 / 0 | 24 October |
-| Mobile | 42 | 0 / 0 | 24 October |
-| Dashboard | 8 | 0 / 0 | 24 October |
-| Native Android Wi-Fi | 10 | 0 / 0 | 24 October |
+| Suite | Passed | Failed | Skipped |
+| --- | ---: | ---: | ---: |
+| Full backend | 120 | 0 | 0 |
+| Mobile | 46 | 0 | 0 |
+| Dashboard | 8 | 0 | 0 |
+| Native Android Wi-Fi | 10 | 0 | 0 |
 
-**180 passing tests**. Reports are in [dated evidence](evidence/local-2026-10-24/).
-Backend API happy paths substitute vision only in tests; real-model smoke tests
-separately execute YuNet, SFace and MediaPipe. Mobile OS/native interfaces are
-mocked in JS tests. Native tests cover scan coordination/filtering, not radio quality.
+**184 passed**, rerun for this checkpoint. [Dated evidence](evidence/local-2026-10-26/)
+contains JUnit results and npm audits. Mobile TypeScript and dashboard production
+build pass. API happy-path tests substitute vision only within tests; real-model
+smoke tests are separate. JS native interfaces are mocked; native tests exercise
+scan coordination/filtering, not room accuracy.
 
-Mobile TypeScript, dashboard production build, Android debug compilation and APK
-signature verification passed. The APK is an arm64-v8a development client requiring
-Metro/API connectivity. Simulator and signed-device iOS builds passed locally.
-Earlier browser/container tests remain historical and are not fresh validation
-of this checkpoint. Upstream deprecation warnings remain.
+The existing Android development APK's native build/signature evidence remains
+valid: this continuation changes JavaScript and documentation, not native code.
+It loads the current JavaScript from Metro. It is not a standalone production
+release. Historical iOS builds, browser tests and container checks retain their
+original dates and are not counted as fresh phone or deployment validation.
+Upstream deprecation warnings remain.
 
-## Physical-device evidence
+## Physical Android milestone completed
 
-The iPhone logged in, registered a native P-256 key and enrolled a face. The user
-confirmed improved enrollment usability; the database records enrollment on
-24 October at 14:37:27 IST. Attendance at 14:43:49 IST passed face/liveness/GPS,
-then returned `PENDING_REVIEW` for `IOS_PRESENCE_REVIEW_REQUIRED`.
-No official attendance record was created.
+Motorola Edge 50 Neo / Android 16 / API 36 / arm64-v8a:
 
-Reported Secure Enclave storage is not independent hardware attestation. The
-Personal Team build lacks Wi-Fi Information and App Attest entitlements and
-supplied no Wi-Fi evidence. No classroom AP references are configured. The iOS
-review policy requires review even if the connected BSSID matches.
+- Native APK installation, sign-in UI and Wi-Fi setup check observed.
+- Separate Android demo account/course enrollment preserves the existing iPhone.
+- P-256 device registration at 25 October 20:27:43 IST; android-hardware is a
+  client storage report, not independent attestation.
+- Face enrollment succeeded at 20:30:24 IST after one IMAGE_QUALITY_LOW rejection.
+- Attendance at 20:33:45 IST passed face matching, liveness, device authentication
+  and GPS checks. Wi-Fi was available, but no classroom AP references were configured.
+  The automated decision was PENDING_REVIEW with WIFI_UNAVAILABLE.
+- The student requested review. The assistant exercised the authenticated local
+  demo faculty API to create an explicitly labelled hostel-test correction.
+- One official PRESENT record with source CORRECTION, one resolved dispute, a
+  faculty actor/reason and corresponding audit events were verified.
+- The actual Android history screen showed PRESENT/CORRECTION and the original
+  PENDING REVIEW attempt after the user reconnected Wi-Fi.
 
-**Android physical testing is pending until the user connects the phone.**
-No Android enrollment, scan readings, classroom acceptance/corridor rejection or
-hardware-attestation outcome is claimed.
+This was a controlled demo manual correction, not automatic classroom attendance
+or a completed faculty-browser click-through. No verification policy was weakened.
+The original decision is preserved. Full details and boundaries:
+[Android device validation](ANDROID_DEVICE_VALIDATION_2026-10-26.md).
 
-## Artifact currency
+## Wi-Fi field scope
 
-Current source ZIP, project/setup PDFs, delivery/verification Markdown and
-checksums in `release/final` are regenerated for this checkpoint. The actual
-local Mac Android APK is 77,979,730 bytes, SHA-256:
+The user clarified the test was a hostel room with the AP outside. Two AP signals
+were stronger in the corridor (-52/-67 dBm) than initially inside (-75/-89 dBm).
+A repeat inside scan showed only one AP at -79 dBm. An offline rule-isolation
+check with synthetic identical valid GPS accepted both initial samples at thresholds
+that accepted the room. It made no attendance submission.
+
+This establishes collection on the phone and a limitation of that setup. It does
+not settle the intended classroom, whose AP is reportedly inside. Classroom AP
+identities, multi-position sampling, thresholds and fresh inside/outside evaluation
+are still required. No hostel references were installed as classroom references.
+
+## iPhone and remaining boundaries
+
+The earlier physical iPhone enrollment succeeded. Its submission passed
+face/liveness/GPS and required iOS policy review; its account was not replaced.
+The Personal Team build lacks Wi-Fi Information and App Attest entitlements.
+Genuine Apple App Attest and Play Integrity remain unconfigured/unverified.
+
+Remaining work includes actual-classroom automatic acceptance/rejection, broader
+device/user and spoof/injection evaluation, biometric calibration, compatible
+security remediation, production TLS/signing, load, backup/retention/key rotation
+and institutional consent/alternative-attendance decisions.
+
+The fresh npm audit still reports 5 high mobile package entries, zero dashboard
+findings; backend vulnerability scanning remains historical. No dependency upgrade
+or incompatible forced downgrade was performed.
+
+Known UI limits: history may still show generic pending-review wording/action
+after a correction, and unreachable API requests can wait without a clear timeout
+indicator. WIFI_UNAVAILABLE also covers absent reference configuration. These are
+documented follow-ups, not claims that scanning or manual review failed.
+
+## Coordinated delivery
+
+Source ZIP, project/setup PDFs, packaged Markdown, current milestone PDFs and
+checksums are regenerated. The retained APK is 77,979,730 bytes, SHA-256
 `9bd8032bc87b6f74fc86a2fe11897915fcd598081f514473c424294ec54cd3d6`.
+Native code is unchanged; Metro serves the new sign-in JavaScript.
 
-The archive includes new code/tests, dated evidence, status reports and both
-Ruby/CocoaPods locks. Environment secrets, native private signing material,
-databases, caches and generated projects (except the tracked CocoaPods lock) are
-excluded. Packaging verifies ZIP CRC/members/source hashes and PDF text extraction.
-
-The [pre-publication audit](LOCAL_ECOSYSTEM_REPORT_2026-10-24.md) and
-[historical cloud report](HISTORICAL_CLOUD_COMPLETION_2026-10-23.md) remain dated
-records. Their earlier Git gaps and test counts do not describe this delivery.
-Old artifact bytes remain in Git history.
-
-## Remaining release gates
-
-- Physical Android tests and confirmed AP references; compare classroom, corridor
-  and adjacent-room readings while keeping GPS eligibility constant.
-- Broader camera usability, false-match/non-match, spoof/injection, accessibility
-  and population calibration evaluations with measured uncertainty.
-- Supported iOS network provisioning, genuine App Attest interoperability and
-  the unfinished Google Play Integrity provider integration.
-- The 24 October npm audit has 5 high mobile affected entries associated with
-  node-forge/Zod and propagation, and zero dashboard findings. Backend scanning
-  is historical. No incompatible forced downgrade was applied.
-- Production TLS/signing, least-privilege operations, retention/backups/key
-  rotation, load testing and institution-approved biometric/alternative policies.
-
-**Source synchronization and passing tests do not establish production readiness.**
-See [CURRENT_STATUS.md](CURRENT_STATUS.md) for the current entry point.
+Packaging checks ZIP CRC, required source/evidence, each included source hash,
+artifact hashes, PDF text and document links. Runtime secrets, raw BSSIDs/SSID,
+precise location, private keys, databases, templates and raw screenshots/frames
+are excluded. Older dated audits/records remain historical; old artifact bytes
+remain in Git history. **Synchronization is not production readiness or deployment.**

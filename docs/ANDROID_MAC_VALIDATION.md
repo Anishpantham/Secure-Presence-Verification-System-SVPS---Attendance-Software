@@ -1,7 +1,26 @@
 # Android Wi-Fi test build on the local Mac
 
-Measured on 2026-10-24. This records native build and automated test results;
-physical Android Wi-Fi readings and classroom discrimination remain unverified.
+Measured on 2026-10-24. The original build checkpoint below predates physical
+Android testing. The [26 October physical report](ANDROID_DEVICE_VALIDATION_2026-10-26.md)
+supersedes its pending install/scan/enrollment/initial-submission items.
+
+## Physical continuation through 26 October
+
+Motorola Edge 50 Neo / Android 16 installation, login, registration, enrollment,
+Wi-Fi scans and submission were observed. The hostel test's automated submission
+required review because classroom AP references were not configured. An explicitly
+labelled demo faculty API correction created one PRESENT/CORRECTION record and
+resolved the dispute; the actual phone history and audit trail were verified.
+The original PENDING_REVIEW attempt remains. Classroom automatic approval is not
+established; the user clarified the hostel AP is outside, while the intended
+classroom AP is reportedly inside.
+
+The current mobile suite has 46 passing tests after the sign-in validation fix;
+the ten native Wi-Fi tests passed again on 26 October. The existing development
+APK remains the native host, with current JavaScript loaded from Metro. No native
+code changed after its original build.
+
+## Historical 24 October build checkpoint
 
 ## Build and checks
 
@@ -43,7 +62,7 @@ GRADLE_USER_HOME="$PWD/../../.runtime/gradle" \
 ./gradlew :spvs-wifi:testDebugUnitTest --no-daemon
 ```
 
-## Next physical check
+## Reproducing the initial physical check
 
 1. Connect a compatible Android phone over USB, enable USB debugging and accept
    its authorization prompt. Confirm the phone appears in `adb devices -l`.
