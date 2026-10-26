@@ -4,6 +4,12 @@ This completion extends commit `b19777df3cb3210330075c702e5e98f487213a5d`; FastA
 
 ## Shared application and platform adapters
 
+The [physical Android continuation](ANDROID_DEVICE_VALIDATION_2026-10-26.md)
+now verifies the basic Motorola workflow through authenticated demo faculty API
+correction and phone history. The latest shared sign-in change uses an email
+keyboard/autofill hint, rejects embedded whitespace and maps server field errors
+to actionable messages. No native ABI or backend schema change was required.
+
 Authentication, enrollment and deletion/re-enrollment, session selection, randomized camera capture, result, history and API recovery use the same screens. `src/platform` owns native device keys, OS selection, Wi-Fi APIs and simulator API defaults. `capture.ts` executes the server's action order and expiration, cancels on backgrounding, and records capture-start timestamps. It does not calculate a successful biometric verdict on the client. `signals.ts` requests foreground location, checks precise accuracy where available and submits the actual fix time and horizontal uncertainty. Failed requests display recovery instructions. Camera temporary files are deleted in finally blocks.
 
 | Signal | Android | iOS | Server treatment |

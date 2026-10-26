@@ -1,7 +1,7 @@
 import {defaultApiUrl} from './platform';
 import * as SecureStore from 'expo-secure-store';
 import type {DeviceCredential,User} from './contracts';
-import {ApiError,retryAfterSeconds} from './apiErrors';
+import {ApiError,requestErrorMessage,retryAfterSeconds} from './apiErrors';
 const BASE=process.env.EXPO_PUBLIC_API_URL||defaultApiUrl();
 if(!__DEV__&&!BASE.startsWith('https://'))throw new Error('Release builds require an HTTPS API endpoint');
 type Tokens={access_token:string;refresh_token:string};
@@ -15,11 +15,11 @@ export async function api<T>(path:string,options:RequestInit={},retry=true):Prom
   if(!refreshPromise)refreshPromise=(async()=>{const r=await fetch(BASE+'/auth/refresh',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({refresh_token:tokens!.refresh_token})});if(!r.ok){await signOut();throw new Error('Session expired. Sign in again.')}await save(await r.json())})().finally(()=>{refreshPromise=null});
   await refreshPromise;return api(path,options,false);
  }
- if(!response.ok){const body=await response.json().catch(()=>({}));throw new ApiError(body.error?.message||`Request failed (${response.status})`,response.status,retryAfterSeconds(response.headers.get('Retry-After')),body.error?.details)}
+ if(!response.ok){const body=await response.json().catch(()=>({}));throw new ApiError(requestErrorMessage(path,response.status,body.error?.message||`Request failed (${response.status})`,body.error?.fields),response.status,retryAfterSeconds(response.headers.get('Retry-After')),body.error?.details)}
  if(response.status===204)return undefined as T;return response.json();
 }
 export const post=<T>(path:string,data:unknown={})=>api<T>(path,{method:'POST',body:JSON.stringify(data)});
-export async function signIn(email:string,password:string){const result=await post<Tokens&{user:User}>('/auth/login',{email,password});if(result.user.role!=='student')throw new Error('Faculty and administrators use the web dashboard.');await save(result);return result.user}
+export async function signIn(email:string,password:string){email=email.trim();if(/\s/.test(email))throw new Error('Enter an email address without spaces.');const result=await post<Tokens&{user:User}>('/auth/login',{email,password});if(result.user.role!=='student')throw new Error('Faculty and administrators use the web dashboard.');await save(result);return result.user}
 export async function signOut(){const old=tokens;tokens=null;await SecureStore.deleteItemAsync('spvs.tokens');if(old)await fetch(BASE+'/auth/logout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({refresh_token:old.refresh_token})}).catch(()=>{})}
 // Per-user keys prevent an account switch on a shared phone from reusing another student's credential.
 export async function getDevice(userId:string):Promise<DeviceCredential|null>{const value=await SecureStore.getItemAsync(`spvs.device.${userId}`);return value?JSON.parse(value):null}

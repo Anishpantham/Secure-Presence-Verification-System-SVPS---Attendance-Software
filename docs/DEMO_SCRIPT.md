@@ -1,5 +1,30 @@
 # Demonstration script
 
+Current observed hardware flow is recorded in
+[Android device validation](ANDROID_DEVICE_VALIDATION_2026-10-26.md) and
+[iOS validation](IOS_MAC_VALIDATION.md). Use [current status](CURRENT_STATUS.md)
+for the latest evidence rather than the historical baseline reports.
+
+## Reproduce the manual-review demonstration
+
+1. Use a dedicated test student so an existing registered phone remains intact.
+2. Complete native registration, consented enrollment and a real session submission.
+3. Show the actual pending decision and evidence; missing classroom references
+   can produce WIFI_UNAVAILABLE even when the scan itself is available.
+4. Request review from the phone. Show that a dispute exists but no official
+   attendance record is created by that request.
+5. As assigned faculty, review the evidence. For an explicitly controlled demo,
+   label any correction reason as a demo and state what was not verified.
+6. Create the justified attendance correction, then separately resolve the dispute.
+   The latest observed test exercised these authenticated faculty API operations;
+   a complete faculty-browser click-through remains to be tested.
+7. Refresh student history. Show PRESENT with source CORRECTION and the original
+   PENDING REVIEW attempt. Do not describe this as automatic classroom verification.
+
+The Motorola must be connected to the Mac's reachable Wi-Fi network for the local
+API. The latest history check recovered after Wi-Fi reconnection; no fake data or
+policy relaxation was used. The hostel scan test is not actual classroom calibration.
+
 ## Before the evaluation
 
 Run the automated suites and retain their current result files. Configure a real classroom and a deliberate Wi-Fi fallback. Complete the real-device checklist with consenting participants before promising a successful live capture. Prepare the randomly generated demo password locally; never place it in slides or the ZIP.

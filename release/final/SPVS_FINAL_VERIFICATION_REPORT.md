@@ -1,27 +1,26 @@
-# SPVS synchronized delivery verification
+# SPVS delivery verification - 26 October 2026
 
-Checkpoint: **25 October 2026, Asia/Kolkata**. Application source checkpoint:
-`26b2895a83fdf8014e5a4a3cb5aa20d8af23deb7`. Publication:
-[PR #4](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/4).
-
+Implementation: `cc8f1ddba2f1aa2e8c97f39eccb5580557e15eb5`.
+Publication: [PR #5](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/5).
 Read [current verification](../../docs/FINAL_COMPLETION_REPORT.md),
-[current status](../../docs/CURRENT_STATUS.md), and
-[synchronization details](../../docs/REPOSITORY_SYNC_2026-10-25.md).
+[Android physical evidence](../../docs/ANDROID_DEVICE_VALIDATION_2026-10-26.md), and
+[synchronization](../../docs/REPOSITORY_SYNC_2026-10-26.md).
 
-- 120 backend, 42 mobile, 8 dashboard and 10 native Wi-Fi tests passed:
-  **180 total**, no failures or skips in those suites.
-- Mobile TypeScript, dashboard build, Android compilation and APK signature
-  verification passed. Prior local iOS simulator and signed-device builds passed.
-- iPhone enrollment succeeded; its attendance submission passed face/liveness/GPS
-  and required review. No official attendance record was created.
-- Physical Android testing and classroom AP reference collection remain pending.
-- The APK is arm64-v8a, debug signed and needs Metro/API connectivity. No
-  production-signed APK or packaged IPA is claimed.
-- Source ZIP, project/setup PDFs, Markdown and hashes are regenerated together.
-  Exact packaged source hashes are in FINAL_FILE_MANIFEST.txt.
-- Five high mobile npm entries remain; dashboard has zero. Backend vulnerability
-  auditing is historical. Genuine provider attestation, calibration and
-  institutional production readiness remain unverified.
+- **184 tests passed:** 120 backend, 46 mobile, 8 dashboard and 10 native Wi-Fi;
+  zero failures/skips in those suites. TypeScript and dashboard build passed.
+- Motorola Android 16 installation, login, native registration, face enrollment,
+  Wi-Fi collection and attendance submission were observed.
+- Automated attendance remained PENDING_REVIEW due to missing classroom references.
+  The controlled demo review created one PRESENT/CORRECTION record, resolved the
+  dispute and retained the original attempt; phone history and audit were verified.
+- Faculty review was exercised through the authenticated demo API, not a verified
+  faculty-browser click-through or real institutional approval.
+- Hostel Wi-Fi samples do not establish actual classroom accuracy. AP placement
+  differs; actual classroom configuration and testing remain pending.
+- Current reports/source ZIP/guides/checksums are regenerated. The native development
+  APK is retained because native code is unchanged; it loads current JS from Metro.
+- Five high mobile npm entries remain; dashboard has zero; backend security audit
+  is historical. Genuine attestation, calibration and production gates remain open.
 
-Historical audit/cloud records are retained with dates, not presented as current
-claims of repository divergence or absent iOS compilation.
+No secrets, raw network identifiers, exact locations, keys, databases or biometric
+templates/frames are included. Historical records are explicitly dated.

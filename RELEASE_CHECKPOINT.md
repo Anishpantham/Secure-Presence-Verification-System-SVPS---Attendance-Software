@@ -1,22 +1,24 @@
 # Release checkpoint
 
-## Current synchronized delivery - 25 October 2026
+## Current synchronized delivery - 26 October 2026
 
 Application implementation checkpoint:
-`26b2895a83fdf8014e5a4a3cb5aa20d8af23deb7`.
-The continuation branch `spvs/ios-native-completion` is published and tracks its
+`cc8f1ddba2f1aa2e8c97f39eccb5580557e15eb5`.
+The continuation branch `spvs/android-validation-20261026` is published and tracks its
 origin branch. Code, documentation and regenerated release artifacts are included
-in [PR #4](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/4)
-into main. That PR and the Git refs record the live merge/head state. PRs #1-#3
+in [PR #5](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/5)
+into main. That PR and the Git refs record the live merge/head state. PRs #1-#4
 are historical merged deliveries.
 
 The source ZIP, project/setup PDFs, packaged Markdown and checksum manifest are
 regenerated together and accompany the current arm64 debug APK. The archive's
 file manifest identifies exact source content without embedding its own future
 commit hash. See [current status](docs/CURRENT_STATUS.md) and
-[synchronization details](docs/REPOSITORY_SYNC_2026-10-25.md).
-Android physical testing waits for the user to connect the phone; production
-release gates remain open. The dated 24 October audit preserves the earlier gap.
+[synchronization details](docs/REPOSITORY_SYNC_2026-10-26.md).
+The Android hostel demo completes registration, enrollment, submission, manual
+faculty API correction, dispute resolution and verified phone history. Actual
+classroom testing and production gates remain open. The dated 24 October audit
+and 25 October synchronization record preserve earlier states.
 
 ## Historical completion publication checkpoint
 

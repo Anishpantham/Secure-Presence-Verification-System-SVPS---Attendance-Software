@@ -38,8 +38,9 @@ def source_files():
 
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
+    checkpoint=json.loads((DOCS/'release-checkpoint.json').read_text())
     sheet=render.styles()
-    reports=['PROJECT_REPORT.md','CURRENT_STATUS.md','CROSS_PLATFORM_IMPLEMENTATION.md','SYSTEM_ARCHITECTURE.md','DATABASE_DESIGN.md','API_DOCUMENTATION.md','BIOMETRIC_DESIGN.md','SECURITY_ARCHITECTURE.md','THREAT_MODEL.md','TEST_RESULTS.md','REQUIREMENTS_TRACEABILITY.md','KNOWN_LIMITATIONS.md','FINAL_COMPLETION_REPORT.md','REPOSITORY_SYNC_2026-10-25.md','REFERENCES.md']
+    reports=['PROJECT_REPORT.md','CURRENT_STATUS.md','CROSS_PLATFORM_IMPLEMENTATION.md','SYSTEM_ARCHITECTURE.md','DATABASE_DESIGN.md','API_DOCUMENTATION.md','BIOMETRIC_DESIGN.md','SECURITY_ARCHITECTURE.md','THREAT_MODEL.md','TEST_RESULTS.md','REQUIREMENTS_TRACEABILITY.md','KNOWN_LIMITATIONS.md','FINAL_COMPLETION_REPORT.md',checkpoint['physical_validation_report'],checkpoint['synchronization_report'],'REFERENCES.md']
     render.render_pdf(OUT/'SPVS_FINAL_PROJECT_REPORT.pdf',[DOCS/name for name in reports],sheet)
     render.render_pdf(OUT/'SPVS_FINAL_SETUP_AND_DEMO_GUIDE.pdf',[DOCS/name for name in ['SETUP_AND_DEMO_GUIDE.md','CURRENT_STATUS.md','DEPLOYMENT_GUIDE.md','USER_MANUAL.md','DEMO_SCRIPT.md','TEST_RESULTS.md']],sheet)
     for name in ['SPVS_FINAL_VERIFICATION_REPORT.md','SPVS_FINAL_DELIVERY_README.md']:
@@ -64,13 +65,13 @@ def main():
         assert z.testzip() is None
         required=['backend/app/main.py','backend/app/services/app_attest.py','backend/alembic/versions/5c9d2a1e8b70_cross_platform_security.py','dashboard/src/App.tsx','mobile/App.tsx','mobile/modules/spvs-security/ios/SpvsSecurityModule.swift','mobile/modules/spvs-security/android/src/main/java/edu/spvs/security/SpvsSecurityModule.kt','mobile/modules/spvs-wifi/ios/SpvsWifiModule.swift','mobile/package-lock.json','docs/CROSS_PLATFORM_IMPLEMENTATION.md','docs/FINAL_COMPLETION_REPORT.md','models/face_landmarker.task','models/face_recognition_sface_2021dec.onnx']
         assert all('spvs-root/'+name in z.namelist() for name in required)
-        current_required=['mobile/ios/Podfile.lock','mobile/Gemfile.lock','mobile/src/WifiDiagnostics.tsx','mobile/src/apiErrors.ts','mobile/modules/spvs-wifi/android/src/main/java/edu/spvs/wifi/WifiScanSession.kt','mobile/modules/spvs-wifi/android/src/test/java/edu/spvs/wifi/WifiScanSessionTest.kt','docs/CURRENT_STATUS.md','docs/REPOSITORY_SYNC_2026-10-25.md','docs/evidence/local-2026-10-24/android-wifi-tests.xml']
+        current_required=['mobile/ios/Podfile.lock','mobile/Gemfile.lock','mobile/src/WifiDiagnostics.tsx','mobile/src/apiErrors.ts','mobile/modules/spvs-wifi/android/src/main/java/edu/spvs/wifi/WifiScanSession.kt','mobile/modules/spvs-wifi/android/src/test/java/edu/spvs/wifi/WifiScanSessionTest.kt','docs/CURRENT_STATUS.md','docs/release-checkpoint.json','docs/'+checkpoint['synchronization_report'],'docs/'+checkpoint['physical_validation_report'],'docs/'+checkpoint['evidence_directory']+'/android-physical-validation.json','docs/'+checkpoint['evidence_directory']+'/android-wifi-tests.xml']
         assert all('spvs-root/'+name in z.namelist() for name in current_required)
         assert not any('/node_modules/' in name or '/.venv/' in name or '/.runtime/' in name or name.endswith(('/.env','.keystore','.jks')) for name in z.namelist())
         for line in manifest.read_text().splitlines():
             expected, relative = line.split('  ', 1)
             assert hashlib.sha256(z.read('spvs-root/'+relative)).hexdigest() == expected, relative
-    checks={'created_at':datetime.now(timezone.utc).isoformat(),'source_base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_scope':'Working-tree snapshot atop source_base_commit, including delivery documentation; exact included hashes are in docs/FINAL_FILE_MANIFEST.txt. The publication commit is not embedded into itself.','publication_pr':'https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/4','zip_crc':'passed','archive_members':len(files),'required_source_files':'passed','source_manifest_hashes':'passed','pdfs':{}}
+    checks={'created_at':datetime.now(timezone.utc).isoformat(),'checkpoint_date':checkpoint['checkpoint_date'],'application_source_commit':checkpoint['application_source_commit'],'source_base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_scope':'Working-tree snapshot atop source_base_commit, including delivery documentation; exact included hashes are in docs/FINAL_FILE_MANIFEST.txt. The publication commit is not embedded into itself.','publication_pr':checkpoint['publication_pr'],'zip_crc':'passed','archive_members':len(files),'required_source_files':'passed','source_manifest_hashes':'passed','pdfs':{}}
     for path in OUT.glob('SPVS_FINAL_*.pdf'):
         pdf=PdfReader(path);text='\n'.join(page.extract_text() or '' for page in pdf.pages)
         assert len(pdf.pages)>=5 and 'SPVS' in text and len(text)>4000

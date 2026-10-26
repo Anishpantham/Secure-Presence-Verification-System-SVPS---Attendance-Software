@@ -1,5 +1,9 @@
 # SPVS repository synchronization checkpoint
 
+**Historical 25 October checkpoint.** The subsequent Android physical workflow
+and publication are recorded in [the 26 October synchronization](REPOSITORY_SYNC_2026-10-26.md).
+Pending items below describe this earlier snapshot.
+
 Date: **25 October 2026, Asia/Kolkata**.
 Publication: [GitHub PR #4](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/4)
 from `spvs/ios-native-completion` into `main`. The linked PR and current Git refs

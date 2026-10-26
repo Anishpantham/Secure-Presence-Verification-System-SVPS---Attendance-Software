@@ -2,7 +2,7 @@
 
 Current validation and publication are recorded in
 [current status](CURRENT_STATUS.md) and the
-[25 October synchronization checkpoint](REPOSITORY_SYNC_2026-10-25.md).
+[26 October synchronization checkpoint](REPOSITORY_SYNC_2026-10-26.md).
 Delivery PDFs are regenerated for that checkpoint. The 24 October ecosystem
 audit remains a historical record of the earlier local/remote gap.
 

@@ -2,9 +2,27 @@ import {afterEach,it,expect,vi} from 'vitest';
 vi.hoisted(()=>{Object.defineProperty(globalThis,'__DEV__',{value:true,configurable:true})});
 vi.mock('../src/platform',()=>({defaultApiUrl:()=> 'http://localhost:8000/api/v1'}));
 vi.mock('expo-secure-store',()=>({}));
-import {api} from '../src/api';
+import {api,signIn} from '../src/api';
 import {ApiError,canRetrySubmission} from '../src/apiErrors';
 afterEach(()=>vi.unstubAllGlobals());
+
+it('explains an invalid email instead of displaying a generic request error',async()=>{
+ vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response(JSON.stringify({error:{message:'Invalid request',fields:['body.email']}}),{status:422})));
+ await expect(api('/auth/login')).rejects.toThrow('Enter a valid email address without spaces.');
+});
+it('catches an embedded email space before submitting credentials',async()=>{
+ const fetch=vi.fn();vi.stubGlobal('fetch',fetch);
+ await expect(signIn('student. android@spvs.example','test-password')).rejects.toThrow('without spaces');
+ expect(fetch).not.toHaveBeenCalled();
+});
+it('explains a missing password without echoing input',async()=>{
+ vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response(JSON.stringify({error:{message:'Invalid request',fields:['body.password']}}),{status:422})));
+ await expect(api('/auth/login')).rejects.toThrow('Enter your account password.');
+});
+it('preserves an authentication rejection instead of calling it a format error',async()=>{
+ vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response(JSON.stringify({error:{message:'Invalid credentials'}}),{status:401})));
+ await expect(api('/auth/login')).rejects.toThrow('Invalid credentials');
+});
 
 it('preserves a server rejection so a failed capture is not offered as a network retry',async()=>{
  vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response(JSON.stringify({error:{message:'LIVENESS_SEQUENCE_FAILED',details:{expected_action:'TURN_LEFT'}}}),{status:422})));

@@ -3,21 +3,34 @@
 The [current local status](CURRENT_STATUS.md) supersedes historical build and
 test claims. Xcode/simulator and signed-device builds have run. One physical
 iPhone enrollment and one pending-review attendance attempt are recorded in
-[iOS validation](IOS_MAC_VALIDATION.md). Android native compilation and unit
-tests passed, but physical Android testing and genuine Apple App Attest remain
-outstanding.
+[iOS validation](IOS_MAC_VALIDATION.md). The [Android hostel demo](ANDROID_DEVICE_VALIDATION_2026-10-26.md)
+now covers scans, registration, enrollment, submission, manual correction and
+phone history. Actual classroom discrimination, broader device tests and genuine
+Apple App Attest remain outstanding.
 
 ## Verification assurance
 
 - A normal phone can be rooted, instrumented or used with injected camera/location data. A native device signature (or a legacy HMAC) proves key possession, not trustworthy physical capture.
 - Temporal landmark liveness is a heuristic. It is not ISO-certified presentation-attack detection, and sophisticated replay or deepfake attacks may succeed. The action vocabulary is small even though challenge IDs and ordering are randomized.
 - SFace is a real pretrained model, but the chosen threshold has not been calibrated on this institution. The public-portrait smoke tests do not estimate FAR, FRR, fairness or operational accuracy.
-- The corrected head-direction and blink flow worked for the observed iPhone enrollment. Sustained usability, both turn directions across phones, and broader device/user evaluation remain unverified. Automated transaction tests use an explicitly substituted vision component; they do not replace that evaluation.
+- The corrected capture flow worked for the observed iPhone and Motorola enrollments; the Motorola had one IMAGE_QUALITY_LOW rejection before success. Sustained usability, both turn directions across phones, and broader device/user evaluation remain unverified. Automated API tests substitute vision and do not replace hardware evaluation.
 - GPS and Wi-Fi support approximate physical presence, not absolute classroom proof. Rounded location history supports only coarse anomaly rules. The absence of a mock-location flag does not establish honesty.
 - Wi-Fi scans are implemented only through a local Android module and depend on OS permissions, enabled location, recent scan availability and throttling. iOS may provide a permitted current BSSID only; no RSSI scan is fabricated. The separate default iPhone policy requires review.
 - Play Integrity remains an unconfigured provider boundary. App Attest has native and server code, but Apple configuration and genuine provider/device validation remain outstanding. Requiring unverified attestation moves otherwise eligible attempts to review.
 
 ## Application and operational limits
+
+- The hostel minimum-RSSI experiment accepted both inside and corridor samples
+  under identical synthetic valid GPS, with stronger signals outside near the AP.
+  This is not actual classroom calibration; no hostel thresholds were installed.
+- WIFI_UNAVAILABLE can mean missing AP references even when the phone supplied a
+  scan. More specific configuration-versus-sensor reason codes remain a UX item.
+- After manual correction, original attempts remain PENDING_REVIEW for audit.
+  The history UI can retain generic pending wording/review actions; official
+  records are authoritative. Requests to an unreachable API can wait without a
+  clear timeout indicator. Both are documented follow-ups.
+- The latest faculty review test exercised the authenticated demo API and phone
+  history, not a complete faculty-browser click-through or institutional approval.
 
 - Web lists generally show the latest 500 entries. Large datasets need cursor pagination and indexed query tuning; exports can be large.
 - Session-row locks serialize verification and manual correction within a session. This prioritizes consistency and requires throughput evaluation before large lectures.
@@ -31,10 +44,10 @@ outstanding.
 
 ## Dependency audit boundary
 
-The 24 October npm audit reports **5 high-severity mobile package entries** and
+The 26 October npm audit reports **5 high-severity mobile package entries** and
 zero dashboard findings. Direct advisory records identify `node-forge`
 (GHSA-86w9-cpqp-85rv) and `zod` (GHSA-mrhx-c7xc-m3w5); the other affected entries
-are dependency propagation. See the [saved mobile audit](evidence/local-2026-10-24/mobile-audit.json).
+are dependency propagation. See the [saved mobile audit](evidence/local-2026-10-26/mobile-audit.json).
 The earlier 15-entry/braces result remains historical; no dependency upgrade was
 performed during this audit. npm still proposes an incompatible Expo 44 downgrade
 for parts of the tree. Backend vulnerability scanning was not rerun; its older

@@ -32,6 +32,13 @@ Dashboard unit tests exercise login, errors, role navigation, record filtering, 
 
 ## Physical-device matrix — must be recorded separately
 
+The [26 October Android milestone](ANDROID_DEVICE_VALIDATION_2026-10-26.md)
+records one Motorola hostel demo through manual correction and phone history.
+This is not completion of every case below. The user clarified that the hostel
+AP is outside; actual classroom AP placement/configuration and automatic
+acceptance/rejection remain a separate field test. The latest faculty review was
+exercised through the authenticated demo API, not the full browser interaction.
+
 | Case | Procedure | Expected result |
 |---|---|---|
 | Real enrollment | Registered phone, consent, one face, even lighting | Actual server liveness passes and encrypted template is created |

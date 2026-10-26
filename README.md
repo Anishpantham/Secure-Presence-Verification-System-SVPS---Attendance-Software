@@ -1,13 +1,15 @@
 # Secure Presence Verification System · SPVS
 
 Start with the [current status](docs/CURRENT_STATUS.md) and the
-[25 October synchronization checkpoint](docs/REPOSITORY_SYNC_2026-10-25.md).
+[26 October synchronization checkpoint](docs/REPOSITORY_SYNC_2026-10-26.md).
 The [24 October ecosystem audit](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md)
 preserves the historical state before publication.
 Native build evidence is in [iOS Mac validation](docs/IOS_MAC_VALIDATION.md) and
 [Android Mac validation](docs/ANDROID_MAC_VALIDATION.md). iPhone enrollment and
 one attendance submission are observed; that submission requires review.
-Physical Android Wi-Fi testing remains pending.
+The [physical Android demo](docs/ANDROID_DEVICE_VALIDATION_2026-10-26.md) now
+covers Wi-Fi scans, registration, enrollment, submission, manual review and phone
+history. Actual classroom Wi-Fi discrimination and automatic approval remain pending.
 
 A working college attendance project with **two verification layers**: identity and physical presence. FastAPI/PostgreSQL enforce decisions; a React dashboard manages institution workflows; an Expo development app captures real student evidence.
 
