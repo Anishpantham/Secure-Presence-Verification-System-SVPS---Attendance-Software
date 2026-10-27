@@ -1,5 +1,10 @@
 # Biometric design
 
+Current attendance also requires the separate QR/audio presence proof. It does
+not replace face matching or liveness; enrollment remains its own consented flow.
+Attendance challenge lifetime is now 120 seconds to include the coordinated
+presence exchange; enrollment retains the configured lifetime (normally 60 seconds).
+
 ## Model provenance and separation of responsibilities
 
 YuNet detects a face and five alignment landmarks. It does not establish identity. SFace generates a 128-dimensional learned face representation, using OpenCV's `FaceRecognizerSF.alignCrop` and `feature` APIs. MediaPipe Face Mesh separately supplies dense facial landmarks for temporal liveness. ONNX models are executed by OpenCV DNN on CPU; ONNX Runtime is unnecessary for this pipeline.
@@ -24,7 +29,7 @@ The enrollment template is the normalized mean of sequence embeddings and is enc
 
 ## Liveness protocol
 
-The server issues an unpredictable UUID challenge bound to a student, device, purpose and attendance session (when applicable). It selects a left/right turn and randomizes the turn/blink ordering, inserting center poses. A challenge normally expires after 60 seconds and is consumed once. Session attempts and challenge issuance are rate limited.
+The server issues an unpredictable UUID challenge bound to a student, device, purpose and attendance session (when applicable). It selects a left/right turn and randomizes the turn/blink ordering, inserting center poses. Attendance challenges expire after 120 seconds; enrollment uses the configured lifetime, normally 60 seconds. Challenges are consumed once, and attempt/issuance budgets remain rate limited.
 
 Face Mesh computes eye aspect ratio (EAR) from six landmarks per eye, averaged across both eyes. A blink must transition open (`EAR > 0.23`) → closed (`EAR < 0.19`) → open. Head direction is a signed nose displacement relative to eye centers, normalized by interocular distance. Center is absolute displacement below 0.12; turns exceed 0.18 in the requested direction. Two consecutive observations must support each non-blink pose. This is a heuristic displacement proxy rather than a calibrated three-dimensional head-pose estimator.
 

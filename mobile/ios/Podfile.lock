@@ -2044,6 +2044,8 @@ PODS:
     - Yoga
   - SocketRocket (0.7.1):
     - ReactNativeDependencies
+  - SpvsAcoustic (1.0.0):
+    - ExpoModulesCore
   - SpvsSecurity (1.0.0):
     - ExpoModulesCore
   - SpvsWifi (1.0.0):
@@ -2165,6 +2167,7 @@ DEPENDENCIES:
   - ReactNativeDependencies (from `../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - SocketRocket (from `build/rndeps-facades/SocketRocket`)
+  - SpvsAcoustic (from `../modules/spvs-acoustic/ios`)
   - SpvsSecurity (from `../modules/spvs-security/ios`)
   - SpvsWifi (from `../modules/spvs-wifi/ios`)
   - Yoga (from `build/rncore-facades/Yoga`)
@@ -2395,6 +2398,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   SocketRocket:
     :path: build/rndeps-facades/SocketRocket
+  SpvsAcoustic:
+    :path: "../modules/spvs-acoustic/ios"
   SpvsSecurity:
     :path: "../modules/spvs-security/ios"
   SpvsWifi:
@@ -2515,6 +2520,7 @@ SPEC CHECKSUMS:
   ReactNativeDependencies: d3b7423ba1e52525e42085c8470109abde583d2e
   RNScreens: 6d0d3b7819284dbf9f222899eb819f069fce4b8b
   SocketRocket: 37aec555668fb852ec12e3c0de59a86ca58f0871
+  SpvsAcoustic: 2010f2359f2659c91a2df6c496651fad190550e7
   SpvsSecurity: 159428953858746d674a00bb7bb88399962f5c60
   SpvsWifi: 3c2db026b07e0b79f482b44a50433e8bbc9c1b77
   Yoga: d1c536142c5ff8ec8cd856ab2a7c227a1d875c8e

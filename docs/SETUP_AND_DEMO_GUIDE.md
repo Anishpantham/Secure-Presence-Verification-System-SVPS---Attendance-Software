@@ -1,5 +1,21 @@
 # SPVS final setup and demonstration guide
 
+## Current local QR/audio checkpoint
+
+The [27 October runtime update](LOCAL_RUNTIME_UPDATE_2026-10-27.md) has already
+backed up/migrated the local database, refreshed dependencies and built Android,
+iOS simulator and signed-device clients with SpvsAcoustic. The new apps were not
+installed on phones. Wait for the user's explicit classroom readiness before
+installation or physical trials; old installed clients cannot complete policy v2.
+
+For the next attendance test, use a fresh session and start the faculty QR/audio
+controls. The student scans QR, requests microphone access, starts listening,
+and identifies their queued attempt; faculty plays that signal before face and
+location capture proceed. See [the detailed physical plan](ACOUSTIC_DEVICE_VALIDATION.md).
+Do not enable iOS dynamic or required attestation policies merely to make a demo
+pass; the local review choices were retained. Database records and raw/private
+calibration inputs are local state, not part of Git synchronization.
+
 See [iOS Mac validation](IOS_MAC_VALIDATION.md) for native setup and iPhone
 observations, and [Android physical validation](ANDROID_DEVICE_VALIDATION_2026-10-26.md)
 for the completed hostel demo through manual review and phone history.
@@ -159,4 +175,4 @@ EAS is optional. The checked-in eas.json defines development, simulator, preview
 - App Attest rejected: check TeamID.bundleID, environment, official root fingerprint, matching entitlement and physical-device support. A verified synthetic test certificate is not an Apple attestation.
 
 
-Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, even if the global attestation requirement is off. The registered platform is client-reported; without this gate an unverified client could select a weaker platform policy. With App Attest unavailable/unconfigured, iPhone verification remains review/retry. GPS-only evidence still has lower presence assurance after app verification.
+Policy v2 retires the iOS gps_only option. Current iOS choices are review, retry and dynamic; the migration maps an existing gps_only choice to dynamic while retaining stricter review/retry settings. Dynamic requires completed QR/audio proof alongside mandatory identity/device/GPS gates; a global requirement for attestation still applies. The local review policy was not changed. QR/audio does not independently attest a platform or sensor and can be relayed. See [the protocol](ACOUSTIC_DYNAMIC_QR.md).

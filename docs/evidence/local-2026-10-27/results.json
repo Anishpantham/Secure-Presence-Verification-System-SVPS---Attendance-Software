@@ -1,0 +1,69 @@
+{
+  "checked_at": "2026-10-27T05:10:54.891065+00:00",
+  "incoming_main": "404eed84cbb9f5f2eb0bc73e7b66910fb49476f9",
+  "tests": {
+    "backend-tests": {
+      "tests": 146,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "mobile-tests": {
+      "tests": 64,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dashboard-tests": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "android-wifi-tests": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "local_total_passed": 231,
+  "browser_e2e": "Not rerun locally; upstream cloud evidence has 3 passed. No live demo database altered for browser regressions.",
+  "builds": {
+    "dashboard": "passed",
+    "mobile_typecheck": "passed",
+    "android_ios_js_exports": "passed",
+    "android_arm64_debug": "passed",
+    "apk_signature": "passed",
+    "ios_simulator": "passed",
+    "ios_signed_device": "passed; codesign verify passed",
+    "native_configuration": "passed"
+  },
+  "apk": {
+    "bytes": 78138028,
+    "sha256": "6cd0d397cccbbc42f6033c9a98eeab5a7c0d2f3f3d312b9dfdef72c607ab35c2",
+    "contains_spvs_acoustic": true
+  },
+  "ios_microphone_description_present": true,
+  "npm_audits": {
+    "mobile": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 4,
+      "critical": 0,
+      "total": 4
+    },
+    "dashboard": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  },
+  "new_native_clients_installed_on_phones": false,
+  "physical_qr_audio_testing": "Not started; awaiting explicit user readiness in the classroom",
+  "upstream_deprecation_warnings": true
+}

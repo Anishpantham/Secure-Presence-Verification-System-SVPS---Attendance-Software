@@ -1,5 +1,21 @@
 # Demonstration script
 
+## Current policy-v2 demonstration order
+
+Physical QR/audio testing has not started. Resume only when the user confirms
+classroom readiness, with rebuilt native apps installed and a fresh session.
+Faculty starts challenges, displays the rotating QR, and plays one matching
+queued attempt after the student taps Listen. Camera/microphone permissions and
+audible accessibility/review alternatives must be handled. Successful QR/audio
+then leads to face/liveness/GPS/Wi-Fi; none of those gates are waived.
+
+The earlier C003 inside automatic pass and hostel GPS rejection are historical
+pre-v2 observations. Do not present them as new-flow validation. Record which gate
+determines outside outcomes, including QR/audio leakage and real-time relay risks.
+See [C003 evidence](C003_CLASSROOM_VALIDATION_2026-10-27.md) and
+[the protocol test plan](ACOUSTIC_DEVICE_VALIDATION.md). The manual-review steps
+below still apply after a justified review decision.
+
 Current observed hardware flow is recorded in
 [Android device validation](ANDROID_DEVICE_VALIDATION_2026-10-26.md) and
 [iOS validation](IOS_MAC_VALIDATION.md). Use [current status](CURRENT_STATUS.md)

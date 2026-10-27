@@ -1,0 +1,19 @@
+{
+  "migration_before": "7a2d13ce4f90",
+  "migration_after": "9bd32a88f101",
+  "private_backup_created_and_readable": true,
+  "existing_record_counts_preserved": true,
+  "record_counts": {
+    "users": 4,
+    "devices": 2,
+    "biometric_profiles": 2,
+    "attendance_sessions": 4,
+    "attendance_attempts": 4,
+    "attendance_records": 2,
+    "corrections": 1,
+    "disputes": 2
+  },
+  "ios_policy": "review",
+  "wifi_unavailable_policy": "review",
+  "physical_testing_started": false
+}

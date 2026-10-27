@@ -1,0 +1,14 @@
+{
+  "health": {
+    "status": "ok",
+    "database": "connected"
+  },
+  "readiness": {
+    "status": "ready",
+    "face_models": "loaded",
+    "attestation": "not_configured"
+  },
+  "schema": {
+    "presence_route_available": true
+  }
+}

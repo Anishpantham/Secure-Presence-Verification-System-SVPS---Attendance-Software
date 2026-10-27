@@ -1,5 +1,22 @@
 # API documentation
 
+## Policy-v2 classroom presence endpoints
+
+The current schema includes staff-scoped
+`POST /sessions/{sid}/presence/control`, `GET /sessions/{sid}/presence/display`,
+and `POST /sessions/{sid}/presence/play/{attempt_id}`. Students submit signed
+`qr`, `ready`, `audio` or `failure` messages through `POST /presence/evidence`.
+Complete QR/audio proof is mandatory for new automatic attendance; declared
+capture failure produces a review attempt with identity NOT_COMPLETED.
+
+Attendance challenges use a 120-second lifetime; enrollment retains its configured
+lifetime. Existing unconsumed attendance challenges may be reused, and the attempt
+budget counts issued challenges. Five-second QR rotation, at most ten-second QR
+validity, a server-clock five-second acoustic deadline, nonce binding, consumption
+and idempotency are described in [the protocol](ACOUSTIC_DYNAMIC_QR.md).
+Use `docs/openapi.json` for field-level contracts. Enrollment and previous records
+are not retroactively changed by migration `9bd32a88f101`.
+
 The authoritative machine-readable contract is `docs/openapi.json`, exported from the implemented application, and the live `/openapi.json`. The versioned API prefix is `/api/v1`. Protected operations use `Authorization: Bearer <access token>`.
 
 ## Endpoint groups
@@ -68,4 +85,4 @@ Most operational lists expose the latest 500 rows; course and enrollment lists a
 
 ## Cross-platform completion update
 
-`POST /devices/registration-challenge` issues a one-use nonce. `POST /devices` accepts public_key (base64 canonical P-256 SPKI), registration_challenge_id, registration_signature and reported key_storage in addition to password/label/platform. New registrations do not return a shared secret. See CROSS_PLATFORM_IMPLEMENTATION.md for exact signing bytes. `GET /attestation/capabilities`, `POST /attestation/challenge`, and `POST /attestation/register` implement the App Attest boundary. Signed requests may contain outer attestation_key_id and attestation_assertion; the assertion covers the exact idempotency/payload bytes. Evidence adds accuracy_authorization, wifi_source and current_bssid. `PUT /policy` accepts ios_presence=review|retry|gps_only with an audit reason. `GET /admin/devices` is administrator-only and explicitly labels reported storage versus verified app registration. The regenerated openapi.json is the field-level contract.
+`POST /devices/registration-challenge` issues a one-use nonce. `POST /devices` accepts public_key (base64 canonical P-256 SPKI), registration_challenge_id, registration_signature and reported key_storage in addition to password/label/platform. New registrations do not return a shared secret. See CROSS_PLATFORM_IMPLEMENTATION.md for exact signing bytes. `GET /attestation/capabilities`, `POST /attestation/challenge`, and `POST /attestation/register` implement the App Attest boundary. Signed requests may contain outer attestation_key_id and attestation_assertion; the assertion covers the exact idempotency/payload bytes. Evidence adds accuracy_authorization, wifi_source and current_bssid. `PUT /policy` accepts ios_presence=review|retry|dynamic with an audit reason. `GET /admin/devices` is administrator-only and explicitly labels reported storage versus verified app registration. The regenerated openapi.json is the field-level contract.

@@ -1,24 +1,26 @@
 # Release checkpoint
 
-## Current synchronized delivery - 26 October 2026
+## Current synchronized delivery - 27 October 2026
 
 Application implementation checkpoint:
-`cc8f1ddba2f1aa2e8c97f39eccb5580557e15eb5`.
-The continuation branch `spvs/android-validation-20261026` is published and tracks its
+`0fc235f916fb662db71c298091255ec10f0917f6`, incorporating upstream main `404eed8` and QR/acoustic PR #6.
+The continuation branch `spvs/classroom-sync-20261027` is published and tracks its
 origin branch. Code, documentation and regenerated release artifacts are included
-in [PR #5](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/5)
-into main. That PR and the Git refs record the live merge/head state. PRs #1-#4
+in [PR #7](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/7)
+into main. That PR and the Git refs record the live merge/head state. PRs #1-#6
 are historical merged deliveries.
 
 The source ZIP, project/setup PDFs, packaged Markdown and checksum manifest are
 regenerated together and accompany the current arm64 debug APK. The archive's
 file manifest identifies exact source content without embedding its own future
 commit hash. See [current status](docs/CURRENT_STATUS.md) and
-[synchronization details](docs/REPOSITORY_SYNC_2026-10-26.md).
+[synchronization details](docs/REPOSITORY_SYNC_2026-10-27.md).
 The Android hostel demo completes registration, enrollment, submission, manual
 faculty API correction, dispute resolution and verified phone history. Actual
-classroom testing and production gates remain open. The dated 24 October audit
-and 25 October synchronization record preserve earlier states.
+new-flow classroom testing and production gates remain open. C003 has preliminary
+references and an older-flow inside automatic pass; the later hostel attempt was
+a GPS rejection, not a near-door Wi-Fi test. New native QR/audio clients are built
+but not installed/tested on phones. Earlier audits/sync records remain historical.
 
 ## Historical completion publication checkpoint
 

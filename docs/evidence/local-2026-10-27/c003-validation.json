@@ -1,0 +1,106 @@
+{
+  "captured_at_utc": "2026-10-27T05:08:26.324939+00:00",
+  "classroom": "120 seater C003",
+  "coordinates_configured": true,
+  "coordinates_in_publication": false,
+  "radius_m": 50.0,
+  "physical_router_count_user_report": 2,
+  "router_mapping_independently_verified": false,
+  "door_position_user_report": "Far-left front",
+  "corridor_calibration_door_state_user_report": "Closed",
+  "configured_references": {
+    "count": 2,
+    "min_rssi_values": [
+      -70,
+      -70
+    ],
+    "selection": "Two consistently seen 5 GHz identifiers from the user-confirmed student network; raw identifiers omitted",
+    "required_matches_under_existing_rule": 1,
+    "status": "Provisional fit, not population calibration"
+  },
+  "calibration_samples": [
+    {
+      "position": "Initial inside",
+      "ap_a_dbm": -46,
+      "ap_b_dbm": -52,
+      "ap_c_dbm": -54,
+      "ap_d_dbm": -57,
+      "displayed_count": 17
+    },
+    {
+      "position": "Back right",
+      "ap_a_dbm": null,
+      "ap_b_dbm": -60,
+      "ap_c_dbm": -63,
+      "ap_d_dbm": -56,
+      "displayed_count": 12
+    },
+    {
+      "position": "Back left",
+      "ap_a_dbm": -66,
+      "ap_b_dbm": -60,
+      "ap_c_dbm": -76,
+      "ap_d_dbm": -54,
+      "displayed_count": 36
+    },
+    {
+      "position": "Outside doorway, door closed",
+      "ap_a_dbm": null,
+      "ap_b_dbm": -96,
+      "ap_c_dbm": null,
+      "ap_d_dbm": -98,
+      "displayed_count": 8
+    }
+  ],
+  "selected_anonymous_aps": [
+    "B",
+    "D"
+  ],
+  "attendance_cases": [
+    {
+      "location_label": "Inside C003",
+      "time_ist": "2026-10-26T18:34:48.697535+05:30",
+      "state": "PRESENT",
+      "reasons": [
+        "ALL_REQUIRED_CHECKS_PASSED"
+      ],
+      "evidence": {
+        "distance_m": 13.5,
+        "accuracy_m": 20.0,
+        "age_s": 0.6,
+        "wifi_status": "available",
+        "wifi_source": "scan",
+        "wifi_match_ratio": 0.5,
+        "liveness": "PASSED",
+        "attestation": "ATTESTATION_NOT_CONFIGURED"
+      },
+      "official_records": [
+        {
+          "status": "PRESENT",
+          "source": "VERIFICATION"
+        }
+      ]
+    },
+    {
+      "location_label": "Hostel room (user-confirmed)",
+      "time_ist": "2026-10-26T23:57:53.220117+05:30",
+      "state": "REJECTED",
+      "reasons": [
+        "OUTSIDE_GEOFENCE"
+      ],
+      "evidence": {
+        "distance_m": 151.1,
+        "accuracy_m": 26.399999618530273,
+        "age_s": 0.7,
+        "wifi_status": "available",
+        "wifi_source": "scan",
+        "liveness": "PASSED",
+        "attestation": "ATTESTATION_NOT_CONFIGURED"
+      },
+      "official_records": []
+    }
+  ],
+  "trial_policy_scope": "These physical attendance cases occurred before the QR/acoustic policy-v2 runtime update; they do not verify v2",
+  "pending": "Near-door fresh Wi-Fi-specific attendance was not completed; the later attempted outside submission was actually from the hostel. All physical v2 QR/acoustic tests wait for explicit user readiness.",
+  "privacy": "No account/session/device IDs, raw BSSIDs, SSID, exact coordinates, credentials, templates, frames or audio included"
+}

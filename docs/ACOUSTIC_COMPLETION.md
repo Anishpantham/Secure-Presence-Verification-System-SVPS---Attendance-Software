@@ -1,5 +1,11 @@
 # QR + acoustic feature: completion and limitations
 
+**Subsequent local integration:** [27 October Mac validation](LOCAL_RUNTIME_UPDATE_2026-10-27.md)
+records the migration, rebuilt Android/iOS native clients and 231 local tests.
+The cloud results below remain the original feature checkpoint. Its lack of
+Xcode validation is superseded by the local build record; physical QR/audio
+validation still has not been performed.
+
 Completion checkpoint: 27 October 2026 (Asia/Kolkata). Branch:
 `feature/acoustic-dynamic-qr-verification`, based on `main` commit
 `3a92b737d7b8b13e1f01d66bcb820724f7203489`. This is a source implementation and

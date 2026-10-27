@@ -1,5 +1,12 @@
 # Android Wi-Fi test build on the local Mac
 
+**27 October update:** a new arm64 APK containing SpvsAcoustic was built and
+signature/module-verified after pulling the QR/audio feature. It replaces the
+24 October APK at the delivery path. See [current runtime evidence](LOCAL_RUNTIME_UPDATE_2026-10-27.md).
+The new APK has not been installed or physically tested; further trials wait
+for user readiness. The original build and earlier phone observations below
+remain dated historical evidence.
+
 Measured on 2026-10-24. The original build checkpoint below predates physical
 Android testing. The [26 October physical report](ANDROID_DEVICE_VALIDATION_2026-10-26.md)
 supersedes its pending install/scan/enrollment/initial-submission items.
