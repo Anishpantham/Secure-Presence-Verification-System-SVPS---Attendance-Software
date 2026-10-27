@@ -2,11 +2,17 @@
 
 Current validation and publication are recorded in
 [current status](CURRENT_STATUS.md) and the
-[26 October synchronization checkpoint](REPOSITORY_SYNC_2026-10-26.md).
+[27 October synchronization checkpoint](REPOSITORY_SYNC_2026-10-27.md).
 Delivery PDFs are regenerated for that checkpoint. The 24 October ecosystem
 audit remains a historical record of the earlier local/remote gap.
 
 ## Title page
+
+The current attendance protocol adds mandatory rotating QR and acoustic proof to
+the identity/location checks. See [protocol details](ACOUSTIC_DYNAMIC_QR.md),
+[Mac runtime integration](LOCAL_RUNTIME_UPDATE_2026-10-27.md), and
+[C003 evidence scope](C003_CLASSROOM_VALIDATION_2026-10-27.md). Earlier physical
+results do not establish the new acoustic channel's classroom performance.
 
 **A two-layer attendance verification platform for educational institutions**
 

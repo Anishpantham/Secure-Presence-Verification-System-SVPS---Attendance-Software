@@ -35,7 +35,20 @@ After faculty correction, refresh **My history**. Check **Official records** for
 the current status and source. The original attempt may still show PENDING REVIEW
 below it; this preserves the automated decision and does not erase the correction.
 
-For an open session, tap Verify my attendance. The app checks eligibility/device status, captures a fresh sequence, obtains a current location and gathers supported Wi-Fi observations. It signs the payload and displays the server's result. Do not leave during capture. If a network submission fails, retry the same submission to avoid a new attempt. If the challenge expires or evidence fails, start a fresh challenge when permitted.
+For an open session, faculty must start the classroom challenges on the session
+page. Tap Verify my attendance, scan the current QR, allow foreground microphone
+access, and tap Listen. Read the displayed attempt label to faculty so they play
+your queued signal. Keep the app open and disconnect Bluetooth headphones.
+Only server-verified sound advances to face/liveness capture, location and Wi-Fi.
+PCM is processed transiently on the phone, not uploaded or saved. If QR/audio
+is unavailable or inaccessible, use Finish attempt & request faculty review;
+that does not automatically approve attendance. Retry an identical signed response
+when offered after a network failure. See [the physical guide](ACOUSTIC_DEVICE_VALIDATION.md).
+
+Faculty plays one queued attempt at a time. Stopping/restarting classroom
+challenges invalidates earlier proofs. The new flow requires a rebuilt native
+client with SpvsAcoustic; an old installed APK cannot gain microphone support
+from a JavaScript reload alone.
 
 History shows official records and attempts separately. Request review of a disputed attempt with an explanation. A PENDING_REVIEW result is not confirmed presence. Settings opens OS permission controls and signs out. Enrollment allows password-confirmed template deletion; Device allows a replacement request. No background location collection is implemented.
 
@@ -62,4 +75,4 @@ may be throttled. An unavailable result is not proof that Wi-Fi is switched off.
 On iPhone allow Camera and Precise Location. SPVS may read the current Wi-Fi BSSID when Apple permits it; it cannot scan nearby networks. Attendance can legitimately remain PENDING_REVIEW under the institution's iPhone policy. Administrators configure iPhone presence independently from Android missing-Wi-Fi policy, with an audit reason. The Device capabilities panel distinguishes legacy signing, reported native storage and verified App Attest registration. Register Apple app attestation only after institutional setup. Reinstall/key loss requires the existing reset-review workflow. To re-enroll a face, delete the existing template with password confirmation, consent again, then capture a new live sequence.
 
 
-Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, even if the global attestation requirement is off. The registered platform is client-reported; without this gate an unverified client could select a weaker platform policy. With App Attest unavailable/unconfigured, iPhone verification remains review/retry. GPS-only evidence still has lower presence assurance after app verification.
+Policy v2 retires the iOS gps_only option. Current iOS choices are review, retry and dynamic; the migration maps an existing gps_only choice to dynamic while retaining stricter review/retry settings. Dynamic requires completed QR/audio proof alongside mandatory identity/device/GPS gates; a global requirement for attestation still applies. The local review policy was not changed. QR/audio does not independently attest a platform or sensor and can be relayed. See [the protocol](ACOUSTIC_DYNAMIC_QR.md).

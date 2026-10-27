@@ -1,26 +1,28 @@
-# SPVS delivery verification - 26 October 2026
+# SPVS verification - 27 October 2026
 
-Implementation: `cc8f1ddba2f1aa2e8c97f39eccb5580557e15eb5`.
-Publication: [PR #5](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/5).
+Integration source: `0fc235f916fb662db71c298091255ec10f0917f6`.
+Publication: [PR #7](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/7),
+incorporating upstream QR/acoustic PR #6.
+
 Read [current verification](docs/FINAL_COMPLETION_REPORT.md),
-[Android physical evidence](docs/ANDROID_DEVICE_VALIDATION_2026-10-26.md), and
-[synchronization](docs/REPOSITORY_SYNC_2026-10-26.md).
+[local runtime update](docs/LOCAL_RUNTIME_UPDATE_2026-10-27.md),
+[C003 evidence](docs/C003_CLASSROOM_VALIDATION_2026-10-27.md), and
+[synchronization](docs/REPOSITORY_SYNC_2026-10-27.md).
 
-- **184 tests passed:** 120 backend, 46 mobile, 8 dashboard and 10 native Wi-Fi;
-  zero failures/skips in those suites. TypeScript and dashboard build passed.
-- Motorola Android 16 installation, login, native registration, face enrollment,
-  Wi-Fi collection and attendance submission were observed.
-- Automated attendance remained PENDING_REVIEW due to missing classroom references.
-  The controlled demo review created one PRESENT/CORRECTION record, resolved the
-  dispute and retained the original attempt; phone history and audit were verified.
-- Faculty review was exercised through the authenticated demo API, not a verified
-  faculty-browser click-through or real institutional approval.
-- Hostel Wi-Fi samples do not establish actual classroom accuracy. AP placement
-  differs; actual classroom configuration and testing remain pending.
-- Current reports/source ZIP/guides/checksums are regenerated. The native development
-  APK is retained because native code is unchanged; it loads current JS from Metro.
-- Five high mobile npm entries remain; dashboard has zero; backend security audit
-  is historical. Genuine attestation, calibration and production gates remain open.
+- Local tests: 146 backend, 64 mobile, 11 dashboard, 10 native Wi-Fi:
+  **231 passed**, no failures/skips. Upstream cloud browser results are separate.
+- TypeScript, dashboard build, Android/iOS JS exports, migration/drift and native
+  configuration checks passed.
+- New Android APK, iOS simulator and signed-device builds passed with SpvsAcoustic;
+  APK/codesign verification passed. No new physical installation/test was performed.
+- C003's earlier inside attempt passed automatically under the old flow. The later
+  hostel attempt was rejected by GPS; near-door Wi-Fi-specific attendance was not
+  completed. Neither result verifies the new mandatory QR/audio flow.
+- Local database backup/migration preserved existing records and C003 references.
+  Review policies remain unchanged. No session challenges were enabled.
+- Reports, source ZIP, guides and hashes are regenerated; private runtime data
+  and signing material remain excluded.
+- Fresh npm: 4 high mobile affected entries, zero dashboard; backend audit historical.
+  Real acoustic/relay/leakage testing, calibration, attestation and production gates remain.
 
-No secrets, raw network identifiers, exact locations, keys, databases or biometric
-templates/frames are included. Historical records are explicitly dated.
+Further physical testing waits for the user's explicit classroom readiness.

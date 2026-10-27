@@ -4,6 +4,12 @@
 the older flow. Automated PCM tests, JS exports and Android compilation do not
 establish that a laptop-to-phone acoustic channel works in a real classroom.
 
+The [27 October local integration](LOCAL_RUNTIME_UPDATE_2026-10-27.md) has now
+applied the migration and rebuilt Android, iOS simulator and signed-device apps.
+Those builds were not installed on phones. Start physical tests only after the
+user confirms classroom readiness; preserve existing credentials with an in-place
+development-client update rather than uninstalling a registered app.
+
 ## Setup on MacBook Air M4
 
 Use a native ARM64 terminal, current Xcode/command-line tools, Docker Desktop,
@@ -13,16 +19,19 @@ From your existing repository checkout:
 
 ```sh
 git fetch origin
-git switch --track origin/feature/acoustic-dynamic-qr-verification
-# If the local branch already exists instead:
-# git switch feature/acoustic-dynamic-qr-verification
-# git pull --ff-only
+git switch main
+git pull --ff-only
 make setup
 make db
 make migrate
 make seed
 make build
 ```
+
+The commands above cover a fresh setup. In the already configured local Mac
+environment, the database migration is complete; do not reinitialize its database
+or reseed merely to resume testing. Use the existing API/dashboard/Metro tasks
+and the verified rebuilt clients. Preserve the C003 references and prior records.
 
 Keep development services in separate terminals:
 

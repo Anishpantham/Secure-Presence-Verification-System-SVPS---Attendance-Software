@@ -1,13 +1,13 @@
 # Secure Presence Verification System · SPVS
 
-The `feature/acoustic-dynamic-qr-verification` branch adds mandatory dynamic QR
+The merged QR/acoustic update adds mandatory dynamic QR
 and audible acoustic evidence. See [protocol and migration](docs/ACOUSTIC_DYNAMIC_QR.md),
 [physical-device/Mac guide](docs/ACOUSTIC_DEVICE_VALIDATION.md), and
 [feature verification report](docs/ACOUSTIC_COMPLETION.md). New native apps and
 Alembic migration are required; historical APK/device evidence does not validate this feature.
 
 Start with the [current status](docs/CURRENT_STATUS.md) and the
-[26 October synchronization checkpoint](docs/REPOSITORY_SYNC_2026-10-26.md).
+[27 October synchronization checkpoint](docs/REPOSITORY_SYNC_2026-10-27.md).
 The [24 October ecosystem audit](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md)
 preserves the historical state before publication.
 Native build evidence is in [iOS Mac validation](docs/IOS_MAC_VALIDATION.md) and
@@ -15,7 +15,10 @@ Native build evidence is in [iOS Mac validation](docs/IOS_MAC_VALIDATION.md) and
 one attendance submission are observed; that submission requires review.
 The [physical Android demo](docs/ANDROID_DEVICE_VALIDATION_2026-10-26.md) now
 covers Wi-Fi scans, registration, enrollment, submission, manual review and phone
-history. Actual classroom Wi-Fi discrimination and automatic approval remain pending.
+history. [C003 observations](docs/C003_CLASSROOM_VALIDATION_2026-10-27.md) include
+an automatic inside pass under the earlier flow and a hostel GPS rejection.
+The incoming mandatory QR/audio flow is now migrated and natively built locally;
+[physical QR/audio testing](docs/ACOUSTIC_DEVICE_VALIDATION.md) has not started.
 
 A working college attendance project with **two verification layers**: identity and physical presence. FastAPI/PostgreSQL enforce decisions; a React dashboard manages institution workflows; an Expo development app captures real student evidence.
 

@@ -1,5 +1,12 @@
 # Testing strategy
 
+Current local results are [231 passing tests](TEST_RESULTS.md), with separate
+upstream cloud browser evidence. Local migration and native acoustic builds have
+passed, but no physical QR/audio test has begun. Follow
+[the acoustic/device matrix](ACOUSTIC_DEVICE_VALIDATION.md) after explicit user
+readiness. Existing classroom Wi-Fi samples and attendance trials predate policy
+v2; preserve their original interpretation rather than treating them as new-flow proof.
+
 ## Automated suites
 
 Backend tests use a dedicated PostgreSQL database, not SQLite. Migrations run before fixtures and tables are truncated between cases. `SPVS_TEST_DATABASE_URL`, if set, must identify a database ending in `_test`. The default derives `spvs_test` using the development database credentials. This guard prevents accidental truncation of a non-test database.

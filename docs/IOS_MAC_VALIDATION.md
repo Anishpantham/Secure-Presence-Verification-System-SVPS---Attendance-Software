@@ -1,5 +1,16 @@
 # Native iOS validation on the local Mac
 
+## 27 October native QR/audio integration
+
+The incoming SpvsAcoustic module was added to the resolved Podfile.lock.
+Microphone usage configuration was generated; Xcode simulator and signed generic
+device builds both succeeded, and codesign verification passed on the device app.
+No new phone installation, microphone permission trial or acoustic hardware test
+was performed. The local Wi-Fi Information/App Attest capability choices were
+not enabled. See [current local integration](LOCAL_RUNTIME_UPDATE_2026-10-27.md).
+Earlier statements about unused microphone descriptions describe the older flow;
+foreground microphone access is now part of QR/audio attendance.
+
 Date: 2026-10-23. Branch: `spvs/ios-native-completion`, starting at `3591220`.
 This is an incremental validation record. The dated 24 October update below
 records successful physical iPhone enrollment and an attendance attempt requiring

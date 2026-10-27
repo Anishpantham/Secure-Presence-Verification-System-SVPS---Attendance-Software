@@ -1,54 +1,54 @@
 {
-  "created_at": "2026-10-26T06:45:53.778502+00:00",
-  "checkpoint_date": "2026-10-26",
-  "application_source_commit": "cc8f1ddba2f1aa2e8c97f39eccb5580557e15eb5",
-  "source_base_commit": "cc8f1ddba2f1aa2e8c97f39eccb5580557e15eb5",
+  "created_at": "2026-10-27T05:23:50.145257+00:00",
+  "checkpoint_date": "2026-10-27",
+  "application_source_commit": "0fc235f916fb662db71c298091255ec10f0917f6",
+  "source_base_commit": "0fc235f916fb662db71c298091255ec10f0917f6",
   "source_scope": "Working-tree snapshot atop source_base_commit, including delivery documentation; exact included hashes are in docs/FINAL_FILE_MANIFEST.txt. The publication commit is not embedded into itself.",
-  "publication_pr": "https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/5",
+  "publication_pr": "https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/7",
   "zip_crc": "passed",
-  "archive_members": 218,
+  "archive_members": 261,
   "required_source_files": "passed",
   "source_manifest_hashes": "passed",
   "pdfs": {
     "SPVS_FINAL_PROJECT_REPORT.pdf": {
-      "pages": 42,
-      "extractable_characters": 98785,
+      "pages": 52,
+      "extractable_characters": 127858,
       "readable": true
     },
     "SPVS_FINAL_SETUP_AND_DEMO_GUIDE.pdf": {
-      "pages": 14,
-      "extractable_characters": 36284,
+      "pages": 19,
+      "extractable_characters": 48101,
       "readable": true
     }
   },
   "artifacts": {
     "SPVS_FINAL_VERIFICATION_REPORT.md": {
-      "bytes": 1785,
-      "sha256": "4adcd8bf8fd74b7a1d4c0266342933bdc96e41b818a38405ec46c2da9c878722"
+      "bytes": 1744,
+      "sha256": "21879bbd2037f02c7c98e8142b17ed9a87359720a42491e66ed6bde6038eb8b2"
     },
     "SPVS_ANDROID_DEBUG.apk": {
-      "bytes": 77979730,
-      "sha256": "9bd8032bc87b6f74fc86a2fe11897915fcd598081f514473c424294ec54cd3d6"
+      "bytes": 78138028,
+      "sha256": "6cd0d397cccbbc42f6033c9a98eeab5a7c0d2f3f3d312b9dfdef72c607ab35c2"
     },
     "SPVS_FINAL_PROJECT_REPORT.pdf": {
-      "bytes": 111615,
-      "sha256": "e76114e0d7f9eadf16d77157f0f2292410009f875967de9f450ffdd67653c425"
+      "bytes": 142143,
+      "sha256": "582fefe64d9c615dcac525531a522b60d41cc28ca257090a6d93a264d2eca9c7"
     },
     "SPVS_FINAL_DELIVERY_README.md": {
-      "bytes": 1578,
-      "sha256": "4e2ba2b18a2cdd431e1c646e726333789c4d112904430cc6f32ad727d4aad127"
+      "bytes": 1600,
+      "sha256": "39cf156f16e4e34b7e229342f2cdc9a959bf6b4fa2c28cbb7b5939ffdc6d8a28"
     },
     "SPVS_FINAL_COMPLETE_PROJECT.zip": {
-      "bytes": 40022558,
-      "sha256": "0d9af6e757dc93aae0095ef073bec95dfd643c144c9ccb23c2161e7609c7b2a7"
+      "bytes": 40116856,
+      "sha256": "b3ad0ad52669193402327b1476d6064a28867cb57b251b0c5d6691c5e1b83faf"
     },
     "SPVS_FINAL_SETUP_AND_DEMO_GUIDE.pdf": {
-      "bytes": 39422,
-      "sha256": "e7a84cc97d66466fa31ed65173f220cf20a18bb53e8cc132c4b53fa50100e243"
+      "bytes": 52675,
+      "sha256": "e9a7db74cff7efb8cef421dde0a583170967008929fb279c9f5533ae737ad31a"
     },
     "CURRENT_STATUS.md": {
-      "bytes": 1421,
-      "sha256": "18310825fb282d12d4ec074ccdfa1d0c91c0fd6177e2da9dcbbeae9753b3dcbb"
+      "bytes": 1301,
+      "sha256": "27963d518f12b6a9db66546966fbb772266d3802286ee3be0d7df88a9f3219e2"
     }
   }
 }

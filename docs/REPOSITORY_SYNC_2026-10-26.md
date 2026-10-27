@@ -1,5 +1,8 @@
 # SPVS synchronization through Android demo completion
 
+**Historical checkpoint.** The later upstream QR/acoustic integration and C003
+trial correction are recorded in [the 27 October synchronization](REPOSITORY_SYNC_2026-10-27.md).
+
 Checkpoint: **26 October 2026, Asia/Kolkata**.
 Publication: [PR #5](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/5)
 from `spvs/android-validation-20261026` into main.

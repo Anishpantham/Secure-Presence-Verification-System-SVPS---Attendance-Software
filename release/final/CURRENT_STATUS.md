@@ -1,24 +1,22 @@
-# Synchronized delivery status - 26 October 2026
+# Delivery status - 27 October 2026
 
-The source ZIP, project/setup PDFs, packaged Markdown and checksum manifest are
-regenerated together for this Mac continuation. They accompany the actual arm64
-Android development APK built on 24 October. This replaces the mixed-age working
-copy described in the earlier audit.
+Current source ZIP, project/setup PDFs, packaged Markdown and checksums include
+the QR/acoustic update, local migration/native build evidence, and corrected C003
+trial interpretation. Publication:
+[PR #7](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/7).
+Integration source: `0fc235f916fb662db71c298091255ec10f0917f6`.
+The live PR identifies publication; the source manifest identifies exact content.
 
-Application checkpoint: `cc8f1ddba2f1aa2e8c97f39eccb5580557e15eb5`.
-Documentation/packaging updates extend it in
-[PR #5](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/5).
-The PR/Git refs identify publication; the ZIP's source manifest identifies the
-exact packaged content without embedding a self-referential commit hash.
+[SPVS_ANDROID_DEBUG.apk](SPVS_ANDROID_DEBUG.apk): 78,138,028 bytes, arm64-v8a,
+debug signed, includes SpvsAcoustic, requires Metro/API and microphone permission.
+SHA-256: `6cd0d397cccbbc42f6033c9a98eeab5a7c0d2f3f3d312b9dfdef72c607ab35c2`.
 
-[SPVS_ANDROID_DEBUG.apk](SPVS_ANDROID_DEBUG.apk): 77,979,730 bytes, arm64-v8a,
-minimum API 24, debug signed, Metro/API required.
-SHA-256: `9bd8032bc87b6f74fc86a2fe11897915fcd598081f514473c424294ec54cd3d6`.
+The former APK lacked the native microphone module and is superseded.
+Xcode simulator and signed-device builds passed locally, without installing or
+launching the rebuilt apps on phones. Physical QR/audio validation waits for the user.
 
-See [checksums](artifact-checks.json),
-[verification](SPVS_FINAL_VERIFICATION_REPORT.md), and
-[synchronization report](../../docs/REPOSITORY_SYNC_2026-10-26.md).
-Android hostel testing now includes scans, enrollment, submission, manual demo
-correction, dispute resolution and verified phone history. Actual classroom Wi-Fi
-validation is pending. The native APK is retained; new JavaScript is served by
-Metro. No production readiness or live cloud deployment is implied. Old artifacts remain in Git history.
+See [checksums](artifact-checks.json), [verification](SPVS_FINAL_VERIFICATION_REPORT.md),
+[runtime update](../../docs/LOCAL_RUNTIME_UPDATE_2026-10-27.md) and
+[C003 observations](../../docs/C003_CLASSROOM_VALIDATION_2026-10-27.md).
+Prior artifacts remain in Git history. This is not a production release or a
+live cloud deployment.

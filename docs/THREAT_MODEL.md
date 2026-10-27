@@ -1,5 +1,15 @@
 # Threat model
 
+## QR/audio extension
+
+The current flow adds expiring QR tokens and a one-use per-attempt acoustic answer
+available to scoped faculty playback controls. Epoch invalidation, exact signatures,
+server-clock deadlines and consumption address replay/state confusion. Live relay,
+current-window recordings, sound leakage, compromised clients and faculty-key
+misuse remain possible. This is not a distance-bound or independently attested
+proximity proof. Physical speaker/microphone, noisy-room, doorway/adjacent-room
+and accessibility trials have not started; see [the matrix](ACOUSTIC_DEVICE_VALIDATION.md).
+
 Assets include student identity, biometric templates, device credentials, location evidence, attendance integrity, refresh sessions and faculty audit accountability. Trust boundaries are the mobile device to HTTPS API, staff browser to API, API to PostgreSQL, and operator secrets to server runtime. A student client is untrusted even after login.
 
 | Threat | Mitigation in this implementation | Residual risk / evaluation |
@@ -31,4 +41,4 @@ The public test portraits are used only for model smoke tests. No external biome
 New threat cases: App Attest development/production confusion, attacker-selected trust roots, certificate nonce substitution, assertion-counter replay, app reinstall with persistent iOS Keychain entries, and presenting iOS BSSID identity as multi-AP RSSI evidence. Controls include server-configured root fingerprint/app ID/environment, challenge consumption and key uniqueness, atomic counters, installation-ID checks, and separate server iOS policy. Synthetic adversarial tests cover protocol rejection; physical sensor injection, rooted-device behavior and sophisticated presentation attacks still require evaluation. Keychain-only simulator keys are never claimed to be Secure Enclave keys.
 
 
-Automatic iPhone GPS-only approval additionally requires a verified App Attest assertion, even if the global attestation requirement is off. The registered platform is client-reported; without this gate an unverified client could select a weaker platform policy. With App Attest unavailable/unconfigured, iPhone verification remains review/retry. GPS-only evidence still has lower presence assurance after app verification.
+Policy v2 retires the iOS gps_only option. Current iOS choices are review, retry and dynamic; the migration maps an existing gps_only choice to dynamic while retaining stricter review/retry settings. Dynamic requires completed QR/audio proof alongside mandatory identity/device/GPS gates; a global requirement for attestation still applies. The local review policy was not changed. QR/audio does not independently attest a platform or sensor and can be relayed. See [the protocol](ACOUSTIC_DYNAMIC_QR.md).

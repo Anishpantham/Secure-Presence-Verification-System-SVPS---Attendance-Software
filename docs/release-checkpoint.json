@@ -1,8 +1,14 @@
 {
-  "checkpoint_date": "2026-10-26",
-  "application_source_commit": "cc8f1ddba2f1aa2e8c97f39eccb5580557e15eb5",
-  "publication_pr": "https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/5",
-  "synchronization_report": "REPOSITORY_SYNC_2026-10-26.md",
-  "physical_validation_report": "ANDROID_DEVICE_VALIDATION_2026-10-26.md",
-  "evidence_directory": "evidence/local-2026-10-26"
+  "checkpoint_date": "2026-10-27",
+  "application_source_commit": "0fc235f916fb662db71c298091255ec10f0917f6",
+  "publication_pr": "https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/7",
+  "synchronization_report": "REPOSITORY_SYNC_2026-10-27.md",
+  "physical_validation_report": "C003_CLASSROOM_VALIDATION_2026-10-27.md",
+  "evidence_directory": "evidence/local-2026-10-27",
+  "physical_evidence_file": "c003-validation.json",
+  "additional_reports": [
+    "LOCAL_RUNTIME_UPDATE_2026-10-27.md",
+    "ACOUSTIC_DYNAMIC_QR.md",
+    "ACOUSTIC_DEVICE_VALIDATION.md"
+  ]
 }

@@ -1,5 +1,18 @@
 # System architecture
 
+## Mandatory policy-v2 presence exchange
+
+Current attendance adds a faculty QR display/playback channel, PresenceQR and
+PresenceProof state, and the student's signed QR/audio redemption before the
+existing face/location flow can automatically pass. The student UI performs
+QR/audio before face capture; server proof checks remain mandatory even for a
+client that skips the UI. See [full protocol](ACOUSTIC_DYNAMIC_QR.md).
+
+The diagrams below show the **core identity/GPS/Wi-Fi subflows**, not the complete
+policy-v2 exchange. QR/audio redemption occurs after challenge issuance and before
+the UI's face capture; the server cannot turn the core subflow's provisional
+PRESENT into automatic attendance without the required dynamic proof.
+
 ## Component architecture
 
 ```mermaid

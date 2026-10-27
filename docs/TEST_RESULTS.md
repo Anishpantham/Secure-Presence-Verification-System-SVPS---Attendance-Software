@@ -1,6 +1,30 @@
 # Current and historical test/build results
 
-## Current local checkpoint - 26 October 2026
+## Current local checkpoint - 27 October 2026
+
+| Suite | Passed | Failures/errors | Skipped | Evidence |
+| --- | ---: | ---: | ---: | --- |
+| Backend | 146 | 0 | 0 | [JUnit](evidence/local-2026-10-27/backend-tests.xml) |
+| Mobile | 64 | 0 | 0 | [JUnit](evidence/local-2026-10-27/mobile-tests.xml) |
+| Dashboard | 11 | 0 | 0 | [JUnit](evidence/local-2026-10-27/dashboard-tests.xml) |
+| Native Wi-Fi | 10 | 0 | 0 | [JUnit](evidence/local-2026-10-27/android-wifi-tests.xml) |
+
+**231 local tests passed.** TypeScript, dashboard build, both JS exports,
+migration/model drift, generated native configuration, Android arm64 APK/signature,
+iOS simulator and signed-device builds passed. SpvsAcoustic is present in the new
+APK and the iOS native compilation. No rebuilt phone installation or physical
+QR/audio test was performed. See [local results](evidence/local-2026-10-27/results.json).
+
+The upstream cloud ran three browser tests and reports 234 total. Those browser
+and container checks were not rerun against the local demo database, and are
+separate from the local total. Fresh npm audits report four high mobile affected
+entries and zero dashboard findings; backend vulnerability scanning is historical.
+
+Earlier C003 automatic inside attendance and the later hostel GPS rejection
+precede policy v2. See [C003 validation](C003_CLASSROOM_VALIDATION_2026-10-27.md).
+All further physical testing waits for explicit user readiness in the classroom.
+
+## Prior local checkpoint - 26 October 2026
 
 | Suite | Passed | Failures/errors | Skipped | Evidence |
 | --- | ---: | ---: | ---: | --- |

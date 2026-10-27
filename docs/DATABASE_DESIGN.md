@@ -1,5 +1,20 @@
 # Database design
 
+## Current QR/audio migration
+
+Migration `9bd32a88f101` adds presence_enabled/presence_epoch to attendance
+sessions, a presence_qr table for rotating session/classroom/epoch-bound tokens,
+and presence_proofs keyed by attempt challenge with QR verification, listening
+readiness, hashed audio response, deadlines, consumption and idempotency state.
+Unique QR/student redemption and row locks enforce the protocol. Existing
+attempt/record history is retained; no raw audio column is introduced.
+
+The migration maps legacy iOS gps_only policy to dynamic while retaining review
+and retry. The local update used a private backup, preserved existing record counts
+and C003 configuration, and passed the model-drift check. The schema diagram below
+shows the earlier core entities; this paragraph and [protocol](ACOUSTIC_DYNAMIC_QR.md)
+describe the additional policy-v2 relationships.
+
 PostgreSQL 16 is used in Compose. The initial migration creates 20 application tables plus Alembic's version table. IDs are application-generated UUID strings. Timestamps are timezone-aware. There are no raw-image columns.
 
 | Table | Purpose / important constraint |
@@ -12,7 +27,7 @@ PostgreSQL 16 is used in Compose. The initial migration creates 20 application t
 | classrooms | Unique name, latitude, longitude, radius |
 | wifi_references | Unique classroom/BSSID and minimum RSSI |
 | policies | Singleton verification settings |
-| devices | Encrypted signing key; partial unique index allows one active device per student |
+| devices | Native public-key metadata or encrypted legacy shared secret; one active device per student |
 | device_resets | Requested reason, status and administrator reviewer |
 | biometric_profiles | Student primary key, encrypted template, model version, consent timestamp |
 | attendance_sessions | Course/classroom FKs, start/end and explicit closure |

@@ -8,6 +8,19 @@ now covers scans, registration, enrollment, submission, manual correction and
 phone history. Actual classroom discrimination, broader device tests and genuine
 Apple App Attest remain outstanding.
 
+The [27 October update](LOCAL_RUNTIME_UPDATE_2026-10-27.md) builds the new
+mandatory QR/audio clients locally and migrates the database, but no physical
+QR/audio test has started. Earlier automatic C003 attendance predates that flow.
+
+- QR/screenshots and acoustic responses can be shared or relayed within their
+  live windows; this is not distance-bounding or cryptographic proximity.
+- Audio playback is serialized by five-second reservations (at most 12 individual
+  challenges/minute). Large-class throughput and classroom audio behavior are unmeasured.
+- Speaker/microphone response, noise, interruptions, accessibility, leakage through
+  doors/walls and real-time relays need the documented physical test plan.
+- Old installed native apps lack SpvsAcoustic. Rebuilt clients must be installed
+  before testing; no installation or new trial occurred during this sync.
+
 ## Verification assurance
 
 - A normal phone can be rooted, instrumented or used with injected camera/location data. A native device signature (or a legacy HMAC) proves key possession, not trustworthy physical capture.
@@ -23,12 +36,16 @@ Apple App Attest remain outstanding.
 - The hostel minimum-RSSI experiment accepted both inside and corridor samples
   under identical synthetic valid GPS, with stronger signals outside near the AP.
   This is not actual classroom calibration; no hostel thresholds were installed.
+- Later C003 sampling produced a provisional fit for two 5 GHz references at
+  -70 dBm and one older-flow automatic inside pass. The attempted outside
+  attendance was actually from the hostel and stopped at GPS. Fresh near-door
+  Wi-Fi-specific validation was not completed; see [C003 evidence](C003_CLASSROOM_VALIDATION_2026-10-27.md).
 - WIFI_UNAVAILABLE can mean missing AP references even when the phone supplied a
   scan. More specific configuration-versus-sensor reason codes remain a UX item.
 - After manual correction, original attempts remain PENDING_REVIEW for audit.
   The history UI can retain generic pending wording/review actions; official
-  records are authoritative. Requests to an unreachable API can wait without a
-  clear timeout indicator. Both are documented follow-ups.
+  records are authoritative. The incoming mobile API now adds bounded request
+  waits, but its physical network-interruption behavior remains to be tested.
 - The latest faculty review test exercised the authenticated demo API and phone
   history, not a complete faculty-browser click-through or institutional approval.
 
@@ -44,12 +61,13 @@ Apple App Attest remain outstanding.
 
 ## Dependency audit boundary
 
-The 26 October npm audit reports **5 high-severity mobile package entries** and
+The 27 October npm audit reports **4 high-severity mobile package entries** and
 zero dashboard findings. Direct advisory records identify `node-forge`
 (GHSA-86w9-cpqp-85rv) and `zod` (GHSA-mrhx-c7xc-m3w5); the other affected entries
-are dependency propagation. See the [saved mobile audit](evidence/local-2026-10-26/mobile-audit.json).
-The earlier 15-entry/braces result remains historical; no dependency upgrade was
-performed during this audit. npm still proposes an incompatible Expo 44 downgrade
+are dependency propagation. See the [saved mobile audit](evidence/local-2026-10-27/mobile-audit.json).
+The earlier 15-entry/braces result remains historical. Locked dependencies were
+refreshed for the incoming feature; no automatic advisory fix was applied.
+npm still proposes an incompatible Expo 44 downgrade
 for parts of the tree. Backend vulnerability scanning was not rerun; its older
 zero-finding report is not a current clearance. Keep development tooling private
 and review compatible fixes before distribution.
