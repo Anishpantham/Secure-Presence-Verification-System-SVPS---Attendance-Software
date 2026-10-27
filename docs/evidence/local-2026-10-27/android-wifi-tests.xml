@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.spvs.wifi.WifiScanSessionTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-10-27T05:10:01.695Z" hostname="Anishs-MacBook-Air.local" time="0.026">
+  <properties/>
+  <testcase name="reusesFreshPlatformEvidenceWithoutRequestingAnotherScan" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.007"/>
+  <testcase name="acceptsFreshnessBoundaryAndCapsStrongestAccessPoints" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.016"/>
+  <testcase name="waitsForCompletionInsteadOfReturningEmptyCache" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.001"/>
+  <testcase name="permissionRevokedWhileWaitingCleansUp" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.0"/>
+  <testcase name="timeoutResolvesOnceAndIgnoresLateBroadcasts" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.0"/>
+  <testcase name="cancellationRemovesListenerAndTimeout" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.0"/>
+  <testcase name="unsuccessfulBroadcastCannotReturnOldDataAsNew" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.0"/>
+  <testcase name="permissionDeniedBeforeScanningMakesNoRequest" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.0"/>
+  <testcase name="throttledRequestCanUseLaterSystemScan" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.0"/>
+  <testcase name="filtersStaleFutureAndPlaceholderReadings" classname="edu.spvs.wifi.WifiScanSessionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
