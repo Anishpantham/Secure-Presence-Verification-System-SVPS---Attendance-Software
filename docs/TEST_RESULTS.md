@@ -99,3 +99,16 @@ work/final-audit-20261028/backend-requirements.txt --no-deps --disable-pip
 --format json --output docs/evidence/final-audit-20261028/backend-audit.json`.
 Both exited 0; zero known vulnerabilities. pip-audit warned about using --no-deps;
 input was exported from the frozen complete runtime lock. This excludes dev tools.
+
+## Documentation, configuration and publication checks
+
+Local Markdown file-link check: 331 resolved, zero missing at the pre-publication
+checkpoint (external URLs and anchors excluded). Staged blob secret/path scan:
+58 intended files, zero known-private-value or credential/key-pattern findings.
+`git diff --cached --check` exited 0 after fixing trailing blank lines. Compose
+JSON validation with SPVS_BACKEND_DB=spvs_recovery confirmed target database and
+container host db without printing credentials or starting services. Editor
+diagnostics reported no errors in the Compose file or report export script.
+PDF: eight pages with extractable text and vector architecture; DOCX: valid ZIP/XML
+and recognized by macOS textutil. Export hashes are in the evidence directory.
+GitHub publication has no workflow/status result; local test success is not remote CI.

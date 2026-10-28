@@ -3,6 +3,10 @@
 Checkpoint opened 28 October 2026 (Asia/Kolkata). This page supersedes old status
 claims; dated historical reports retain their original scope.
 
+Published on the dedicated audit branch through [draft PR #8](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/8).
+No merge was performed; no remote workflow runs or commit statuses were reported.
+See [synchronization record](REPOSITORY_SYNC_2026-10-28.md).
+
 | Area | Status and evidence |
 | --- | --- |
 | Implementation | Policy v2 QR/audio plus identity/device/GPS/platform rules implemented |

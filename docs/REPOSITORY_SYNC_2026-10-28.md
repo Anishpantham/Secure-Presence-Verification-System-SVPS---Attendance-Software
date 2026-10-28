@@ -4,9 +4,17 @@ Starting local/default branch: main at 80a2d4d358f5dd61f09c2e0709771808ea4f759d,
 matching origin/main after fetch. No open PR was found at discovery.
 Audit branch: `spvs/final-audit-20261028`; target: `main`.
 
-Publication commit/PR and CI are recorded after pushing; until then this document
-does not claim remote publication. No merge is authorized or performed. The default
-branch is intentionally unchanged while the review branch carries the audit.
+Audit content commit: `aceceaa52097638b3a866fedde843ef583e44fe6`, pushed successfully.
+[Draft PR #8](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/8)
+targets main. Local HEAD and its remote tracking branch matched after push.
+The final publication-metadata commit follows this content commit; Git refs and
+the PR head are authoritative for that final hash.
+
+GitHub returned zero workflow runs and zero commit statuses for the audit revision;
+no tracked GitHub workflow exists. This is **no remote CI result**, not a green CI
+claim. Local checks are documented below. No merge is authorized or performed;
+main remains at the discovery commit. Final publication occurred after midnight
+on 29 October IST; filenames retain the audit's opening date.
 
 Fresh validation: 234 tests passed, zero final failures/skips; dashboard/mobile
 and native build checks passed. See [exact evidence](TEST_RESULTS.md).
@@ -20,6 +28,12 @@ stay private/ignored. Old archives and reports are retained with historical labe
 The recovered database received no seed/reset/restore/migration application during
 this audit. Only the newly created disposable audit test database was migrated,
 truncated and seeded. Current recovered aggregate counts are 4 users and 2 records.
+
+Final staged-content scan covered 58 intended files and found no known private
+environment values or credential/key patterns. No APK, backup, environment file,
+signing material or original local native edit was staged. Whitespace checks passed.
+The local Markdown file-link check resolved all 331 links at the pre-publication
+checkpoint; external URLs/anchors are outside that check's scope.
 
 ## Current report exports
 
