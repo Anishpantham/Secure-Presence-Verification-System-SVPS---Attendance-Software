@@ -1,3 +1,5 @@
+> Historical artifact snapshot. Current audit: [verification](../../SPVS_FINAL_VERIFICATION_REPORT.md), [index](../../docs/PROJECT_COMPLETION_STATUS.md). Existing binary/archive contents are retained and do not contain the current documentation refresh.
+
 # Delivery status - 27 October 2026
 
 Current source ZIP, project/setup PDFs, packaged Markdown and checksums include

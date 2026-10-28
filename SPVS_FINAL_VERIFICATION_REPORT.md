@@ -1,28 +1,57 @@
-# SPVS verification - 27 October 2026
+# SPVS final verification report
 
-Integration source: `0fc235f916fb662db71c298091255ec10f0917f6`.
-Publication: [PR #7](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/7),
-incorporating upstream QR/acoustic PR #6.
+Checkpoint opened 28 October 2026; recorded 2026-10-28T23:56:47.529397+05:30.
 
-Read [current verification](docs/FINAL_COMPLETION_REPORT.md),
-[local runtime update](docs/LOCAL_RUNTIME_UPDATE_2026-10-27.md),
-[C003 evidence](docs/C003_CLASSROOM_VALIDATION_2026-10-27.md), and
-[synchronization](docs/REPOSITORY_SYNC_2026-10-27.md).
+## Objective
 
-- Local tests: 146 backend, 64 mobile, 11 dashboard, 10 native Wi-Fi:
-  **231 passed**, no failures/skips. Upstream cloud browser results are separate.
-- TypeScript, dashboard build, Android/iOS JS exports, migration/drift and native
-  configuration checks passed.
-- New Android APK, iOS simulator and signed-device builds passed with SpvsAcoustic;
-  APK/codesign verification passed. No new physical installation/test was performed.
-- C003's earlier inside attempt passed automatically under the old flow. The later
-  hostel attempt was rejected by GPS; near-door Wi-Fi-specific attendance was not
-  completed. Neither result verifies the new mandatory QR/audio flow.
-- Local database backup/migration preserved existing records and C003 references.
-  Review policies remain unchanged. No session challenges were enabled.
-- Reports, source ZIP, guides and hashes are regenerated; private runtime data
-  and signing material remain excluded.
-- Fresh npm: 4 high mobile affected entries, zero dashboard; backend audit historical.
-  Real acoustic/relay/leakage testing, calibration, attestation and production gates remain.
+Bring source/configuration and project records into an accurate evaluation checkpoint.
 
-Further physical testing waits for the user's explicit classroom readiness.
+## Environment and procedure
+
+macOS arm64, project Python 3.12.8, PostgreSQL 16, Node client locks, Android SDK/JDK and Xcode. Started at main 80a2d4d; dedicated branch spvs/final-audit-20261028. Automated fixtures used a newly created disposable database; recovery inspection was read-only.
+
+## Expected and actual outcomes / evidence / status
+
+| Suite | Passed | Failed/errors | Skipped |
+| --- | ---: | ---: | ---: |
+| backend | 146 | 0 | 0 |
+| dashboard | 11 | 0 | 0 |
+| mobile | 64 | 0 | 0 |
+| browser | 3 | 0 | 0 |
+| android-wifi | 10 | 0 | 0 |
+
+**234 fresh passes, zero final failures/skips.** Exact commands, initial environment failures and warnings: [test ledger](docs/TEST_RESULTS.md). Dashboard build, mobile types/export, Android arm64 build and unsigned iOS simulator build passed. Migration drift and Compose syntax checks passed.
+
+Android: user-reported QR/audio/identity/liveness passed, hostel attendance rejected.
+iOS: user-reported login/QR/audio passed, Outside geofence; latest identity and
+genuine App Attest not independently confirmed. Neither trial approved attendance.
+Recovery: current schema head, 4 users and 2 historical records inspected read-only.
+
+Confirmed configuration defects fixed: hardcoded Compose backend DB and healthcheck;
+unignored environment backups. Current architecture/API/database/platform guides,
+academic report and evaluation materials refreshed. Existing local native artifacts
+and historical reports retained. See [audit](docs/REPOSITORY_AUDIT_2026-10-28.md).
+
+## Known limitations
+
+Readiness is partial. Mobile dependency advisories remain; physical/current-policy classroom acceptance remains unverified; the fresh backend runtime advisory scan found no known vulnerabilities. Existing response-model gaps are documented. Historical binaries/archives were not silently repackaged or claimed current.
+
+## Follow-up actions
+
+Use [completion index](docs/PROJECT_COMPLETION_STATUS.md), [readiness](SPVS_RELEASE_READINESS_REPORT.md) and [checklist](docs/EVALUATION_CHECKLIST.md). Review the publication PR; merge requires explicit authorization.
+
+## Publication and safety
+
+[Draft PR #8](https://github.com/Anishpantham/Secure-Presence-Verification-System-SVPS---Attendance-Software/pull/8)
+contains this audit. The review branch was pushed and matched local HEAD; main
+was not merged or changed. GitHub reported no workflow runs or commit statuses.
+[Synchronization details](docs/REPOSITORY_SYNC_2026-10-28.md) record the content commit.
+
+The recovered database was not reset, restored over, seeded or migrated by the
+audit. Read-only before/after counts remained four users and two attendance
+records at the same revision. No user/account/attendance mutation targeted that
+database. Existing local edits, backups and historical artifacts were preserved.
+The staged-content scan found no private environment values or credential/key
+patterns; no sensitive files were committed. This heuristic scan is not a full
+Git-history security certification. Physical observations remain explicitly
+user-reported, and expected rejections are never described as approved attendance.

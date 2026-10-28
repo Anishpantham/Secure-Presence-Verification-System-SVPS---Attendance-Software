@@ -1,4 +1,11 @@
 .env
+.env.*
+!.env.example
+*.dump
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
 .venv/
 __pycache__/
 *.py[cod]

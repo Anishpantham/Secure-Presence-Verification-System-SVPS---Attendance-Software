@@ -12,10 +12,9 @@ attempt/record history is retained; no raw audio column is introduced.
 The migration maps legacy iOS gps_only policy to dynamic while retaining review
 and retry. The local update used a private backup, preserved existing record counts
 and C003 configuration, and passed the model-drift check. The schema diagram below
-shows the earlier core entities; this paragraph and [protocol](ACOUSTIC_DYNAMIC_QR.md)
-describe the additional policy-v2 relationships.
+includes the policy-v2 and device-attestation relationships; [the generated table inventory](DATABASE_TABLE_INVENTORY.md) lists every current column and foreign key.
 
-PostgreSQL 16 is used in Compose. The initial migration creates 20 application tables plus Alembic's version table. IDs are application-generated UUID strings. Timestamps are timezone-aware. There are no raw-image columns.
+PostgreSQL 16 is used in Compose. The current model contains 24 application tables plus Alembic's version table (the initial migration created 20). IDs are application-generated UUID strings. Timestamps are timezone-aware. There are no raw-image columns.
 
 | Table | Purpose / important constraint |
 |---|---|
@@ -42,6 +41,13 @@ PostgreSQL 16 is used in Compose. The initial migration creates 20 application t
 
 ```mermaid
 erDiagram
+  ATTENDANCE_SESSIONS ||--o{ PRESENCE_QR : rotates
+  CLASSROOMS ||--o{ PRESENCE_QR : binds
+  CHALLENGES ||--o| PRESENCE_PROOFS : verifies
+  PRESENCE_QR ||--o{ PRESENCE_PROOFS : redeems
+  STUDENTS ||--o{ PRESENCE_PROOFS : submits
+  STUDENTS ||--o{ SECURITY_CHALLENGES : receives
+  DEVICES ||--o| APP_ATTEST_KEYS : registers
   USERS ||--o| STUDENTS : specializes
   USERS ||--o| FACULTY : specializes
   FACULTY ||--o{ COURSES : teaches
@@ -75,3 +81,28 @@ Location summaries retain coordinates rounded to three decimal places for coarse
 ## Cross-platform completion update
 
 Migrations `5c9d2a1e8b70` and `7a2d13ce4f90` add device key_algorithm/public_key/key_storage, policy ios_presence, security_challenges (user/device/purpose/nonce/expiry/used), app_attest_keys (globally unique key ID, unique device, public key, monotonic bigint counter/environment), and challenge enrollment_request_hash. Existing device rows default to legacy HMAC. The enrollment hash permits exact authenticated HTTP retries; different requests cannot replay a used challenge. Device and student locks serialize revocation/signature decisions. Raw camera frames are never stored in these tables.
+
+## Safe operations and recovery
+
+Migration chain: `3e61f3d2ac45` → `5c9d2a1e8b70` → `7a2d13ce4f90` →
+`9bd32a88f101`. Inspect with `bash scripts/backend.sh alembic current`, `heads`,
+and `check`. Fresh audit found the recovered database at head with no model drift.
+Never apply a downgrade/reset/seed to recovered data for evaluation.
+
+Before a future authorized migration, make a private custom-format pg_dump backup,
+verify its inventory with pg_restore --list, and rehearse restoration into a new
+disposable database. Restore into a new target, never over the recovered database;
+keep original dumps immutable and private. Use a protected credential mechanism,
+not passwords in command history. Verify revision, aggregate counts, constraints,
+and application login before switching a private connection setting. Preserve
+JWT/template encryption keys securely when restoring encrypted data.
+
+The host uses DATABASE_URL. Compose's backend uses SPVS_BACKEND_DB at host `db`;
+set it explicitly to spvs_recovery before opting into a container backend. Changing
+POSTGRES_DB does not rename an existing database or restore data into a volume.
+See [recovery incident](../SPVS_DATABASE_RECOVERY_REPORT.md).
+
+Define retention for attempts, coarse locations, audit events, refresh tokens,
+biometric consent/templates and backups. Encryption does not replace deletion and
+access policy. Automated purges/key rotation are not implemented. Restrict database
+roles, protect backup encryption keys, and test restoration periodically.

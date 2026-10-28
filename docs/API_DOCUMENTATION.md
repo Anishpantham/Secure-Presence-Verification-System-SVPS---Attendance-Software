@@ -86,3 +86,43 @@ Most operational lists expose the latest 500 rows; course and enrollment lists a
 ## Cross-platform completion update
 
 `POST /devices/registration-challenge` issues a one-use nonce. `POST /devices` accepts public_key (base64 canonical P-256 SPKI), registration_challenge_id, registration_signature and reported key_storage in addition to password/label/platform. New registrations do not return a shared secret. See CROSS_PLATFORM_IMPLEMENTATION.md for exact signing bytes. `GET /attestation/capabilities`, `POST /attestation/challenge`, and `POST /attestation/register` implement the App Attest boundary. Signed requests may contain outer attestation_key_id and attestation_assertion; the assertion covers the exact idempotency/payload bytes. Evidence adds accuracy_authorization, wifi_source and current_bssid. `PUT /policy` accepts ios_presence=review|retry|dynamic with an audit reason. `GET /admin/devices` is administrator-only and explicitly labels reported storage versus verified app registration. The regenerated openapi.json is the field-level contract.
+
+## Complete endpoint and request reference
+
+The [generated inventory](API_ENDPOINT_INVENTORY.md) lists all 54 operations,
+exact paths/methods, role requirements, request schemas, fields and declared codes.
+The regenerated [OpenAPI JSON](openapi.json) is exported from the current app.
+Runtime 401/403/404/409/413/422/429/503 errors are not all declared per operation;
+most success responses lack explicit response_model typing. This is a documented
+contract gap. Do not interpret an empty OpenAPI response schema as an empty body.
+
+### Implemented response structures
+
+- Login: access_token, refresh_token, token_type, expires_in and public user;
+  refresh returns the four token fields; logout is HTTP 204.
+- Academic/account/policy/device lists: arrays of public model projections, with
+  current-user/course scope. Detail/create/update returns the public object.
+  The [table inventory](DATABASE_TABLE_INVENTORY.md) defines the column fields;
+  public() excludes password_hash, secret_encrypted, template_encrypted, token_hash
+  and request_hash. Endpoint-specific additions/exclusions are in linked handlers.
+- Challenge: public challenge plus server_time and capture_guide. Purpose/session
+  bindings are mandatory; attendance expires in 120 seconds.
+- Enrollment: enrolled, model and raw_images_retained=false. Biometric status:
+  enrolled, model and consent_at. Deletion/enrollment require password/consent as applicable.
+- Attendance: public attempt including id, state, reasons, risk_score and
+  evidence_summary. PRESENT alone inserts an automatic attendance record.
+- Presence control: enabled. Display: enabled, server_time, ends_at and queue,
+  with token/rotate_at/expires_at only while active. Queue entries have attempt_id/label.
+- Playback: payload, server_time, expires_at, duration_ms and codec; staff-scoped.
+- Presence evidence: attempt_id and QR/audio status (idempotent replies may include
+  fewer fields); capture failure returns a public review attempt, identity NOT_COMPLETED.
+- Device registration adds storage and, only for enabled legacy mode, credential.
+  Device lists add app_attest_registered; admin capabilities exclude public_key
+  and explicitly return hardware_storage_verified=false.
+- CSV reporting returns a scoped attachment; deletion operations return HTTP 204.
+- Health: status/database. Ready: status/face_models/attestation. Its attestation
+  field is a static not_configured label; use authenticated capabilities for provider
+  configuration and a verified assertion for actual per-attempt integrity.
+
+Success projections and optional fields should be consumed defensively. New typed
+response models across the whole API would be a separate compatibility-reviewed change.

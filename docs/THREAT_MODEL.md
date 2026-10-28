@@ -1,5 +1,22 @@
 # Threat model
 
+## Current control-to-evidence map (28 October audit)
+
+| Threat | Implemented mitigation | Evidence and remaining risk |
+| --- | --- | --- |
+| Buddy punching / device sharing | Face/liveness, bound key and enrollment/session scope | Regression tests; Android identity user-reported; collusion/compromised capture not excluded |
+| QR sharing / replay | Rotation, short expiry, session/classroom/epoch binding and student redemption uniqueness | Automated protocol tests; live forwarding remains possible |
+| Acoustic replay / relay | Per-attempt random answer, one guess, five-second server deadline | Automated codec/protocol tests and reported hardware exchange; live relay/leakage not independently tested |
+| GPS spoofing | Freshness, accuracy, uncertainty, reported mock rejection and coarse travel check | Rule tests and expected outside rejection; compromised OS can falsify inputs |
+| Wi-Fi spoofing | Actual Android scan BSSID/RSSI matching; explicit missing-signal policy | Native tests and older sampling; AP identity/RSSI is not cryptographically authenticated |
+| Root / jailbreak / emulator abuse | Native key storage; configurable integrity requirement; App Attest verification boundary | Synthetic verifier tests only; Play Integrity unconfigured and genuine App Attest unverified |
+| Face presentation attacks | Single-face matching and random temporal blink/turn checks | Real-model and rule tests; no certified PAD or population calibration |
+| Session hijacking | Short JWT lifetime, issuer/audience/type checks, refresh rotation/reuse revocation | Backend security tests; stolen access token remains valid until expiry/disable |
+| Network interception | HTTPS required by release mobile; configured CORS; signed evidence | Local HTTP is development-only; production TLS infrastructure still required |
+| Privacy / biometric disclosure | Consent, encrypted templates, role scope, no raw server image/audio retention | Source/tests; institutional retention, backup access and key rotation remain operational work |
+
+The audit is not a penetration test. See [fresh security results](../SPVS_SECURITY_TEST_REPORT.md).
+
 ## QR/audio extension
 
 The current flow adds expiring QR tokens and a one-use per-attempt acoustic answer

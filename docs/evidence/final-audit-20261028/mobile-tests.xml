@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="vitest tests" tests="64" failures="0" errors="0" time="0.234093833">
+    <testsuite name="tests/acoustic.test.ts" timestamp="2026-10-28T18:08:44.860Z" hostname="local-audit-host" tests="6" failures="0" errors="0" skipped="0" time="0.039865291">
+        <testcase classname="tests/acoustic.test.ts" name="audible acoustic codec &gt; round trips at 16000 Hz within 2–3 seconds" time="0.008101958">
+        </testcase>
+        <testcase classname="tests/acoustic.test.ts" name="audible acoustic codec &gt; round trips at 44100 Hz within 2–3 seconds" time="0.013734792">
+        </testcase>
+        <testcase classname="tests/acoustic.test.ts" name="audible acoustic codec &gt; round trips at 48000 Hz within 2–3 seconds" time="0.006802334">
+        </testcase>
+        <testcase classname="tests/acoustic.test.ts" name="audible acoustic codec &gt; finds an unaligned signal with noise, attenuation, echo and clipping" time="0.004220333">
+        </testcase>
+        <testcase classname="tests/acoustic.test.ts" name="audible acoustic codec &gt; rejects corrupted payload, silence, truncated and arbitrary audio" time="0.002188167">
+        </testcase>
+        <testcase classname="tests/acoustic.test.ts" name="audible acoustic codec &gt; decodes bounded streaming chunks and clears retained samples" time="0.003551208">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/acousticCapture.test.ts" timestamp="2026-10-28T18:08:44.862Z" hostname="local-audit-host" tests="6" failures="0" errors="0" skipped="0" time="0.1334485">
+        <testcase classname="tests/acousticCapture.test.ts" name="foreground native capture adapter &gt; denied microphone on android never starts capture" time="0.001355792">
+        </testcase>
+        <testcase classname="tests/acousticCapture.test.ts" name="foreground native capture adapter &gt; denied microphone on ios never starts capture" time="0.000168959">
+        </testcase>
+        <testcase classname="tests/acousticCapture.test.ts" name="foreground native capture adapter &gt; decodes only the matching attempt on android and stops explicitly" time="0.070322625">
+        </testcase>
+        <testcase classname="tests/acousticCapture.test.ts" name="foreground native capture adapter &gt; decodes only the matching attempt on ios and stops explicitly" time="0.060135917">
+        </testcase>
+        <testcase classname="tests/acousticCapture.test.ts" name="foreground native capture adapter &gt; cleans listeners if hardware start fails" time="0.000306">
+        </testcase>
+        <testcase classname="tests/acousticCapture.test.ts" name="foreground native capture adapter &gt; reports capture errors instead of passing verification" time="0.0001195">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/api.test.ts" timestamp="2026-10-28T18:08:44.862Z" hostname="local-audit-host" tests="8" failures="0" errors="0" skipped="0" time="0.019964875">
+        <testcase classname="tests/api.test.ts" name="explains an invalid email instead of displaying a generic request error" time="0.017628792">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="catches an embedded email space before submitting credentials" time="0.000367708">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="explains a missing password without echoing input" time="0.000288208">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="preserves an authentication rejection instead of calling it a format error" time="0.000210792">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="preserves a server rejection so a failed capture is not offered as a network retry" time="0.00028275">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="retains the server cooldown and prevents replay after rate limiting" time="0.000342333">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="still permits idempotent recovery after a lost network response" time="0.000123">
+        </testcase>
+        <testcase classname="tests/api.test.ts" name="still permits recovery after a server failure" time="0.000139583">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/capture.test.ts" timestamp="2026-10-28T18:08:44.863Z" hostname="local-audit-host" tests="17" failures="0" errors="0" skipped="0" time="0.006588">
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; preserves server action ordering and strictly increasing timestamps" time="0.003243375">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; stops on expiration without a success result" time="0.000939167">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; stops when the app backgrounds" time="0.000147416">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="android shared camera protocol &gt; propagates camera errors" time="0.00012975">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; preserves server action ordering and strictly increasing timestamps" time="0.000233625">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; stops on expiration without a success result" time="0.000090625">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; stops when the app backgrounds" time="0.000080958">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="ios shared camera protocol &gt; propagates camera errors" time="0.000091375">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="explains model quality and multiple-face failures" time="0.000139458">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="keeps blink phases visible until slow photographs complete" time="0.000189916">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="signals reopening if the camera fails while eyes are closed" time="0.00015925">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="explains a missing-landmark failure" time="0.000043667">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives specific guidance for a missed TURN_LEFT step" time="0.000073209">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives specific guidance for a missed TURN_RIGHT step" time="0.000028042">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives specific guidance for a missed CENTER step" time="0.00002375">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives specific guidance for a missed BLINK step" time="0.000020334">
+        </testcase>
+        <testcase classname="tests/capture.test.ts" name="gives time to read and settle into each new pose" time="0.000141459">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/classroomPresence.test.tsx" timestamp="2026-10-28T18:08:44.863Z" hostname="local-audit-host" tests="6" failures="0" errors="0" skipped="0" time="0.017146708">
+        <testcase classname="tests/classroomPresence.test.tsx" name="denied camera offers review and cannot start listening" time="0.00755525">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/classroomPresence.test.tsx" name="microphone denial leaves identity navigation blocked and allows review" time="0.002958125">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/classroomPresence.test.tsx" name="backgrounding stops capture and blocks decoded evidence" time="0.001527666">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/classroomPresence.test.tsx" name="only a server verified sound advances to face capture" time="0.001933208">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/classroomPresence.test.tsx" name="lost audio acknowledgement resends identical signed evidence" time="0.001757875">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/classroomPresence.test.tsx" name="temporary iOS inactive permission sheet does not cancel the attempt" time="0.000859792">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/platform.test.ts" timestamp="2026-10-28T18:08:44.864Z" hostname="local-audit-host" tests="12" failures="0" errors="0" skipped="0" time="0.006127959">
+        <testcase classname="tests/platform.test.ts" name="iOS uses the simulator localhost default" time="0.000807208">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android uses the emulator gateway default" time="0.000087875">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="iOS only requests current-network evidence without inventing RSSI" time="0.000546375">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="missing native Wi-Fi module is explicit" time="0.000091958">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android scan permission denial does not fabricate data" time="0.000607417">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android reports completed native scan evidence" time="0.000319125">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="Android timeout does not claim a scan source" time="0.000117167">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="reduced iOS accuracy requires retry" time="0.000632792">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="location permission denial has a recovery instruction" time="0.000256125">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="stale positions are not submitted as fresh" time="0.000870167">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="uses actual fix time and accuracy" time="0.001008375">
+        </testcase>
+        <testcase classname="tests/platform.test.ts" name="missing native key module fails closed" time="0.000118833">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/progress.test.tsx" timestamp="2026-10-28T18:08:44.864Z" hostname="local-audit-host" tests="2" failures="0" errors="0" skipped="0" time="0.007072667">
+        <testcase classname="tests/progress.test.tsx" name="Android shared progress renders current stage without claiming attendance approval" time="0.005801458">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+        <testcase classname="tests/progress.test.tsx" name="iOS shared progress renders current stage without claiming attendance approval" time="0.000768875">
+            <system-err>
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/protocol.test.ts" timestamp="2026-10-28T18:08:44.865Z" hostname="local-audit-host" tests="7" failures="0" errors="0" skipped="0" time="0.003879833">
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; matches the backend HMAC byte protocol" time="0.002101709">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; binds the idempotency key" time="0.000537667">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Device signing protocol &gt; binds all evidence fields" time="0.00026825">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; opens at the inclusive start boundary" time="0.0000875">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; expires at the exclusive end boundary" time="0.000062667">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; never opens a closed session" time="0.000056042">
+        </testcase>
+        <testcase classname="tests/protocol.test.ts" name="Attendance UI decisions &gt; does not describe review as approval" time="0.000094959">
+        </testcase>
+    </testsuite>
+</testsuites>

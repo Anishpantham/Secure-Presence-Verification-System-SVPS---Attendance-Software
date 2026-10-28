@@ -1,0 +1,73 @@
+{
+  "checkpoint_opened": "2026-10-28",
+  "recorded_at": "2026-10-28T23:56:47.529397+05:30",
+  "platform": "macOS arm64",
+  "python": "3.12.8",
+  "test_database": "spvs_audit_20261028_test",
+  "suites": {
+    "backend": {
+      "passed": 146,
+      "failed": 0,
+      "skipped": 0
+    },
+    "dashboard": {
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    "mobile": {
+      "passed": 64,
+      "failed": 0,
+      "skipped": 0
+    },
+    "browser": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    "android-wifi": {
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "unique_passed": 234,
+  "recovered_database": {
+    "name": "spvs_recovery",
+    "revision": "9bd32a88f101",
+    "users": 4,
+    "attendance_records": 2,
+    "access": "read-only"
+  },
+  "builds": {
+    "dashboard": 0,
+    "mobile_typecheck": 0,
+    "android_ios_export": 0,
+    "android_debug_arm64": 0,
+    "ios_simulator_unsigned": 0,
+    "migration_current_heads_check": 0,
+    "compose_syntax": 0
+  },
+  "initial_browser_run": {
+    "failed": 3,
+    "cause": "required Playwright browser missing; no tests reached application",
+    "resolved": "installed required Chromium, reran unchanged tests on isolated services"
+  },
+  "not_run": [
+    "mobile lint: no configured lint script",
+    "fresh signed iOS device build/installation",
+    "physical device interaction by agent"
+  ],
+  "warnings": [
+    "Starlette TestClient httpx deprecation",
+    "Vite configLoader native warning",
+    "Gradle deprecated features incompatible with Gradle 10",
+    "Xcode dependency/script phase warnings",
+    "NO_COLOR/FORCE_COLOR warning"
+  ],
+  "backend_advisory_audit": {
+    "exit_code": 0,
+    "known_vulnerabilities": 0,
+    "scope": "frozen runtime requirements; no dev group"
+  }
+}

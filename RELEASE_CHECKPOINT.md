@@ -1,3 +1,5 @@
+> Current audit: [final verification](SPVS_FINAL_VERIFICATION_REPORT.md), [documentation index](docs/PROJECT_COMPLETION_STATUS.md). The dated delivery/checkpoint below is historical; existing archives/APKs were preserved, not repackaged in this audit.
+
 # Release checkpoint
 
 ## Current synchronized delivery - 27 October 2026
