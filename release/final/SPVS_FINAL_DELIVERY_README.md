@@ -1,3 +1,5 @@
+> Historical artifact snapshot. Current audit: [verification](../../SPVS_FINAL_VERIFICATION_REPORT.md), [index](../../docs/PROJECT_COMPLETION_STATUS.md). Existing binary/archive contents are retained and do not contain the current documentation refresh.
+
 # SPVS synchronized delivery - 27 October 2026
 
 This package incorporates upstream dynamic QR/acoustic verification and its local

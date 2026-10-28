@@ -1,88 +1,115 @@
 # System architecture
 
-## Mandatory policy-v2 presence exchange
-
-Current attendance adds a faculty QR display/playback channel, PresenceQR and
-PresenceProof state, and the student's signed QR/audio redemption before the
-existing face/location flow can automatically pass. The student UI performs
-QR/audio before face capture; server proof checks remain mandatory even for a
-client that skips the UI. See [full protocol](ACOUSTIC_DYNAMIC_QR.md).
-
-The diagrams below show the **core identity/GPS/Wi-Fi subflows**, not the complete
-policy-v2 exchange. QR/audio redemption occurs after challenge issuance and before
-the UI's face capture; the server cannot turn the core subflow's provisional
-PRESENT into automatic attendance without the required dynamic proof.
-
-## Component architecture
+Current protocol: policy v2, migration 9bd32a88f101. Diagrams describe implemented
+logic; physical effectiveness and deployment maturity are separate claims.
 
 ```mermaid
 flowchart LR
-  Student[Student Android / iOS app] -->|JWT + signed evidence| API[FastAPI /api/v1]
-  Staff[Faculty / Admin React dashboard] -->|JWT + scoped requests| API
-  API --> Auth[Authentication and authorization]
-  API --> Identity[Layer 1: identity]
-  Identity --> YuNet[YuNet face detection]
-  YuNet --> SFace[SFace 128D embedding]
-  Identity --> Mesh[MediaPipe temporal landmarks]
-  Identity --> Device[P-256 device signature verification]
-  API --> Presence[Layer 2: physical presence]
-  Presence --> GPS[GPS uncertainty and geofence]
-  Presence --> WiFi[Wi-Fi fingerprint policy]
-  Identity --> Decision[Deterministic decision]
-  Presence --> Decision
-  Decision --> DB[(PostgreSQL)]
-  DB --> Audit[Records, attempts and audit events]
+  D[React faculty/admin dashboard] -->|JWT / course scope| A[FastAPI]
+  D -. rotating QR and audible FSK .-> M[Expo native Android / iOS app]
+  M -->|JWT and exact signed evidence| A
+  A --> C[QR/audio binding and server deadlines]
+  A --> I[YuNet + SFace + MediaPipe liveness]
+  A --> P[GPS and platform-specific Wi-Fi policy]
+  A --> K[Device keys and optional App Attest verifier]
+  C --> E[Deterministic attendance decision]
+  I --> E
+  P --> E
+  K --> E
+  E --> DB[(PostgreSQL attempts / records / audit)]
 ```
 
-The backend uses synchronous SQLAlchemy sessions in FastAPI synchronous route handlers, which execute in the framework's thread pool. This is deliberate: OpenCV/MediaPipe inference is synchronous and guarded by a process-local model lock. The application does not block an async endpoint with a synchronous database call. Multiple API workers share PostgreSQL rate limits and locks; each worker has its own model memory. Capacity and fair scheduling require load testing before institutional deployment.
+## Backend and persistence
 
-The dashboard uses a same-origin `/api` route through Vite in development or nginx in containers. Tokens remain in dashboard memory. The mobile app stores tokens and per-user key metadata in SecureStore; new private keys stay in native Keystore/Secure Enclave storage. Its camera cache files are deleted after conversion; no raw frames are saved by the backend.
+FastAPI synchronous handlers use SQLAlchemy transactions. Role dependencies and
+course/enrollment checks run server-side. PostgreSQL shares rate buckets and row
+locks across workers; inference uses a process-local lock and CPU model instances.
+Multiple workers duplicate model memory; throughput is not measured.
+See [database design](DATABASE_DESIGN.md) for 24 tables and schema relationships.
 
-## Verification sequence
+Authentication uses Argon2id, short-lived HS256 JWTs and hashed rotating refresh
+tokens. New devices register a nonce-bound P-256 proof. Legacy HMAC devices remain
+compatible. App Attest verifies configured provider material; Play Integrity is
+an unconfigured fail-closed adapter. Neither login nor key-storage metadata proves
+hardware integrity.
+
+## Student and faculty sequence
 
 ```mermaid
 sequenceDiagram
-  participant M as Student app
-  participant A as API
-  participant D as PostgreSQL
-  participant V as Vision pipeline
-  M->>A: Request challenge (JWT, device, session)
-  A->>D: Check enrollment, device, session, attempt limit
-  A-->>M: Random actions, challenge ID, expiry, server clock
-  M->>M: Capture frames, GPS and available Wi-Fi
-  M->>M: ECDSA(idempotency key + exact JSON payload)
-  M->>A: Submit signed evidence
-  A->>D: Lock student, challenge and session
-  A->>A: Validate signature, purpose, ownership, replay and time
-  A->>V: Detect, embed, compare, validate landmark sequence
-  V-->>A: Match and temporal outcome or failure
-  A->>A: Evaluate GPS/Wi-Fi and explainable rules
-  A->>D: Consume challenge, store attempt and optional record atomically
-  A-->>M: Structured decision and reasons
+  participant F as Faculty dashboard
+  participant M as Native student app
+  participant A as FastAPI
+  participant DB as PostgreSQL
+  F->>A: Start active session challenges
+  A->>DB: Increment presence epoch
+  F->>A: Poll display (rotating QR)
+  M->>A: Request bound attendance challenge
+  M->>A: Signed QR redemption
+  M->>A: Signed ready after microphone setup
+  F->>A: Play queued attempt
+  A-->>F: Per-attempt audio payload / five-second deadline
+  F-->>M: Audible 2.7-second FSK signal
+  M->>A: Signed decoded response
+  A->>DB: Consume answer / persist verified proof
+  M->>M: Face/liveness frames, GPS and platform evidence
+  M->>A: Signed attendance request with idempotency key
+  A->>DB: Lock student, device, challenge and session
+  A->>A: Identity, platform integrity and presence evaluation
+  A->>DB: Consume challenge; persist attempt and optional record
+  A-->>M: State / reasons / evidence summary
 ```
 
-## Decision flow
+QR rotates every five seconds and lasts at most ten. The audio answer includes
+an attempt tag and 64 unpredictable bits; one wrong/late answer burns redemption.
+Session epoch changes invalidate proofs. Server time is sampled after locking.
+These freshness controls do not prove distance and cannot exclude live relay.
+See [protocol](ACOUSTIC_DYNAMIC_QR.md).
+
+## Decision and failure handling
 
 ```mermaid
 flowchart TD
-  Request[Authenticated signed request] --> Retry{Same idempotency key?}
-  Retry -->|Same payload| Existing[Return existing attempt]
-  Retry -->|Different payload| Conflict[409 conflict]
-  Retry -->|New key| Gates{Enrollment / session / challenge / device valid?}
-  Gates -->|No| Stop[Reject or expire; no new present record]
-  Gates -->|Yes| Face{Face and temporal liveness pass?}
-  Face -->|No| Reject[REJECTED]
-  Face -->|Yes| Location{Fresh, accurate, non-mock GPS?}
-  Location -->|Stale / inaccurate| Again[REQUIRES_RETRY]
-  Location -->|Mock / clearly outside| Reject
-  Location -->|Valid| Signals{Boundary, Wi-Fi, travel, attestation}
-  Signals -->|Uncertainty| Review[PENDING_REVIEW]
-  Signals -->|Required signals pass| Present[PRESENT + unique record]
+  R[Authenticated signed request] --> H{Prior idempotency key?}
+  H -->|same payload| Old[Return prior attempt]
+  H -->|changed payload| C[HTTP 409]
+  H -->|new| G[Session / enrollment / device / challenge gates]
+  G --> I[Face match and temporal liveness]
+  I --> P[GPS quality and platform policy]
+  P --> Q{Otherwise PRESENT and QR/audio complete?}
+  Q -->|yes and deadlines valid| V[PRESENT and unique official record]
+  Q -->|missing dynamic proof| Rev[PENDING_REVIEW]
+  G --> Err[HTTP failure or EXPIRED / REJECTED]
+  I --> Err
+  P --> Other[REQUIRES_RETRY / REJECTED / PENDING_REVIEW]
 ```
 
-Authentication, malformed payload and signature failures are HTTP errors; signed, attributable verification outcomes are persisted as attempts. This distinction prevents unauthenticated requests from inventing someone else's attempt history.
+The UI collects QR/audio before face capture. The server computes dynamic-proof
+status, evaluates identity/location when eligible, and prevents any provisional
+PRESENT without complete dynamic proof. It does not skip every expensive identity
+check merely because QR/audio is missing. Expiry is checked again before approval.
+Capture-failure submissions create review attempts with identity NOT_COMPLETED.
 
+Exact signed enrollment/attendance retries recover uncertain network responses.
+Changed evidence must not reuse the idempotency key. Definitive 4xx failures lead
+to a new allowed attempt; network/5xx may retain the request. Challenges and attempt
+limits still apply. Manual correction is explicitly sourced and auditable; resolving
+a dispute alone does not create attendance.
 
-## Cross-platform completion update
+## Client architecture and platform differences
 
-Native device keys now live in `spvs-security` (Kotlin/Swift), with shared TypeScript adapters. App Attest registration uses dedicated one-use security challenges; assertions bind the exact signed request and advance a PostgreSQL counter. iOS current-network evidence is separate from Android scan measurements. See CROSS_PLATFORM_IMPLEMENTATION.md for trust boundaries and native-build limits.
+Dashboard TanStack Query calls scoped APIs through Vite/nginx. Tokens stay in memory.
+ClassroomChallenges polls QR/queue, handles empty/error state and uses browser audio
+only after a user interaction. Five-second reservations serialize the channel.
+
+Mobile adapters separate native keys, permissions, scan and audio from shared UI.
+ClassroomPresence tracks preparation, QR, listening, decoded response and review;
+foreground interruption stops capture. SecureStore holds tokens and key metadata.
+Private keys remain native. Frames are transient and uploaded for inference; raw
+PCM remains on-device. Failed capture is visible, never invented as successful evidence.
+
+Android supplies timestamped Wi-Fi scans subject to OS throttling and permissions.
+iOS supplies at most permitted current-network BSSID. Its review/retry/dynamic
+policy is independent of Android fallback policy; dynamic still requires identity,
+device, GPS and QR/audio. Geofence boundary uncertainty goes to review; old or
+inaccurate positions request retry. A fully outside uncertainty circle rejects.

@@ -1,3 +1,5 @@
+> Historical artifact snapshot. Current audit: [verification](../../SPVS_FINAL_VERIFICATION_REPORT.md), [index](../../docs/PROJECT_COMPLETION_STATUS.md). Existing binary/archive contents are retained and do not contain the current documentation refresh.
+
 # SPVS verification - 27 October 2026
 
 Integration source: `0fc235f916fb662db71c298091255ec10f0917f6`.

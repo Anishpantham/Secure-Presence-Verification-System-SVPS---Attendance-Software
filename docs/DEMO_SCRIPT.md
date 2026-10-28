@@ -1,3 +1,5 @@
+> Current checkpoint: [28 October audit](REPOSITORY_AUDIT_2026-10-28.md), [current status](CURRENT_STATUS.md), and [safe demo guide](EVALUATION_DEMO_GUIDE.md). Existing recovery installations must not run setup/seed/reset instructions intended for fresh databases. Dated counts below are historical unless explicitly rerun in [current test results](TEST_RESULTS.md).
+
 # Demonstration script
 
 ## Current policy-v2 demonstration order

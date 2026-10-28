@@ -1,0 +1,16 @@
+{
+  "SPVS_PROJECT_REPORT_2026-10-28.pdf": {
+    "bytes": 20028,
+    "sha256": "18c6023e25b180ccca7a5d8f95128b70f041fa329791f4aafb08c81a28af9c14",
+    "pages": 8,
+    "extractable_characters": 19544,
+    "diagram": "vector architecture"
+  },
+  "SPVS_PROJECT_REPORT_2026-10-28.docx": {
+    "bytes": 10203,
+    "sha256": "a22398990896c36951ccf6388e1388f979680dbcfa8f019e066f76dc27940324",
+    "zip_crc": "passed",
+    "xml_parts": "parsed",
+    "diagram": "editable textual architecture; Mermaid remains in Markdown"
+  }
+}

@@ -1,3 +1,5 @@
+> Current audit: [final verification](SPVS_FINAL_VERIFICATION_REPORT.md), [documentation index](docs/PROJECT_COMPLETION_STATUS.md). The dated delivery/checkpoint below is historical; existing archives/APKs were preserved, not repackaged in this audit.
+
 # SPVS engineering verification report
 
 **Historical baseline report.** Current validation and publication status are in

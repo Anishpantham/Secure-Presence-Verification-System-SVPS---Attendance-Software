@@ -1,114 +1,134 @@
-# Secure Presence Verification System · SPVS
+# Secure Presence Verification System (SPVS)
 
-The merged QR/acoustic update adds mandatory dynamic QR
-and audible acoustic evidence. See [protocol and migration](docs/ACOUSTIC_DYNAMIC_QR.md),
-[physical-device/Mac guide](docs/ACOUSTIC_DEVICE_VALIDATION.md), and
-[feature verification report](docs/ACOUSTIC_COMPLETION.md). New native apps and
-Alembic migration are required; historical APK/device evidence does not validate this feature.
+SPVS is a college attendance project that combines identity checks with physical
+presence evidence. A FastAPI backend evaluates signed student submissions; a React
+dashboard manages sessions and review; native Android and iOS apps collect evidence.
+The repository name retains the historical “SVPS” spelling; the product is SPVS.
 
-Start with the [current status](docs/CURRENT_STATUS.md) and the
-[27 October synchronization checkpoint](docs/REPOSITORY_SYNC_2026-10-27.md).
-The [24 October ecosystem audit](docs/LOCAL_ECOSYSTEM_REPORT_2026-10-24.md)
-preserves the historical state before publication.
-Native build evidence is in [iOS Mac validation](docs/IOS_MAC_VALIDATION.md) and
-[Android Mac validation](docs/ANDROID_MAC_VALIDATION.md). iPhone enrollment and
-one attendance submission are observed; that submission requires review.
-The [physical Android demo](docs/ANDROID_DEVICE_VALIDATION_2026-10-26.md) now
-covers Wi-Fi scans, registration, enrollment, submission, manual review and phone
-history. [C003 observations](docs/C003_CLASSROOM_VALIDATION_2026-10-27.md) include
-an automatic inside pass under the earlier flow and a hostel GPS rejection.
-The incoming mandatory QR/audio flow is now migrated and natively built locally;
-[physical QR/audio testing](docs/ACOUSTIC_DEVICE_VALIDATION.md) has not started.
+Static codes and manual registers can permit proxy attendance. SPVS combines
+rotating QR, a short audible challenge, face matching, temporal liveness, device
+keys, GPS and platform-specific Wi-Fi policy. Uncertainty produces review or retry.
+It is a production-inspired academic implementation, not a certified anti-spoofing system.
 
-A working college attendance project with **two verification layers**: identity and physical presence. FastAPI/PostgreSQL enforce decisions; a React dashboard manages institution workflows; an Expo development app captures real student evidence.
+## Current evaluation status
 
-**Assurance boundary:** this is a production-inspired semester project, not a certified biometric or device-attestation product. Real SFace inference and server-side liveness logic are implemented. Phone capture, Android Wi-Fi behavior, and liveness usability require the real-device evaluation in `docs/TESTING_STRATEGY.md`. Play Integrity is unconfigured. Apple App Attest now has native and server verification code, tested with synthetic certificates; genuine provider/device interoperability is unverified and deployment configuration is required.
+The latest user-reported Motorola Edge 50 Neo test passed login, QR, acoustic,
+face and liveness, then was rejected outside the classroom from the hostel.
+The iPhone 16 Pro passed login, QR and acoustic, then returned **Outside geofence**.
+These are expected negative attendance tests, not successful classroom approvals.
+iOS identity checks in this latest trial are not independently confirmed; older
+24 October evidence is scoped separately. Genuine App Attest remains unverified.
 
-## Start on a MacBook Air M4
+See [fresh verification](SPVS_FINAL_VERIFICATION_REPORT.md),
+[current status](docs/CURRENT_STATUS.md), and [remaining work](docs/EVALUATION_CHECKLIST.md).
+Current-policy classroom approval, record creation and dashboard synchronization
+still require an observed in-classroom trial. Earlier policy results are historical.
 
-Install Docker Desktop for Apple Silicon, Python 3.12, Node 22.12+ (Node 24 LTS recommended), and `uv`. Use native ARM64 terminals, not a Rosetta Python environment. Then, from this repository:
+## Features and architecture
 
-```sh
-make setup
-make db
-make migrate
-make seed
+- Role-scoped accounts, courses, enrollment, classrooms and attendance sessions.
+- Consent-based encrypted face templates; YuNet/SFace and MediaPipe temporal checks.
+- Native P-256 device signatures, single-use challenges and idempotent submissions.
+- Mandatory rotating QR and per-attempt audible challenge with server deadlines.
+- GPS uncertainty/freshness checks; Android Wi-Fi scan and separate iOS policy.
+- Explainable outcomes, disputes, audited corrections, reports and CSV export.
+
+```mermaid
+flowchart LR
+  Staff[Faculty dashboard: QR and sound] --> API[FastAPI: roles and session scope]
+  Staff -. camera and microphone .-> Phone[Android / iOS student]
+  Phone -->|JWT and signed evidence| API
+  API --> Checks[Device / QR / audio / face / liveness / GPS / platform policy]
+  Checks --> Decision[Present / review / retry / rejected / expired]
+  Decision --> DB[(PostgreSQL: attempts and official records)]
+  DB --> Staff
 ```
 
-In separate terminals:
+| Component | Technology |
+| --- | --- |
+| Backend | Python 3.11–3.12, FastAPI, Pydantic, SQLAlchemy, Alembic |
+| Database | PostgreSQL 16 in Docker Compose |
+| Identity | OpenCV YuNet/SFace, MediaPipe, Argon2id, JWT, cryptography |
+| Dashboard | React, Vite, TypeScript, TanStack Query |
+| Mobile | Expo 58, React Native 0.88, TypeScript, Kotlin and Swift modules |
+| Validation | pytest, Vitest, Playwright, native Gradle/Xcode builds |
+
+Locks live in [backend](backend/uv.lock), [dashboard](dashboard/package-lock.json)
+and [mobile](mobile/package-lock.json). Android uses real scan observations;
+iOS supports only a permitted current-network BSSID, not a nearby RSSI scan.
+Expo Go cannot load the native modules. See [Android](docs/ANDROID_GUIDE.md)
+and [iOS](docs/IOS_GUIDE.md) build instructions.
+
+## Safe quick start: existing recovered environment
+
+Install Docker Desktop, native ARM64 Python 3.12/uv and Node 22.12+ (24 recommended).
+Keep existing private environment files. Confirm the host DATABASE_URL targets
+the intended database, currently `spvs_recovery`. Do not run setup, seed or reset
+against recovered data. From the repository root:
 
 ```sh
+docker compose up -d db
 make api
-make dashboard
 ```
 
-The API listens on port 8000 and the dashboard on 5173. API documentation is served at `/docs`, with the contract at `/openapi.json`. `GET /health` checks PostgreSQL; `GET /ready` also loads both face models and MediaPipe.
-
-The seed creates `admin@spvs.example`, `faculty@spvs.example`, and `student@spvs.example`. Their shared **local demonstration password is randomly generated in `.env` as `DEMO_PASSWORD`**. It is not included in the distribution or printed by setup. Use individual institution accounts outside the demo. The seed is repeatable and never creates fabricated attendance, biometric profiles, device credentials, or Wi-Fi readings. Edit the explicitly marked demo classroom with real coordinates before a phone demo.
-
-## Student app
+`make api` stays running. In a separate terminal run `make dashboard`; in a third:
 
 ```sh
 cd mobile
-cp .env.example .env
-# Set EXPO_PUBLIC_API_URL to your API's reachable address, ending in /api/v1.
-npm ci
-npm run android
+npm start
 ```
 
-Android Studio, an installed Android SDK, Java compatible with the generated Gradle project, and a connected phone/emulator are required. `npm run android` creates a development build; use `npm start` to reconnect Metro. Expo Go cannot load the included Android Wi-Fi module. An Android emulator can reach the host through `10.0.2.2`; a phone needs a LAN-reachable development server or trusted HTTPS endpoint. Release builds require HTTPS. iOS development builds need Xcode and signing; only permitted current-network BSSID is collected, never nearby Wi-Fi scans or invented RSSI. See `docs/CROSS_PLATFORM_IMPLEMENTATION.md` for the separate presence policy and App Attest setup.
+The DB runs in the background; API, dashboard and Metro run in separate terminals.
+API: port 8000, Swagger `/docs`, contract `/openapi.json`; dashboard: port 5173.
+Set the private mobile EXPO_PUBLIC_API_URL to a phone-reachable address ending
+in `/api/v1`. Local HTTP requires a development build configured with SPVS_DEV_HTTP=1.
+Standalone release bundles require HTTPS. Never put secrets in EXPO_PUBLIC variables.
 
-## Verify the project
+The Compose backend uses `SPVS_BACKEND_DB` (default `spvs`), independently of the
+host DATABASE_URL. Before starting a container backend for recovered data, set
+SPVS_BACKEND_DB=spvs_recovery locally and inspect the target. Do not run host and
+container APIs on the same port. This audit did not restart or redeploy services.
 
-```sh
-docker compose exec -T db createdb -U spvs spvs_test  # once
-python3 scripts/download_test_samples.py
-make test
-make build
-cd dashboard && npx playwright test
-```
+## New installation only
 
-Browser tests require the running API/dashboard, seeded demo accounts, and Chromium (`SPVS_CHROMIUM_PATH` may override the Linux default). They create a real session, modify the demo classroom and close that session. Backend tests use only a database ending in `_test`, run Alembic, and truncate that test database between tests. Never point `SPVS_TEST_DATABASE_URL` at a live database.
+In a fresh checkout with a new disposable database, `make setup`, `make db`,
+`make migrate`, then `make seed` install dependencies/models, create the schema
+and demonstration accounts. Read [setup](docs/SETUP_AND_DEMO_GUIDE.md) first.
+The random demo password is private in the generated environment, never in this README.
+Configure an explicitly designated demo room; never replace real C003 calibration.
+Use [deployment guidance](docs/DEPLOYMENT_GUIDE.md) for TLS, backups and key handling.
 
-See `docs/TEST_RESULTS.md` for measured results and `SPVS_VERIFICATION_REPORT.md` for the complete verification boundary. The API transaction tests explicitly replace vision **inside tests only**; real-model smoke tests separately execute YuNet, SFace and MediaPipe. Neither substitutes for real-device liveness evaluation.
+## Demonstration and testing
 
-## Containers
+Faculty opens a course session and starts challenges. The student logs in, scans
+the rotating QR, listens while faculty plays the matching attempt, completes face
+and liveness prompts, then submits location evidence. Record the actual decision
+and gate. Only PRESENT creates automatic attendance; review/correction is distinct.
+Follow the [demo guide](docs/EVALUATION_DEMO_GUIDE.md) for positive and negative cases.
 
-After `python3 scripts/init_env.py` and `python3 scripts/download_models.py`:
+Automated tests must use a disposable database ending in `_test`. Backend fixtures
+truncate that database. Browser tests also modify classroom/session/policy data and
+must use isolated services. Do not run them against the recovered runtime.
+See [commands, counts and warnings](docs/TEST_RESULTS.md).
 
-```sh
-docker compose up --build -d
-docker compose exec backend python -m app.seed
-```
+## Documentation
 
-PostgreSQL persists in the `pgdata` volume. Backend runs as a non-root user; the web container proxies `/api` to FastAPI. Container setup never includes a real TLS termination service: add a trusted HTTPS reverse proxy for deployment. Production configuration and backup guidance are in `docs/DEPLOYMENT_GUIDE.md`.
+| Topic | Document |
+| --- | --- |
+| Full index and completion | [Project completion](docs/PROJECT_COMPLETION_STATUS.md) |
+| Architecture and protocol | [Architecture](docs/SYSTEM_ARCHITECTURE.md), [QR/audio](docs/ACOUSTIC_DYNAMIC_QR.md) |
+| API and schema | [API](docs/API_DOCUMENTATION.md), [database](docs/DATABASE_DESIGN.md) |
+| Security | [Security architecture](docs/SECURITY_ARCHITECTURE.md), [threat model](docs/THREAT_MODEL.md) |
+| Evaluation | [Demo](docs/EVALUATION_DEMO_GUIDE.md), [checklist](docs/EVALUATION_CHECKLIST.md) |
+| Operations | [Troubleshooting](docs/TROUBLESHOOTING.md), [limitations](docs/KNOWN_LIMITATIONS.md) |
+| Academic submission | [Report](docs/PROJECT_REPORT.md), [references](docs/REFERENCES.md) |
 
-## What is included
+## Limitations and license
 
-| Directory | Purpose |
-|---|---|
-| `backend/app/api` | Versioned, role-scoped REST endpoints |
-| `backend/app/services` | Actual face pipeline, temporal liveness, geofencing and Wi-Fi rules |
-| `backend/alembic` | Explicit PostgreSQL schema migration |
-| `dashboard` | Accessible institutional web workflows, charts and CSV exports |
-| `mobile` | Student app, Android/iOS key and Wi-Fi modules, App Attest protocol |
-| `scripts` | Repeatable local setup, verified downloads and submission packaging |
-| `docs` | Design, academic report, security analysis and measured results |
+QR and audio can be relayed; GPS/Wi-Fi can be spoofed; device signatures do not
+prove honest sensors. Biometric thresholds lack institutional calibration. Genuine
+provider integrity, population accuracy, classroom throughput, retention automation
+and production hardening remain open. BLE beacons are outside scope.
 
-Dependencies are pinned by `backend/uv.lock` and the two `package-lock.json` files. Official model bytes are checksum-verified; their licenses are retained in `docs/LICENSE-SFACE.txt` and `docs/LICENSE-YUNET.txt`.
-
-## Reading order
-
-1. `docs/SETUP_AND_DEMO_GUIDE.md` — installation and evaluation walkthrough.
-2. `docs/SYSTEM_ARCHITECTURE.md` and `docs/DATABASE_DESIGN.md` — implementation maps.
-3. `docs/SECURITY_ARCHITECTURE.md` and `docs/KNOWN_LIMITATIONS.md` — guarantees and boundaries.
-4. `docs/PROJECT_REPORT.md` — editable college submission.
-
-There are no BLE beacons, ESP32 devices, ultrasonic tokens, surveillance cameras, blockchain storage, fabricated sensor measurements, or pretend AI predictions.
-
-
-## Cross-platform completion delivery
-
-Start with [current status](docs/CURRENT_STATUS.md) and [current verification](docs/FINAL_COMPLETION_REPORT.md) for evidence and release gates. The original cloud run is preserved in `docs/HISTORICAL_CLOUD_COMPLETION_2026-10-23.md`. `docs/CROSS_PLATFORM_IMPLEMENTATION.md` explains native keys, App Attest and platform-specific presence policies. `scripts/build_mobile_macos.sh` provides native Mac build entry points. `release/final/` contains the regenerated source ZIP/PDF/Markdown delivery and the verified Android development APK; see [artifact status](release/final/CURRENT_STATUS.md).
-
-New device registrations require native key proof by default. Apply all Alembic migrations before updating clients. Existing HMAC devices remain compatible until an audited reset. Provider attestation and physical-device biometric performance must not be inferred from automated test counts.
+Source is under the [MIT license](LICENSE). Model licenses are retained separately
+for [SFace](docs/LICENSE-SFACE.txt) and [YuNet](docs/LICENSE-YUNET.txt).

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="7.162609000000001">
+<testsuite name="workflows.spec.ts" timestamp="2026-10-28T18:22:59.445Z" hostname="local-audit-host" tests="3" failures="0" skipped="0" time="5.293" errors="0">
+<testcase name="administrator configures a room, creates a session and exports real records" classname="workflows.spec.ts" time="4.397">
+</testcase>
+<testcase name="faculty access is scoped and administrator route is unavailable" classname="workflows.spec.ts" time="0.401">
+</testcase>
+<testcase name="administrator configures the separate iPhone presence policy with an audit reason" classname="workflows.spec.ts" time="0.495">
+</testcase>
+</testsuite>
+</testsuites>
